@@ -61,7 +61,7 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
             const x = nodes[, "x"];
             const y = nodes[, "y"];
 
-            lapply(1:nrow(nodes), function(i) [x[i], y[i]]);
+            lapply(1:nrow(nodes), i -> [x[i], y[i]], names = id);
         });
     }
 
