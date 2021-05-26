@@ -81,7 +81,8 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
 #' 
 #' @param from the node labels of the source node
 #' @param to the node labels of the target node
-#' @param style the one of kind styles data of the edges that specific by the source and target node.
+#' @param style the one of kind styles data of the edges that specific by 
+#'    the source and target node.
 #' 
 let styleIndex as function(from, to, style) {
     if (is.null(style)) {
