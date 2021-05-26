@@ -14,15 +14,16 @@ let buildGraph as function(table) {
     const from = table[, "from"];
     const to   = table[, "to"];    
 
+    print(`build edges from ${length(from)} elements...`);
+
     # create graph object at here:
     # create node tuples for each edge links
     # and then add into the graph object
-    pushEdges(g, lapply(1:nrow(table), function(i) {
-        [from[i], to[i]];
-    }), 
-        weight = table[, "weight"], 
-        type   = table[, "type"]
-    );
+    g
+    |> pushEdges(table ~ from + to, weight = table[, "weight"], type = table[, "type"])
+    ;
+
+    print("add edges styles...");
 
     # add edge styles at here:
     # set colors
@@ -32,8 +33,8 @@ let buildGraph as function(table) {
     # set dash or solid
     attributes(edges(g), "dash")  <- styleIndex(from, to, style = table[, "dash"]);
 
-    # view of the network graph summary.
-    print(g);
+    print("view of the network graph summary:"); 
+    str(g);
 
     g;
 }

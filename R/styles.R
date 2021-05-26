@@ -6,11 +6,30 @@ let map_colors as function(values, colors = ["blue", "gray", "red"], levels = 25
     colors;    
 }
 
-let map_width as function(values, min = 1, max = 10) {
+let map_size as function(values, min = 1, max = 10) {
     const levels = (values - min(values)) / (max(values) - min(values));
-    const width  = min + levels * (max - min);
+    
+    # returns the size mapping result
+    min + levels * (max - min);
+}
 
-    print(width);
+let mapStyleColors as function(table, values = "weight", colors = ["blue", "gray", "red"], levels = 25) {
+    table[, "color"] = table[, values] 
+                       |> map_colors(colors, levels)
+                       ;
+    table;
+}
 
-    width;
+let mapStyleWidth as function(table, values = "weight", min = 1, max = 10) {
+    table[, "width"] = table[, values]
+                       |> map_size(min, max)
+                       ;
+    table;
+}
+
+let mapStyleSize as function(table, values = "weight", min = 10, max = 80) {
+    table[, "size"] = table[, values]
+                      |> map_size(min, max)
+                      ;
+    table;
 }
