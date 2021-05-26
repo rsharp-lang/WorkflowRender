@@ -55,6 +55,19 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
     print("previews of the nodes table");
     print(head(nodes));
 
+    print("set node groups...");
+
+    for(uniqLabel in unique(nodes[, "group"])) {
+        group(g, id[nodes[, "group"] == uniqLabel]) = uniqLabel;
+    }
+
+    print("set node style attributes...");
+
+    attributes(vertex(g), "label") = nodes[, "label"];
+    attributes(vertex(g), "color") = nodes[, "color"];
+    attributes(vertex(g), "shape") = nodes[, "shape"];
+    attributes(vertex(g), "size")  = nodes[, "size"];
+
     if (hasLayout) {
         # layout data in nodes table should be named as 
         # x and y
@@ -67,18 +80,12 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
     } else {
         require(igraph.layouts);
 
-        # apply of the layout algorithm
+        print("generate network graph layout by algorithm...");
+        print("force directed");
+
+        # apply of the layout algorithm        
         g = g |> layout.force_directed();
     }
-
-    for(uniqLabel in unique(nodes[, "group"])) {
-        group(g, id[nodes[, "group"] == uniqLabel]) = uniqLabel;
-    }
-
-    attributes(vertex(g), "label") = nodes[, "label"];
-    attributes(vertex(g), "color") = nodes[, "color"];
-    attributes(vertex(g), "shape") = nodes[, "shape"];
-    attributes(vertex(g), "size")  = nodes[, "size"];
 
     g;
 }
