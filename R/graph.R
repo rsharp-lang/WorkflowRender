@@ -84,7 +84,7 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
         print("force directed");
 
         # apply of the layout algorithm        
-        g = g |> layout.force_directed();
+        g = g |> layout.force_directed(groupPlanner = FALSE);
     }
 
     g;

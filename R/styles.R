@@ -8,9 +8,12 @@ let map_colors as function(values, colors = ["blue", "gray", "red"], levels = 25
 
 let map_size as function(values, min = 1, max = 10) {
     const levels = (values - min(values)) / (max(values) - min(values));
-    
+    const size   = min + levels * (max - min);
+
+    print(size);
+
     # returns the size mapping result
-    min + levels * (max - min);
+    size;
 }
 
 let mapStyleColors as function(table, values = "weight", colors = ["blue", "gray", "red"], levels = 25) {
