@@ -81,7 +81,7 @@ let styleIndex as function(from, to, style = NULL) {
         if (length(style) != length(from) || length(style) != length(to)) {
             stop("vector size is mis-matched!");
         } else {
-            lapply(i:length(style), i -> style[i], names = function(i) {
+            lapply(1:length(style), i -> style[i], names = function(i) {
                 `${from[i]}..${to[i]}`;
             });
         }
