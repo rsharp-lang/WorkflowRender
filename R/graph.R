@@ -6,9 +6,9 @@
 #'    ``from`` and ``to``; some edge property likes 
 #'    ``weight``, ``type``, ``color``, ``width``, ``dash`` can be optional.
 #' 
-#' @param nodes the nodes property table
+#' @return a network graph object
 #' 
-let buildGraph as function(table, nodes = NULL) {
+let buildGraph as function(table) {
     # create a new empty network graph
     const g    = igraph::empty.network();
     const from = table[, "from"];
@@ -34,6 +34,33 @@ let buildGraph as function(table, nodes = NULL) {
 
     # view of the network graph summary.
     print(g);
+
+    g;
+}
+
+#' Config of the nodes attributes in the graph
+#' 
+#' @param g the network graph
+#' @param nodes the nodes property table, the row names of this table
+#'    must be the node id in the graph object.
+#' @param hasLayout if this parameter is TRUE, then it means the nodes layout
+#'    data is already been in the ``nodes`` table, then we will apply the layout
+#'    data from the nodes table rather than generates new layout from run 
+#'    algorithm.
+#' 
+let setVertex as function(g, nodes, hasLayout = TRUE) {
+    const id = rownames(nodes);
+
+    if (hasLayout) {
+        # layout data in nodes table should be named as 
+        # x and y
+        attributes(vertex(g), "layout") = ({
+            const x = nodes[, "x"];
+            const y = nodes[, "y"];
+
+            lapply(1:nrow(nodes), function(i) [x[i], y[i]]);
+        });
+    }
 
     g;
 }
