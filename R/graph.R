@@ -84,7 +84,7 @@ let setVertex as function(g, nodes, hasLayout = TRUE, algorithm = "edge_weighted
         print("force directed");
 
         # apply of the layout algorithm        
-        g = g |> layout.force_directed(algorithm = "edge_weighted");
+        g = g |> layout.force_directed(algorithm = "edge_weighted", weightedFactor = 10);
     }
 
     g;
