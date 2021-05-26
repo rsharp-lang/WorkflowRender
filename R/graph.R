@@ -51,6 +51,9 @@ let buildGraph as function(table) {
 let setVertex as function(g, nodes, hasLayout = TRUE) {
     const id = rownames(nodes);
 
+    print("previews of the nodes table");
+    print(head(nodes));
+
     if (hasLayout) {
         # layout data in nodes table should be named as 
         # x and y
