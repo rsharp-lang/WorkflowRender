@@ -69,6 +69,11 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
         group(g, id[nodes[, "group"] == uniqLabel]) = uniqLabel;
     }
 
+    attributes(vertex(g), "label") = nodes[, "label"];
+    attributes(vertex(g), "color") = nodes[, "color"];
+    attributes(vertex(g), "shape") = nodes[, "shape"];
+    attributes(vertex(g), "size")  = nodes[, "size"];
+
     g;
 }
 
