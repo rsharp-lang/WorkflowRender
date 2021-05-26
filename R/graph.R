@@ -12,7 +12,7 @@ let buildGraph as function(table) {
     # create a new empty network graph
     const g    = igraph::empty.network();
     const from = table[, "from"];
-    const to   = table[, "to"];
+    const to   = table[, "to"];    
 
     # create graph object at here:
     # create node tuples for each edge links
@@ -83,16 +83,14 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
 #' @param to the node labels of the target node
 #' @param style the one of kind styles data of the edges that specific by the source and target node.
 #' 
-let styleIndex as function(from, to, style = NULL) {
+let styleIndex as function(from, to, style) {
     if (is.null(style)) {
         NULL;
     } else {
         if (length(style) != length(from) || length(style) != length(to)) {
             stop("vector size is mis-matched!");
         } else {
-            lapply(1:length(style), i -> style[i], names = function(i) {
-                `${from[i]}..${to[i]}`;
-            });
+            lapply(1:length(style), i -> style[i], names = `${from}..${to}`);
         }
     }    
 }
