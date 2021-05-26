@@ -27,11 +27,11 @@ let buildGraph as function(table) {
 
     # add edge styles at here:
     # set colors
-    attributes(edges(g), "color") <- styleIndex(from, to, style = table[, "color"]);
+    attributes(edges(g), "color") <- styleIndex(from, to, table, "color");
     # set width
-    attributes(edges(g), "width") <- styleIndex(from, to, style = table[, "width"]);
+    attributes(edges(g), "width") <- styleIndex(from, to, table, "width");
     # set dash or solid
-    attributes(edges(g), "dash")  <- styleIndex(from, to, style = table[, "dash"]);
+    attributes(edges(g), "dash")  <- styleIndex(from, to, table, "dash");
 
     print("view of the network graph summary:"); 
     str(g);
@@ -90,10 +90,14 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
 #' @param style the one of kind styles data of the edges that specific by 
 #'    the source and target node.
 #' 
-let styleIndex as function(from, to, style) {
+let styleIndex as function(from, to, table, style) {
     if (is.null(style)) {
         NULL;
     } else {
+        print(`# set ${style}.`);
+
+        style = table[, style];
+
         if (length(style) != length(from) || length(style) != length(to)) {
             stop("vector size is mis-matched!");
         } else {
