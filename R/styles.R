@@ -6,6 +6,28 @@ let map_colors as function(values, colors = ["blue", "gray", "red"], levels = 25
     colors;    
 }
 
+let map_classColors as function(values, colors, missing = "gray") {
+    if (is.list(colors)) {
+        sapply(values, function(class) {
+            if (class in names(values)) {
+                values[[class]];
+            } else {
+                missing;
+            }
+        });
+    } else {
+        const uniqvl = unique(values);
+        const len_cl = length(colors);
+        const len_vl = length(uniqvl);
+
+        if (len_cl < len_vl) {
+            colors = append(colors, rep(missing, times = len_vl - len_cl));
+        }
+
+        colors[sapply(values, cl -> which(cl == uniqvl))];
+    }
+}
+
 let map_size as function(values, min = 1, max = 10) {
     const levels = (values - min(values)) / (max(values) - min(values));
     const size   = min + levels * (max - min);
