@@ -63,6 +63,11 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
 
             lapply(1:nrow(nodes), i -> [x[i], y[i]], names = id);
         });
+    } else {
+        require(igraph.layouts);
+
+        # apply of the layout algorithm
+        g = g |> layout.force_directed();
     }
 
     for(uniqLabel in unique(nodes[, "group"])) {
