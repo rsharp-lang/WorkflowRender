@@ -13,7 +13,7 @@ let mapEdge as function(edges,
     dash   = "dash") {
 
     edges = as.data.frame(edges);
-        
+
     edges[, "from"]   = edges[, from];
     edges[, "to"]     = edges[, to];
     edges[, "weight"] = edges[, weight];
@@ -21,6 +21,22 @@ let mapEdge as function(edges,
     edges[, "color"]  = edges[, color];
     edges[, "width"]  = edges[, width];
     edges[, "dash"]   = edges[, dash];
-    
     edges;
+}
+
+let mapNode as function(nodes, 
+    group = "group", 
+    label = "label", 
+    color = "color", 
+    shape = "shape", 
+    size  = "size") {
+
+    nodes = as.data.frame(nodes);
+
+    nodes[, "group"] = nodes[, group];
+    nodes[, "label"] = nodes[, label];
+    nodes[, "color"] = nodes[, color];
+    nodes[, "shape"] = nodes[, shape];
+    nodes[, "size"]  = nodes[, size];
+    nodes;
 }

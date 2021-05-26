@@ -65,6 +65,10 @@ let setVertex as function(g, nodes, hasLayout = TRUE) {
         });
     }
 
+    for(uniqLabel in unique(nodes[, "group"])) {
+        group(g, id[nodes[, "group"] == uniqLabel]) = uniqLabel;
+    }
+
     g;
 }
 
