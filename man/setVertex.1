@@ -1,8 +1,8 @@
-﻿.TH SETVERTEX 1 2021-05-26 "" "Config of the nodes attributes in the graph"
+﻿.TH SETVERTEX 1 2021-05-27 "" "Config of the nodes attributes in the graph"
 .SH NAME
-setVertex \- setVertex(g, nodes, hasLayout = TRUE)
+setVertex \- setVertex(g, nodes, hasLayout = TRUE, algorithm = edge_weighted, weightedFactor = 10)
 .SH SYNOPSIS
-\fIsetVertex(g, nodes, hasLayout = TRUE)\fR
+\fIsetVertex(g, nodes, hasLayout = TRUE, algorithm = edge_weighted, weightedFactor = 10)\fR
 .SH OPTIONS
 .PP
 \fBg\fB \fR\- 
@@ -12,6 +12,12 @@ setVertex \- setVertex(g, nodes, hasLayout = TRUE)
 .PP
 .PP
 \fBhasLayout\fB \fR\- TRUE
+.PP
+.PP
+\fBalgorithm\fB \fR\- edge_weighted
+.PP
+.PP
+\fBweightedFactor\fB \fR\- 10
 .PP
 .SH FILES
 .PP

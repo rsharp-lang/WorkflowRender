@@ -49,7 +49,11 @@ let buildGraph as function(table) {
 #'    data from the nodes table rather than generates new layout from run 
 #'    algorithm.
 #' 
-let setVertex as function(g, nodes, hasLayout = TRUE, algorithm = "edge_weighted") {
+let setVertex as function(g, nodes, 
+                          hasLayout      = TRUE, 
+                          algorithm      = "edge_weighted", 
+                          weightedFactor = 10) {
+
     const id = rownames(nodes);
 
     print("previews of the nodes table");
@@ -84,7 +88,11 @@ let setVertex as function(g, nodes, hasLayout = TRUE, algorithm = "edge_weighted
         print("force directed");
 
         # apply of the layout algorithm        
-        g = g |> layout.force_directed(algorithm = "edge_weighted", weightedFactor = 10);
+        g = g 
+        |> layout.force_directed(
+            algorithm      = "edge_weighted", 
+            weightedFactor = weightedFactor
+        );
     }
 
     g;
