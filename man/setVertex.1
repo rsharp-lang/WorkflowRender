@@ -1,27 +1,33 @@
-﻿.TH SETVERTEX 1 2021-05-27 "" "Config of the nodes attributes in the graph"
+﻿.TH SETVERTEX 1 2023-Mar "" "Config of the nodes attributes in the graph"
 .SH NAME
-setVertex \- setVertex(g, nodes, hasLayout = TRUE, algorithm = edge_weighted, weightedFactor = 10)
+setVertex \- setVertex(g, nodes,
+    <i>hasLayout</i> = <span style='color: blue;'>TRUE</span>,
+    <i>algorithm</i> = edge_weighted,
+    <i>weightedFactor</i> = 10)
 .SH SYNOPSIS
-\fIsetVertex(g, nodes, hasLayout = TRUE, algorithm = edge_weighted, weightedFactor = 10)\fR
+\fIsetVertex(g, nodes,
+    <i>hasLayout</i> = <span style='color: blue;'>TRUE</span>,
+    <i>algorithm</i> = edge_weighted,
+    <i>weightedFactor</i> = 10)\fR
 .SH OPTIONS
 .PP
-\fBg\fB \fR\- 
+\fBg\fB \fR\- . the network graph
 .PP
 .PP
-\fBnodes\fB \fR\- 
+\fBnodes\fB \fR\- . the nodes property table, the row names of this table must be the node id in the graph object.
 .PP
 .PP
-\fBhasLayout\fB \fR\- TRUE
+\fBhasLayout\fB \fR\- TRUE. if this parameter is TRUE, then it means the nodes layout data is already been in the ``nodes`` table, then we will apply the layout data from the nodes table rather than generates new layout from run algorithm.
 .PP
 .PP
-\fBalgorithm\fB \fR\- edge_weighted
+\fBalgorithm\fB \fR\- edge_weighted. 
 .PP
 .PP
-\fBweightedFactor\fB \fR\- 10
+\fBweightedFactor\fB \fR\- 10. 
 .PP
 .SH FILES
 .PP
 SMRUCC/R#.declare_function.setVertex at graph.R:line 52
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2021
+Copyright © xieguigang, MIT Licensed 2023
