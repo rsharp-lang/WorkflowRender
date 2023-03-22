@@ -1,8 +1,12 @@
 
 #' Analysis app constructor
 #' 
-const app = function(name, desc = "no description") {
+#' @param analysis a callable function for run the data analysis 
+#'   content.
+#' 
+const app = function(name, analysis, desc = "no description") {
     list(
-        name = name
+        name = name,
+        call = analysis
     );
 }

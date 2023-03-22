@@ -1,11 +1,15 @@
 require(WorkflowRender);
 
 init_context(@dir);
-app1 = app("test1");
+app1 = app("test1", function(app, context) {
+    str(app);
+    str(context);
+});
+
 hook(app1);
 
 print(workspace(app1));
 
-str(.get_context());
+run();
 
 finalize();
