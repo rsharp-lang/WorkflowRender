@@ -1,7 +1,3 @@
-require(igraph);
-require(igraph.layouts);
-require(igraph.render);
-
-let .onLoad as function() {
+const .onLoad = function() {
     
 }
