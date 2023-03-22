@@ -12,4 +12,6 @@ print(workspace(app1));
 
 run();
 
+saveRDS(.get_context(), file = `${@dir}/workflow.rds`);
+
 finalize();
