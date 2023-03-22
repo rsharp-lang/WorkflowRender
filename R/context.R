@@ -12,11 +12,25 @@ const init_context = function(outputdir = "./") {
         pipeline = []
     );
 
+    sink(file = `${temp_dir}/run_analysis-${toString(now(), "yyyy-MM-dd hh-mm-ss")}.log`);
+
     set(globalenv(), "&[workflow_render]", context);
 }
 
+const finalize = function() {
+    print("workflow finalize, ");
+    print(`  Elapsed time '${time_span(now() - .get_context()$t0)}'`);
+    sink();
+}
+
 const .get_context = function() {
-    get("&[workflow_render]", globalenv());
+    const workflow_render = "&[workflow_render]";
+
+    if (exists(workflow_render, globalenv())) {
+        get(workflow_render, globalenv());
+    } else {
+        stop("You must initialize the analysis context at first!");
+    }
 }
 
 const hook = function(app) {
