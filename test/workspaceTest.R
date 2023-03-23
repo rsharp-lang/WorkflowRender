@@ -14,6 +14,7 @@ hook(app("echo", function(app, context) {
 }));
 
 print(workspace(app1));
+print(workspace("helo_world"));
 
 run();
 
