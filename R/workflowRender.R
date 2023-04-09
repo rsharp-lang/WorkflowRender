@@ -1,9 +1,16 @@
-const run = function() {
-    let context = .get_context();
-    let app_pool = context$workflow;
-    let argv = NULL;
-    let t0 = NULL;
+const run = function(registry = NULL) {
+    if (!is.null(registry)) {
+        do.call(registry, args = list());
+    }
 
+    __runImpl(context = .get_context());
+}
+
+const __runImpl = function(context) {
+    let app_pool = context$workflow;
+    let t0 = NULL;
+    let argv = NULL;
+    
     for(app in context$pipeline) {
         t0 = now();
         app = app_pool[[app]];
