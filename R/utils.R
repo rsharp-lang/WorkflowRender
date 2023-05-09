@@ -1,3 +1,5 @@
+#' print warning message on the screen and the log file
+#'
 const echo_warning = function(msg) {
     const warning_log = `${.get_context()$temp_dir}/warning`;
     const link = file(warning_log, "append");
@@ -13,6 +15,6 @@ const echo_warning = function(msg) {
 const throw_err = function(msg) {
     print("workflow error:");
     print(msg);
-    
+
     stop(msg);
 }
