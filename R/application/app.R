@@ -4,7 +4,7 @@
 #' @param analysis a callable function for run the data analysis 
 #'   content. The function declare signature for this parameter
 #'   value required of two parameter signature, see comment document
-#'   of the ``app.check`` function.
+#'   of the ``app_check.delegate`` function.
 #'
 #' @param name the analysis app name
 #' @param dependency usually be the environment context symbol 
@@ -12,7 +12,7 @@
 #' 
 const app = function(name, analysis, desc = "no description", dependency = NULL) {
     # check of the function signature
-    if (!app.check(analysis)) {
+    if (!app_check.delegate(analysis)) {
         throw_err("invalid function declare signature!");
     }
 
@@ -23,6 +23,12 @@ const app = function(name, analysis, desc = "no description", dependency = NULL)
         dependency = dependency,
         disable = FALSE
     );
+}
+
+#' check of the required app slot
+#'
+const app_check.signature = function(app) {
+    all(["name", "call"] in names(app));
 }
 
 #' Check the function signature of the app function
@@ -41,7 +47,7 @@ const app = function(name, analysis, desc = "no description", dependency = NULL)
 #'    the parameter name or the parameter will not be aligned properly when 
 #'    call this analysis app function. 
 #'
-const app.check = function(analysis) {
+const app_check.delegate = function(analysis) {
     const pars = as.list(args(func = analysis));
     
     if (length(pars) != 2) {
