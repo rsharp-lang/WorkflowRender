@@ -16,8 +16,12 @@ declare namespace WorkflowRender {
    function __runImpl(context:any): object;
    /**
      * @param desc default value Is ``"no description"``.
+     * @param dependency default value Is ``NULL``.
    */
-   function app(name:any, analysis:any, desc:string): object;
+   function app(name:any, analysis:any, desc:string, dependency:any): object;
+   /**
+   */
+   function check_dependency(app:any): object;
    /**
    */
    function echo_warning(msg:any): object;
@@ -38,6 +42,12 @@ declare namespace WorkflowRender {
    /**
    */
    function set_config(configs:any): object;
+   /**
+   */
+   function set_dependency(): object;
+   /**
+   */
+   function throw_err(msg:any): object;
    /**
    */
    function workspace(app:any): object;

@@ -1,0 +1,19 @@
+﻿.TH CHECK_DEPENDENCY 1 2023-May "" "Check of the analysis app dependency"
+.SH NAME
+check_dependency \- check_dependency(app)
+.SH SYNOPSIS
+\fIcheck_dependency(app)\fR
+.SH OPTIONS
+.PP
+\fBapp\fB \fR\- . the analysis app object list which is construct via the ``app`` function.
+.PP
+.SH VALUE
+.PP
+this function returns a data list that contains the dependency check result. there are some data symbol inside this result object list: check(logical, for indicate the dependency check success or not), context(character vector of dependency of context symbol not success), file(character vector of dependency of local workspace file check not success)
+.PP
+.SH FILES
+.PP
+SMRUCC/R#.declare_function.check_dependency at dependency.R:line 17
+.PP
+.SH COPYRIGHT
+Copyright © xieguigang, MIT Licensed 2023
