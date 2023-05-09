@@ -39,11 +39,15 @@ declare namespace WorkflowRender {
       function workfiles_missing(file:any): object;
    }
    /**
+     * @param app default value Is ``NULL``.
    */
-   function echo_warning(msg:any): object;
+   function echo_warning(msg:any, app:any): object;
    /**
    */
    function finalize(): object;
+   /**
+   */
+   function get_app_name(app:any): object;
    /**
    */
    function hook(app:any): object;

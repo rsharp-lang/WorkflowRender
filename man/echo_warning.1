@@ -1,15 +1,20 @@
 ﻿.TH ECHO_WARNING 1 2023-May "" "print warning message on the screen and the log file"
 .SH NAME
-echo_warning \- echo_warning(msg)
+echo_warning \- echo_warning(msg,
+    <i>app</i> = <span style='color: blue;'>NULL</span>)
 .SH SYNOPSIS
-\fIecho_warning(msg)\fR
+\fIecho_warning(msg,
+    <i>app</i> = <span style='color: blue;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
-\fBmsg\fB \fR\- . 
+\fBmsg\fB \fR\- . a character vector of the warning message that this workflow produced.
+.PP
+.PP
+\fBapp\fB \fR\- NULL. the app object where this warning message is produced.
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.echo_warning at utils.R:line 3
+SMRUCC/R#.declare_function.echo_warning at utils.R:line 7
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2023
