@@ -1,2 +1,3 @@
-# graphRender
-R# network graph rendering package
+# WorkflowRender
+
+R# package for compose the data analysis workflow
