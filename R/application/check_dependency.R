@@ -5,10 +5,13 @@
 #'
 #' @return this function returns a data list that contains the
 #'    dependency check result. there are some data symbol inside
-#'    this result object list: check(logical, for indicate the 
-#'    dependency check success or not), context(character vector 
-#'    of dependency of context symbol not success), file(character
-#'    vector of dependency of local workspace file check not success)
+#'    this result object list: 
+#'
+#'    1. check: logical, for indicate the dependency check success or not;
+#'    2. context: a tuple list object that contains of context symbol names 
+#'                which are not check success, and the reason of failure;
+#'    3. file: character vector of dependency of local workspace file 
+#'             check not success
 #'
 const check_dependency = function(app, context = .get_context()) {
     const SUCCESS = list(check = TRUE);
@@ -38,15 +41,37 @@ const check_dependency = function(app, context = .get_context()) {
 #' Check of the required environment symbols
 #'
 #' @details the environment symbols from the analysis context should be 
-#'    set via the ````
+#'    set via the ``set_config`` function.
 #' 
 const check_dependency.context_env = function(requires, context) {
+    const env = context$configs;
+    const map = {
+        'any': "any", 
+        'numeric': "num", 
+        'integer': "int", 
+        'character': "chr", 
+        'logical': "logi", 
+        'function': "function"
+    };
+    const err = list();
+
     for(name in names(requires)) {
-        const mark = requires[[name]];
+        const mark  = requires[[name]];
+        const missing = ![name in env];
 
-        if (mark != "any") {
-
+        if (missing) {
+            err[[name]] = "missing";
+        } else if (mark != "any") {
+            if (map[[mark]] != typeof(env[[name]])) {
+                err[[name]] = "mis-matched";
+            }
         }
+    }
+
+    if (length(err) == 0) {
+        NULL;
+    } else {
+        return(err);
     }
 }
 
