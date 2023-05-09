@@ -4,23 +4,47 @@
 #'    this parameter could be nothing if this workflow processor apps has
 #'    been registered into the workflow as the processor components via 
 #'    the ``hook`` function.
+#' @param disables a tuple list object that contains the workflow module
+#'    activate swtches. the list tuple key name should be the analysis app
+#'    name and the corresponding slot value should be a logical value for
+#'    indicates that the workflow module is disable or not: true for disable 
+#'    and skip, and false or null and missing for enable the corresponding
+#'    workflow module
 #'
-const run = function(registry = NULL) {
+const run = function(registry = NULL, disables = list()) {
     if (!is.null(registry)) {
         do.call(registry, args = list());
     }
 
-    __runImpl(context = .get_context());
+    __runImpl(context = .get_context(), disables);
 }
 
 #' An internal function for start the workflow
 #'
-const __runImpl = function(context) {
+const __runImpl = function(context, disables = list()) {
     let app_pool = context$workflow;
-    
+    let skip = FALSE;
+
     for(app in context$pipeline) {
-        .internal_call(app = app_pool[[app]], context);       
+        app = app_pool[[app]];
+        skip = FALSE;
+
+        if (app$name in disables) {
+            if (as.logical(disables[[app$name]])) {
+                skip = TRUE;
+            }
+        } else if("disable" in app) {
+            # current app module may be disable by other
+            # application from the workflow upsteam
+            skip = app$disable;
+        }
+
+        if (!skip) {
+            .internal_call(app, context);       
+        }
     }
+
+    invisible(NULL);
 }
 
 #' Invoke an analysis application
@@ -41,7 +65,7 @@ const .internal_call = function(app, context) {
     } else {
         # stop the workflow
         const context_err = dependency.context_env_missing(dependency$context);
-        const file_err = dependency.workfiles_missing(dependency$file);
+        const file_err    = dependency.workfiles_missing(dependency$file);
         const msg_err = [
             "There are some dependency of current analysis application is not satisfied:", 
             paste(c("analysis_app:", app$name))
