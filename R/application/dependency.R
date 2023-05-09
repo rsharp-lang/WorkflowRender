@@ -9,7 +9,7 @@
 #' @param workfiles a set of the required temp result files in the workflow
 #'    the format of this parameter value is a tuple list of the file path,
 #'    where the key name is the app name and the corresponding tuple list value
-#'    is a character vector of the required reference temp file
+#'    is a character vector of the required multiple reference temp file
 #' 
 #' @details the allowed data type of the context symbol could be:
 #'    ``any``, ``numeric``, ``integer``, ``character``, ``logical``, ``function``
@@ -49,14 +49,34 @@ const set_dependency = function(context_env = list(), workfiles = list()) {
 #'    vector of dependency of local workspace file check not success)
 #'
 const check_dependency = function(app, context = .get_context()) {
+    const SUCCESS = list(check = TRUE);
+
     if (is.null(app$dependency)) {
         # this application has no dependency
-        return(list(
-            check = TRUE
-        ));
+        return(SUCCESS);
     } else {
-        return(list(
-            check = TRUE
-        ));
+        const dependency  = app$dependency;
+        const check_env   = check_dependency.context_env(requires = dependency$context_env, context); 
+        const check_files = check_dependency.localfiles(requires = dependency$tempfiles, context);
+        const pass1 = is.null(check_env);
+        const pass2 = is.null(check_files);
+
+        if (pass1 && pass2) {
+            return(SUCCESS);
+        } else {
+            return(list(
+                check = FALSE,
+                context = check_env,
+                file = check_files
+            ));
+        }
     }
+}
+
+const check_dependency.context_env = function(requires, context) {
+
+}
+
+const check_dependency.localfiles = function(requires, context) {
+
 }
