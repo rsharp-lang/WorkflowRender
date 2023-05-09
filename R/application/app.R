@@ -20,7 +20,8 @@ const app = function(name, analysis, desc = "no description", dependency = NULL)
         name = name,
         call = analysis,
         desc = desc,
-        dependency = dependency
+        dependency = dependency,
+        disable = FALSE
     );
 }
 
