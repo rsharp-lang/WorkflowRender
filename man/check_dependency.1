@@ -14,11 +14,11 @@ check_dependency \- check_dependency(app,
 .PP
 .SH VALUE
 .PP
-this function returns a data list that contains the dependency check result. there are some data symbol inside this result object list: check(logical, for indicate the dependency check success or not), context(character vector of dependency of context symbol not success), file(character vector of dependency of local workspace file check not success)
+this function returns a data list that contains the dependency check result. there are some data symbol inside this result object list: 1. check: logical, for indicate the dependency check success or not; 2. context: a tuple list object that contains of context symbol names which are not check success, and the reason of failure; 3. file: character vector of dependency of local workspace file check not success
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.check_dependency at check_dependency.R:line 13
+SMRUCC/R#.declare_function.check_dependency at check_dependency.R:line 16
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2023
