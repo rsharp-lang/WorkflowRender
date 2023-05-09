@@ -1,3 +1,10 @@
+#' Call this function to start run workflow
+#' 
+#' @param registry a callable function for create the workflow registry, 
+#'    this parameter could be nothing if this workflow processor apps has
+#'    been registered into the workflow as the processor components via 
+#'    the ``hook`` function.
+#'
 const run = function(registry = NULL) {
     if (!is.null(registry)) {
         do.call(registry, args = list());
@@ -6,6 +13,8 @@ const run = function(registry = NULL) {
     __runImpl(context = .get_context());
 }
 
+#' An internal function for start the workflow
+#'
 const __runImpl = function(context) {
     let app_pool = context$workflow;
     let t0 = NULL;

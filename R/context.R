@@ -1,4 +1,9 @@
 #' This function should be call at first
+#'
+#' @param outputdir the directory path to the workflow analysis workspace,
+#'    default path value is current directory.
+#' 
+#' @details for construct of the runtime environment
 #' 
 const init_context = function(outputdir = "./") {
     const analysis_output = normalizePath(`${outputdir}/analysis/`);
@@ -37,6 +42,8 @@ const .get_context = function() {
     }
 }
 
+#' Add workflow app component into the registry
+#'
 const hook = function(app) {
     const context = .get_context();
     const pool = context$workflow;
