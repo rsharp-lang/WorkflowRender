@@ -30,7 +30,7 @@ const __runImpl = function(context) {
         };
 
         # check of the app dependency
-        dependency = check_dependency(app);
+        dependency = check_dependency(app, context);
 
         if (dependency$check) {
             # check success, then
@@ -38,9 +38,12 @@ const __runImpl = function(context) {
             do.call(app$call, args = argv);
         } else {
             # stop the workflow
-            const context_err = "";
-            const file_err = "";
-            const msg_err = "";
+            const context_err = dependency.context_env_missing(dependency$context);
+            const file_err = dependency.workfiles_missing(dependency$file);
+            const msg_err = [
+                "There are some dependency of current analysis application is not satisfied:", 
+                paste(c("analysis_app:", app$name))
+            ];
 
             throw_err([msg_err, context_err, file_err]);
         }
@@ -48,5 +51,27 @@ const __runImpl = function(context) {
         app$profiler = {
             time: time_span(now() - t0)
         };
+    }
+}
+
+const dependency.context_env_missing = function(context) {
+    if (is.null(context) || length(context) == 0) {
+        "there is no runtime environment required context symbol is missing.";
+    } else {
+        paste([
+            `there are ${length(context)} required context symbol is missing or data type is mis-matched in the workflow:`,
+            JSON::json_encode(context)
+        ]);
+    }
+}
+
+const dependency.workfiles_missing = function(file) {
+    if (is.null(file) || length(file) == 0) {
+        "there is no required workspace tempfile is missing in current workflow.";
+    } else {
+        paste([
+            `there are ${length(file)} required workspace tempfile is missing in the work directory:`,
+            paste(file, "; ")
+        ]);
     }
 }

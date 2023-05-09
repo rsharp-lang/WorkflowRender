@@ -48,7 +48,7 @@ const set_dependency = function(context_env = list(), workfiles = list()) {
 #'    of dependency of context symbol not success), file(character
 #'    vector of dependency of local workspace file check not success)
 #'
-const check_dependency = function(app) {
+const check_dependency = function(app, context = .get_context()) {
     if (is.null(app$dependency)) {
         # this application has no dependency
         return(list(
