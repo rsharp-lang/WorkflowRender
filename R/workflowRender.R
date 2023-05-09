@@ -17,9 +17,10 @@ const run = function(registry = NULL) {
 #'
 const __runImpl = function(context) {
     let app_pool = context$workflow;
-    let t0 = NULL;
-    let argv = NULL;
-    
+    let t0    = NULL;
+    let argv  = NULL;
+    let dependency = NULL;
+
     for(app in context$pipeline) {
         t0 = now();
         app = app_pool[[app]];
@@ -28,8 +29,21 @@ const __runImpl = function(context) {
             context: context
         };
 
-        # run current data analysis node
-        do.call(app$call, args = argv);
+        # check of the app dependency
+        dependency = check_dependency(app);
+
+        if (dependency$check) {
+            # check success, then
+            # run current data analysis node
+            do.call(app$call, args = argv);
+        } else {
+            # stop the workflow
+            const context_err = "";
+            const file_err = "";
+            const msg_err = "";
+
+            
+        }
         
         app$profiler = {
             time: time_span(now() - t0)
