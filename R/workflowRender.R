@@ -77,8 +77,12 @@ const .internal_call = function(app, context) {
     app$profiler = {
         time: time_span(now() - t0)
     };
+
+    invisible(NULL);
 }
 
+#' Generate the error message for missing context symbols
+#'
 const dependency.context_env_missing = function(context) {
     if (is.null(context) || length(context) == 0) {
         "there is no runtime environment required context symbol is missing.";
@@ -90,13 +94,18 @@ const dependency.context_env_missing = function(context) {
     }
 }
 
+#' Generate the error message for the missing required work files
+#'
 const dependency.workfiles_missing = function(file) {
     if (is.null(file) || length(file) == 0) {
         "there is no required workspace tempfile is missing in current workflow.";
     } else {
-        paste([
-            `there are ${length(file)} required workspace tempfile is missing in the work directory:`,
-            paste(file, "; ")
-        ]);
+        file = file 
+        |> names 
+        |> sapply(app -> `${app}: ${paste(file[[app]], " and ")}`)
+        |> paste("; ")
+        ;
+
+        paste([`there are ${length(file)} required workspace tempfile is missing in the work directory:`, file]);
     }
 }

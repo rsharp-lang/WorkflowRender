@@ -30,9 +30,9 @@ const check_dependency = function(app, context = .get_context()) {
             return(SUCCESS);
         } else {
             return(list(
-                check = FALSE,
+                check   = FALSE,
                 context = check_env,
-                file = check_files
+                file    = check_files
             ));
         }
     }
@@ -75,6 +75,8 @@ const check_dependency.context_env = function(requires, context) {
     }
 }
 
+#' Check for the upstream file dependency
+#'
 const check_dependency.localfiles = function(requires, context) {
     const err = list();
 
