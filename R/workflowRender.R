@@ -42,7 +42,7 @@ const __runImpl = function(context) {
             const file_err = "";
             const msg_err = "";
 
-            
+            throw_err([msg_err, context_err, file_err]);
         }
         
         app$profiler = {

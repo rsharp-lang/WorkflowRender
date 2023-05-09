@@ -7,3 +7,12 @@ const echo_warning = function(msg) {
     writeLines(msg, con = link);
     close(link);
 }
+
+#' echo error message on the screen and then crash the workflow
+#'
+const throw_err = function(msg) {
+    print("workflow error:");
+    print(msg);
+    
+    stop(msg);
+}
