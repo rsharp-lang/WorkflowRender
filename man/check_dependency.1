@@ -1,11 +1,16 @@
 ﻿.TH CHECK_DEPENDENCY 1 2023-May "" "Check of the analysis app dependency"
 .SH NAME
-check_dependency \- check_dependency(app)
+check_dependency \- check_dependency(app,
+    <i>context</i> = .get_context())
 .SH SYNOPSIS
-\fIcheck_dependency(app)\fR
+\fIcheck_dependency(app,
+    <i>context</i> = .get_context())\fR
 .SH OPTIONS
 .PP
 \fBapp\fB \fR\- . the analysis app object list which is construct via the ``app`` function.
+.PP
+.PP
+\fBcontext\fB \fR\- .get_context(). 
 .PP
 .SH VALUE
 .PP
@@ -13,7 +18,7 @@ this function returns a data list that contains the dependency check result. the
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.check_dependency at dependency.R:line 17
+SMRUCC/R#.declare_function.check_dependency at check_dependency.R:line 13
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2023

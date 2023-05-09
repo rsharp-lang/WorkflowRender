@@ -1,11 +1,26 @@
-﻿.TH SET_DEPENDENCY 1 2023-May "" "set_dependency"
+﻿.TH SET_DEPENDENCY 1 2023-May "" "function for create application dependency data"
 .SH NAME
-set_dependency \- set_dependency()
+set_dependency \- set_dependency(
+    <i>context.env</i> = list(),
+    <i>workfiles</i> = list())
 .SH SYNOPSIS
-\fIset_dependency()\fR
+\fIset_dependency(
+    <i>context.env</i> = list(),
+    <i>workfiles</i> = list())\fR
+.SH OPTIONS
+.PP
+\fBcontext.env\fB \fR\- list(). 
+.PP
+.PP
+\fBworkfiles\fB \fR\- list(). a set of the required temp result files in the workflow the format of this parameter value is a tuple list of the file path, where the key name is the app name and the corresponding tuple list value is a character vector of the required multiple reference temp file
+.PP
+.SH DETAILS
+.PP
+the allowed data type of the context symbol could be: ``any``, ``numeric``, ``integer``, ``character``, ``logical``, ``function``
+.PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.set_dependency at dependency.R:line 1
+SMRUCC/R#.declare_function.set_dependency at dependency.R:line 17
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2023

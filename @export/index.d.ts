@@ -9,6 +9,9 @@ declare namespace WorkflowRender {
       function get_context(): object;
       /**
       */
+      function internal_call(app:any, context:any): object;
+      /**
+      */
       function onLoad(): object;
    }
    /**
@@ -19,9 +22,22 @@ declare namespace WorkflowRender {
      * @param dependency default value Is ``NULL``.
    */
    function app(name:any, analysis:any, desc:string, dependency:any): object;
-   /**
-   */
-   function check_dependency(app:any): object;
+   module check_dependency {
+      /**
+      */
+      function context_env(requires:any, context:any): object;
+      /**
+      */
+      function localfiles(requires:any, context:any): object;
+   }
+   module dependency {
+      /**
+      */
+      function context_env_missing(context:any): object;
+      /**
+      */
+      function workfiles_missing(file:any): object;
+   }
    /**
    */
    function echo_warning(msg:any): object;
@@ -43,8 +59,10 @@ declare namespace WorkflowRender {
    */
    function set_config(configs:any): object;
    /**
+     * @param context_env default value Is ``Call "list"()``.
+     * @param workfiles default value Is ``Call "list"()``.
    */
-   function set_dependency(): object;
+   function set_dependency(context_env:any, workfiles:any): object;
    /**
    */
    function throw_err(msg:any): object;
