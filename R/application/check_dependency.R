@@ -35,6 +35,11 @@ const check_dependency = function(app, context = .get_context()) {
     }
 }
 
+#' Check of the required environment symbols
+#'
+#' @details the environment symbols from the analysis context should be 
+#'    set via the ````
+#' 
 const check_dependency.context_env = function(requires, context) {
     for(name in names(requires)) {
         const mark = requires[[name]];

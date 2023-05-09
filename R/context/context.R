@@ -37,16 +37,6 @@ const init_context = function(outputdir = "./") {
     invisible(NULL);
 }
 
-#' Mark end of the analysis workflow
-#' 
-#' @details release the resources of the pipeline workflow modules
-#' 
-const finalize = function() {
-    print("workflow finalize, ");
-    print(`*** Elapsed time '${time_span(now() - .get_context()$t0)}' ***`);
-    sink();
-}
-
 const .get_context = function() {
     const workflow_render = "&[workflow_render]";
 
