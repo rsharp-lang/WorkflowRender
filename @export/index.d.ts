@@ -15,8 +15,9 @@ declare namespace WorkflowRender {
       function onLoad(): object;
    }
    /**
+     * @param disables default value Is ``Call "list"()``.
    */
-   function __runImpl(context:any): object;
+   function __runImpl(context:any, disables:any): object;
    /**
      * @param desc default value Is ``"no description"``.
      * @param dependency default value Is ``NULL``.
@@ -65,8 +66,9 @@ declare namespace WorkflowRender {
    function init_context(outputdir:string): object;
    /**
      * @param registry default value Is ``NULL``.
+     * @param disables default value Is ``Call "list"()``.
    */
-   function run(registry:any): object;
+   function run(registry:any, disables:any): object;
    /**
      * @param configs default value Is ``Call "list"()``.
    */
