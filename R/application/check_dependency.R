@@ -46,12 +46,12 @@ const check_dependency = function(app, context = .get_context()) {
 const check_dependency.context_env = function(requires, context) {
     const env = context$configs;
     const map = {
-        'any': "any", 
-        'numeric': "num", 
-        'integer': "int", 
+              'any': "any", 
+          'numeric': "num", 
+          'integer': "int", 
         'character': "chr", 
-        'logical': "logi", 
-        'function': "function"
+          'logical': "logi", 
+         'function': "function"
     };
     const err = list();
 
@@ -76,5 +76,21 @@ const check_dependency.context_env = function(requires, context) {
 }
 
 const check_dependency.localfiles = function(requires, context) {
+    const err = list();
 
+    for(appName in names(requires)) {
+        const workdir   = WorkflowRender::workspace(appName);
+        const file_rels = requires[[appName]];
+        const checks    = `${workdir}/${file_rels}` |> which(filename -> !file.exists(filename));
+
+        if (length(checks) > 0) {
+            err[[appName]] = checks;
+        }
+    }
+
+    if (length(err) == 0) {
+        NULL;
+    } else {
+        return(err);
+    }
 }
