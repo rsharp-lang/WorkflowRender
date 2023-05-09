@@ -8,6 +8,11 @@
 #'   dependency or the workspace file dependency
 #' 
 const app = function(name, analysis, desc = "no description", dependency = NULL) {
+    # check of the function signature
+    if (!app.check(analysis)) {
+        throw_err("invalid function declare signature!");
+    }
+
     list(
         name = name,
         call = analysis,
@@ -16,12 +21,18 @@ const app = function(name, analysis, desc = "no description", dependency = NULL)
     );
 }
 
+#' Check the function signature of the app function
+#'
+const app.check = function(analysis) {
+
+}
+
 #' Set user parameters to the workflow context
 #' 
 #' @param configs a key-value paire tuple list object that
 #'    contains the workflow parameter values.
 #' 
-const set_config = function(configs) {
+const set_config = function(configs = list()) {
     const ctx = .get_context();
     const cfg = {
         if (!["configs" in ctx]) {

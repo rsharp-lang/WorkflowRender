@@ -36,7 +36,13 @@ const check_dependency = function(app, context = .get_context()) {
 }
 
 const check_dependency.context_env = function(requires, context) {
+    for(name in names(requires)) {
+        const mark = requires[[name]];
 
+        if (mark != "any") {
+
+        }
+    }
 }
 
 const check_dependency.localfiles = function(requires, context) {
