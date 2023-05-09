@@ -17,11 +17,11 @@ declare namespace WorkflowRender {
    /**
    */
    function __runImpl(context:any): object;
-   /**
-     * @param desc default value Is ``"no description"``.
-     * @param dependency default value Is ``NULL``.
-   */
-   function app(name:any, analysis:any, desc:string, dependency:any): object;
+   module app {
+      /**
+      */
+      function check(analysis:any): object;
+   }
    module check_dependency {
       /**
       */
@@ -60,6 +60,7 @@ declare namespace WorkflowRender {
    */
    function run(registry:any): object;
    /**
+     * @param configs default value Is ``Call "list"()``.
    */
    function set_config(configs:any): object;
    /**

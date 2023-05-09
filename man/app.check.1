@@ -1,0 +1,19 @@
+﻿.TH APP.CHECK 1 2023-May "" "Check the function signature of the app function"
+.SH NAME
+app.check \- app.check(analysis)
+.SH SYNOPSIS
+\fIapp.check(analysis)\fR
+.SH OPTIONS
+.PP
+\fBanalysis\fB \fR\- . a callable function to check
+.PP
+.SH DETAILS
+.PP
+the analysis function should contains only two required parameters with specific name defined: 1. app: a list object that defines the app object itself 2. context: a list object that accept the workflow environment context due to the reason of analysis app function is called via the ``do.call`` function from the RENV base environment, so that the parameter value is aligned with the invoke function target strictly, so you can not change the parameter name or the parameter will not be aligned properly when call this analysis app function.
+.PP
+.SH FILES
+.PP
+SMRUCC/R#.declare_function.app.check at app.R:line 43
+.PP
+.SH COPYRIGHT
+Copyright © xieguigang, MIT Licensed 2023
