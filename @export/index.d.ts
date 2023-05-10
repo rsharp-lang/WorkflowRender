@@ -79,8 +79,15 @@ declare namespace WorkflowRender {
    */
    function set_dependency(context_env:any, workfiles:any): object;
    /**
+     * @param flag default value Is ``True``.
+   */
+   function set_disable(app:any, flag:boolean): object;
+   /**
    */
    function throw_err(msg:any): object;
+   /**
+   */
+   function workdir_root(): object;
    /**
    */
    function workspace(app:any): object;
