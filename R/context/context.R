@@ -37,6 +37,11 @@ const init_context = function(outputdir = "./") {
     invisible(NULL);
 }
 
+#' get current workflow environment context
+#' 
+#' @return the context object which is generated via the 
+#'    ``init_context`` function.
+#'
 const .get_context = function() {
     const workflow_render = "&[workflow_render]";
 
