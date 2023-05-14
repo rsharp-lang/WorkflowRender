@@ -49,7 +49,12 @@ const app_check.signature = function(app) {
 #'
 const app_check.delegate = function(analysis) {
     const pars = as.list(args(name = analysis));
-    
+    const verbose = getOption("verbose");
+
+    if (as.logical(verbose)) {
+        str(pars);
+    }
+
     if (length(pars) != 2) {
         echo_warning("the analysis application function required 2 parameters!");
         return(FALSE);
