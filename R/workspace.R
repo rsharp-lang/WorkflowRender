@@ -13,6 +13,9 @@ const workspace = function(app) {
     const app_name  = get_app_name(app);
     const workdir   = normalizePath(`${temp_root}/.works/${app_name}/`);
 
+    # str(app_name);
+    # str(context$pipeline);
+
     if (![app_name in context$pipeline]) {
         echo_warning(`The app(${app_name}) has not been registered in the analysis context yet.`, app);
     }

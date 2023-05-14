@@ -38,7 +38,7 @@ const throw_err = function(msg) {
 #'
 const get_app_name = function(app) {
     if (is.list(app)) {
-        app$name;
+        return(app$name);
     } else if(is.function(app)) {
         get_appName.func_reference(app);
     } else {
