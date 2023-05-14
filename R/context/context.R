@@ -33,7 +33,8 @@ const init_context = function(outputdir = "./") {
         temp_dir = temp_dir,
         t0       = now(),
         workflow = list(),
-        pipeline = []
+        pipeline = [],
+        symbols  = list()
     );
 
     sink(file = `${temp_dir}/run_analysis-${get_timestamp()}.log`);

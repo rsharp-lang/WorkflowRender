@@ -60,6 +60,9 @@ declare namespace WorkflowRender {
    function get_app_name(app: any): object;
    /**
    */
+   function get_functionName(f: any): object;
+   /**
+   */
    function get_timestamp(): object;
    /**
    */

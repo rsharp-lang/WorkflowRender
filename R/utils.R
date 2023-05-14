@@ -39,9 +39,29 @@ const throw_err = function(msg) {
 const get_app_name = function(app) {
     if (is.list(app)) {
         app$name;
+    } else if(is.function(app)) {
+        # test app signature
+        let fname = get_functionName(app);
+        let ctx   = .get_context()$symbols;
+
+        if (app_check.delegate(app)) {
+            if (fname in ctx) {
+                ctx[[fname]];
+            } else {
+                throw_err("Target app function is not registered in the workflow yet!");
+            }
+        } else {
+            throw_err("we can not get the workflow app name for the given function object!");
+        }
     } else {
         app;
     }
+}
+
+const get_functionName = function(f) {
+    list = as.list(args(f));
+    func = list[[""]];
+    func$symbol;
 }
 
 const get_timestamp = function() {
