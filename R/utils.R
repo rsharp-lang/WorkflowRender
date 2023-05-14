@@ -58,10 +58,13 @@ const get_app_name = function(app) {
     }
 }
 
+#' get function name
+#' 
 const get_functionName = function(f) {
-    list = as.list(args(f));
-    func = list[[""]];
-    func$symbol;
+    let list = as.list(args(f));
+    let func = list[[""]];
+
+    return(func$symbol);
 }
 
 const get_timestamp = function() {
