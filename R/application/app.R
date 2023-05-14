@@ -45,10 +45,10 @@ const app_check.signature = function(app) {
 #'    function from the RENV base environment, so that the parameter value is
 #'    aligned with the invoke function target strictly, so you can not change
 #'    the parameter name or the parameter will not be aligned properly when 
-#'    call this analysis app function. 
+#'    call this analysis app function.
 #'
 const app_check.delegate = function(analysis) {
-    const pars = as.list(args(func = analysis));
+    const pars = as.list(args(name = analysis));
     
     if (length(pars) != 2) {
         echo_warning("the analysis application function required 2 parameters!");
