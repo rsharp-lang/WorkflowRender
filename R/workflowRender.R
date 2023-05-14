@@ -12,8 +12,17 @@
 #'    workflow module
 #'
 const run = function(registry = NULL, disables = list()) {
+    const verbose = as.logical(getOption("verbose"));
+
     if (!is.null(registry)) {
         do.call(registry, args = list());
+    }
+
+    if (verbose) {
+        print("pipeline modules to run in current workflow:");
+        print(.get_context()$pipeline);
+        print("workflow parameters:");
+        print(.get_context()$configs);
     }
 
     __runImpl(context = .get_context(), disables);
