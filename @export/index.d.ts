@@ -14,6 +14,7 @@ declare namespace WorkflowRender {
       */
       function onLoad(): object;
    }
+   __global_ctx: string;
    /**
      * @param disables default value Is ``Call "list"()``.
    */
@@ -57,6 +58,9 @@ declare namespace WorkflowRender {
    /**
    */
    function get_app_name(app: any): object;
+   /**
+   */
+   function get_timestamp(): object;
    /**
    */
    function hook(app: any): object;

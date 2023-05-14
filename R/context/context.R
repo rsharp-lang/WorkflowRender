@@ -36,16 +36,18 @@ const init_context = function(outputdir = "./") {
         pipeline = []
     );
 
-    sink(file = `${temp_dir}/run_analysis-${toString(now(), "yyyy-MM-dd hh-mm-ss")}.log`);
-    set(globalenv(), "&[workflow_render]", context);
+    sink(file = `${temp_dir}/run_analysis-${get_timestamp()}.log`);
+    set(globalenv(), __global_ctx, context);
 
     invisible(NULL);
 }
 
+const __global_ctx = "&[workflow_render]";
+
 #' get current workflow environment context
 #' 
 const .get_context = function() {
-    const workflow_render = "&[workflow_render]";
+    const workflow_render as string = __global_ctx;
 
     if (exists(workflow_render, globalenv())) {
         get(workflow_render, globalenv());
@@ -53,4 +55,3 @@ const .get_context = function() {
         stop("You must initialize the analysis context at first!");
     }
 }
-

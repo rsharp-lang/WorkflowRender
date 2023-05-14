@@ -10,7 +10,10 @@
 #' @param dependency usually be the environment context symbol 
 #'   dependency or the workspace file dependency
 #' 
-const app = function(name, analysis, desc = "no description", dependency = NULL) {
+const app = function(name, analysis, 
+                     desc = "no description", 
+                     dependency = NULL) {
+
     # check of the function signature
     if (!app_check.delegate(analysis)) {
         throw_err("invalid function declare signature!");

@@ -22,7 +22,7 @@ const run = function(registry = NULL, disables = list()) {
         print("pipeline modules to run in current workflow:");
         print(.get_context()$pipeline);
         print("workflow parameters:");
-        print(.get_context()$configs);
+        str(.get_context()$configs);
     }
 
     __runImpl(context = .get_context(), disables);

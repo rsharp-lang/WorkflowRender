@@ -43,3 +43,7 @@ const get_app_name = function(app) {
         app;
     }
 }
+
+const get_timestamp = function() {
+    toString(now(), "yyyy-MM-dd hh-mm-ss");
+}
