@@ -40,21 +40,34 @@ const get_app_name = function(app) {
     if (is.list(app)) {
         app$name;
     } else if(is.function(app)) {
-        # test app signature
-        let fname = get_functionName(app);
-        let ctx   = .get_context()$symbols;
-
-        if (app_check.delegate(app)) {
-            if (fname in ctx) {
-                ctx[[fname]];
-            } else {
-                throw_err("Target app function is not registered in the workflow yet!");
-            }
-        } else {
-            throw_err("we can not get the workflow app name for the given function object!");
-        }
+        get_appName.func_reference(app);
     } else {
         app;
+    }
+}
+
+const app_not_registered = "Target app function is not registered in the workflow yet!";
+const invalid_app_target = "we can not get the workflow app name for the given function object!";
+
+const get_appName.func_reference = function(app) {
+    # test app signature
+    let fname = get_functionName(app);
+    let ctx   = .get_context()$symbols;
+    let verbose = as.logical(getOption("verbose"));
+
+    if (verbose) {
+        print("view of the workflow symbol maps:");
+        str(ctx);
+    }
+
+    if (app_check.delegate(app)) {
+        if (fname in ctx) {
+            ctx[[fname]];
+        } else {
+            throw_err(app_not_registered);
+        }
+    } else {
+        throw_err(invalid_app_target);
     }
 }
 

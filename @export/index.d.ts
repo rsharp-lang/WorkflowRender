@@ -32,6 +32,7 @@ declare namespace WorkflowRender {
       */
       function signature(app: any): object;
    }
+   app_not_registered: string;
    module check_dependency {
       /**
       */
@@ -58,6 +59,11 @@ declare namespace WorkflowRender {
    /**
    */
    function get_app_name(app: any): object;
+   module get_appName {
+      /**
+      */
+      function func_reference(app: any): object;
+   }
    /**
    */
    function get_functionName(f: any): object;
@@ -71,6 +77,7 @@ declare namespace WorkflowRender {
      * @param outputdir default value Is ``./``.
    */
    function init_context(outputdir?: string): object;
+   invalid_app_target: string;
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
