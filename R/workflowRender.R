@@ -40,7 +40,7 @@ const __runImpl = function(context, disables = list()) {
         }
 
         if (!skip) {
-            .internal_call(app, context);       
+            .internal_call(app, context);
         }
     }
 
@@ -67,13 +67,13 @@ const .internal_call = function(app, context) {
         const context_err = dependency.context_env_missing(dependency$context);
         const file_err    = dependency.workfiles_missing(dependency$file);
         const msg_err = [
-            "There are some dependency of current analysis application is not satisfied:", 
+            "There are some dependency of current analysis application is not satisfied:",
             paste(c("analysis_app:", app$name))
         ];
 
         throw_err([msg_err, context_err, file_err]);
     }
-    
+
     app$profiler = {
         time: time_span(now() - t0)
     };
@@ -100,8 +100,8 @@ const dependency.workfiles_missing = function(file) {
     if (is.null(file) || length(file) == 0) {
         "there is no required workspace tempfile is missing in current workflow.";
     } else {
-        file = file 
-        |> names 
+        file = file
+        |> names
         |> sapply(app -> `${app}: ${paste(file[[app]], " and ")}`)
         |> paste("; ")
         ;

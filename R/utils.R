@@ -30,9 +30,11 @@ const throw_err = function(msg) {
 
 #' Helper function for get app name
 #'
-#' @param app the app object list itself or the character vector of the name value
+#' @param app the app object list itself or the character
+#'    vector of the name value
 #'
-#' @return this function always returns the app name character vector
+#' @return this function always returns the app name
+#'    character vector
 #'
 const get_app_name = function(app) {
     if (is.list(app)) {

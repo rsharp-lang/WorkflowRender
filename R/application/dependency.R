@@ -12,10 +12,12 @@
 #'    is a character vector of the required multiple reference temp file
 #' 
 #' @details the allowed data type of the context symbol could be:
-#'    ``any``, ``numeric``, ``integer``, ``character``, ``logical``, ``function``
+#'    ``any``, ``numeric``, ``integer``, ``character``, ``logical``, 
+#'    ``function``
 #'
 const set_dependency = function(context_env = list(), workfiles = list()) {
-    const types = ['any', 'numeric', 'integer', 'character', 'logical', 'function'];
+    const types = ['any', 'numeric', 'integer', 
+       'character', 'logical', 'function'];
 
     if (is.list(context_env)) {
         # check type mark is valids or not
