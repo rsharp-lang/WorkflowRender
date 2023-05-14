@@ -33,7 +33,8 @@ const app_check.signature = function(app) {
 
 #' Check the function signature of the app function
 #' 
-#' @param analysis a callable function to check
+#' @param analysis a callable function to check, just check of the required 
+#'    parameters is exists in the definition or not.
 #'
 #' @details the analysis function should contains only two
 #'    required parameters with specific name defined: 
@@ -55,7 +56,13 @@ const app_check.delegate = function(analysis) {
         str(pars);
     }
 
-    if (length(pars) != 2) {
+    # pars contains 3 slot value:
+    #
+    # 1. empty_name: the function declare info, includes name and the 
+    #                possible function value type
+    # 2. other_name: the function parameter name.
+
+    if (length(pars) != 3) {
         echo_warning("the analysis application function required 2 parameters!");
         return(FALSE);
     } else {
