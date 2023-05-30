@@ -1,8 +1,8 @@
 #' Add workflow app component into the registry
 #'
 const hook = function(app) {
-    const context = .get_context();
-    const pool = context$workflow;
+    const context   = .get_context();
+    const pool      = context$workflow;
     const symbolMap = context$symbols;
 
     if (!app_check.signature(app)) {
