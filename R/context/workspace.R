@@ -22,3 +22,9 @@ const workspace = function(app) {
 
     workdir;
 }
+
+#' Get workspace root directory
+#'
+const workdir_root = function() {
+    .get_context()$root;
+}

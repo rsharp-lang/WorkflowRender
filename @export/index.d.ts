@@ -14,7 +14,6 @@ declare namespace WorkflowRender {
       */
       function onLoad(): object;
    }
-   __global_ctx: string;
    /**
      * @param disables default value Is ``Call "list"()``.
    */
@@ -32,7 +31,6 @@ declare namespace WorkflowRender {
       */
       function signature(app: any): object;
    }
-   app_not_registered: string;
    module check_dependency {
       /**
       */
@@ -59,17 +57,6 @@ declare namespace WorkflowRender {
    /**
    */
    function get_app_name(app: any): object;
-   module get_appName {
-      /**
-      */
-      function func_reference(app: any): object;
-   }
-   /**
-   */
-   function get_functionName(f: any): object;
-   /**
-   */
-   function get_timestamp(): object;
    /**
    */
    function hook(app: any): object;
@@ -77,7 +64,6 @@ declare namespace WorkflowRender {
      * @param outputdir default value Is ``./``.
    */
    function init_context(outputdir?: string): object;
-   invalid_app_target: string;
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
@@ -93,8 +79,15 @@ declare namespace WorkflowRender {
    */
    function set_dependency(context_env?: any, workfiles?: any): object;
    /**
+     * @param flag default value Is ``true``.
+   */
+   function set_disable(app: any, flag?: boolean): object;
+   /**
    */
    function throw_err(msg: any): object;
+   /**
+   */
+   function workdir_root(): object;
    /**
    */
    function workspace(app: any): object;

@@ -47,6 +47,9 @@ const __global_ctx = "&[workflow_render]";
 
 #' get current workflow environment context
 #' 
+#' @return the context object which is generated via the 
+#'    ``init_context`` function.
+#'
 const .get_context = function() {
     const workflow_render as string = __global_ctx;
 
