@@ -11,9 +11,13 @@ const summary = function() {
     const disable     = pool@disable;
     const seq = context$pipeline;
 
-    # str(pool);
-    str(seq);
+    print("Workflow exec modules sequence:");
+    print(seq |> which(i -> ![(pool[[i]])$disable]) |> paste(sep = " -> "));
 
+    cat("\n");
+    cat("\n");
+
+    print("View summary of all available analysis modules:");
     print(data.frame(
         appName = names, 
         description = description, 
