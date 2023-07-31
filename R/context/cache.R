@@ -16,6 +16,8 @@ const use_cache = function(filepath, create) {
     }
 }
 
+#' check the cache file is exists or not
+#' 
 const has_cachefile = function(filepath) {
     if (is.null(filepath)) {
         return(FALSE);

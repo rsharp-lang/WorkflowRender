@@ -4,7 +4,8 @@ Title: Compose the data analysis workflow
 Version: 0.1.0
 Author: xieguigang
 Maintainer: xieguigang <xie.guigang@gcmodeller.org>
-Description: Compose the data analysis workflow
+Description: Compose the data analysis workflow, this is a package helper
+   for create modular analysis workflow.
 License: MIT
 Encoding: UTF-8
 LazyData: true
