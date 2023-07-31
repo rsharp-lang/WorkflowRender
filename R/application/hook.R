@@ -1,5 +1,7 @@
 #' Add workflow app component into the registry
 #'
+#' @param app the app object which is generated via the ``app`` function
+#' 
 const hook = function(app) {
     const context   = .get_context();
     const pool      = context$workflow;
