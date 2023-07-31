@@ -66,6 +66,9 @@ declare namespace WorkflowRender {
    }
    /**
    */
+   function get_config(name: any): object;
+   /**
+   */
    function get_functionName(f: any): object;
    /**
    */

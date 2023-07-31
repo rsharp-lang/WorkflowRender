@@ -19,3 +19,18 @@ const set_config = function(configs = list()) {
 
     invisible(NULL);
 }
+
+#' get user parameter value inside current workflow context environment
+#' 
+const get_config = function(name) {
+    const ctx = .get_context();
+
+    if (!["configs" in ctx]) {
+        NULL;
+    } else {
+        const env = ctx$configs;
+        const result = env[[name]];
+
+        result;
+    }
+}

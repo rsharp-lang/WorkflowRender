@@ -7,10 +7,15 @@ hook(app("test1", function(app, context) {
     # str(context);
     print("abc");
     print(workspace(app));
+
+    set_config(configs = list(
+        ttttt = 1
+    ));
 }));
 
 hook(app("test2", function(app, context) {
     print(workspace(app));
+    print(get_config("ttttt"));
 },
 , dependency = set_dependency(
     context_env = ["ttttt"]
