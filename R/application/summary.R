@@ -20,7 +20,7 @@ const summary = function() {
         "dependency.env" = sapply(deps.env, i -> JSON::json_encode(i)),
         "dependency.workfiles" = sapply(deps.workfiles, i -> JSON::json_encode(i)), 
         disable = disable,
-        row.names = `#{1:length(pool)}`
+        row.names = `#${1:length(pool)}`
     ));
 
     invisible(NULL);

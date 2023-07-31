@@ -9,6 +9,8 @@ const echo_warning = function(msg, app = NULL) {
     const link = file(warning_log, "append");
     const app_name = get_app_name(app);
 
+    msg <- unlist(msg);
+
     if (!is.null(app_name)) {
         msg = `[${app_name}] ${msg}`;
     }
@@ -22,6 +24,8 @@ const echo_warning = function(msg, app = NULL) {
 #' echo error message on the screen and then crash the workflow
 #'
 const throw_err = function(msg) {
+    msg <- unlist(msg);
+
     print("workflow error:");
     print(msg);
 
