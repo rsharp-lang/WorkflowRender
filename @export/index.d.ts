@@ -101,6 +101,9 @@ declare namespace WorkflowRender {
    function set_disable(app: any, flag?: any): object;
    /**
    */
+   function summary(): object;
+   /**
+   */
    function throw_err(msg: any): object;
    /**
    */

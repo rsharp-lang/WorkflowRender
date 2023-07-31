@@ -9,6 +9,11 @@ hook(app("test1", function(app, context) {
     print(workspace(app));
 }));
 
+hook(app("test2", function(app, context) {
+    print(workspace(app));
+}));
+
+WorkflowRender::summary();
 WorkflowRender::run();
 
 saveRDS(.get_context(), file = `${@dir}/workflow.rds`);
