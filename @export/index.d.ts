@@ -14,7 +14,7 @@ declare namespace WorkflowRender {
       */
       function onLoad(): object;
    }
-   __global_ctx: string;
+   __global_ctx: any;
    /**
      * @param disables default value Is ``Call "list"()``.
    */
@@ -23,7 +23,7 @@ declare namespace WorkflowRender {
      * @param desc default value Is ``no description``.
      * @param dependency default value Is ``null``.
    */
-   function app(name: any, analysis: any, desc?: string, dependency?: any): object;
+   function app(name: any, analysis: any, desc?: any, dependency?: any): object;
    module app_check {
       /**
       */
@@ -32,7 +32,7 @@ declare namespace WorkflowRender {
       */
       function signature(app: any): object;
    }
-   app_not_registered: string;
+   app_not_registered: any;
    module check_dependency {
       /**
       */
@@ -79,8 +79,8 @@ declare namespace WorkflowRender {
    /**
      * @param outputdir default value Is ``./``.
    */
-   function init_context(outputdir?: string): object;
-   invalid_app_target: string;
+   function init_context(outputdir?: any): object;
+   invalid_app_target: any;
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
@@ -98,7 +98,7 @@ declare namespace WorkflowRender {
    /**
      * @param flag default value Is ``true``.
    */
-   function set_disable(app: any, flag?: boolean): object;
+   function set_disable(app: any, flag?: any): object;
    /**
    */
    function throw_err(msg: any): object;
