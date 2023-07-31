@@ -11,7 +11,12 @@ hook(app("test1", function(app, context) {
 
 hook(app("test2", function(app, context) {
     print(workspace(app));
-}));
+},
+, dependency = set_dependency(
+    context_env = ["ttttt"]
+)
+
+));
 
 WorkflowRender::summary();
 WorkflowRender::run();
