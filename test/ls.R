@@ -21,6 +21,4 @@ hook(app("test2", function(app, context) {
 WorkflowRender::summary();
 WorkflowRender::run();
 
-saveRDS(.get_context(), file = `${@dir}/workflow.rds`);
-
 finalize();
