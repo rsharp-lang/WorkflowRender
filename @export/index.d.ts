@@ -41,6 +41,9 @@ declare namespace WorkflowRender {
       */
       function localfiles(requires: any, context: any): object;
    }
+   /**
+   */
+   function definePipeline(seq: any): object;
    module dependency {
       /**
       */
