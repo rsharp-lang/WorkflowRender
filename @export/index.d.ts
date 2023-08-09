@@ -55,6 +55,9 @@ declare namespace WorkflowRender {
    function echo_warning(msg: any, app?: any): object;
    /**
    */
+   function filepath_safe(dir: any, filename: any): object;
+   /**
+   */
    function finalize(): object;
    /**
    */
