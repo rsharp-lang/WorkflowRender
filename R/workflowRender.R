@@ -10,7 +10,11 @@
 #'    indicates that the workflow module is disable or not: true for disable 
 #'    and skip, and false or null and missing for enable the corresponding
 #'    workflow module
-#'
+#' 
+#' @details A workflow is consist with a set of the analysis modules in side,
+#'    the executative sequence define in workflow is based on the module name
+#'    vector in the pipeline data slot
+#' 
 const run = function(registry = NULL, disables = list()) {
     const verbose = as.logical(getOption("verbose"));
 
@@ -34,6 +38,11 @@ const __runImpl = function(context, disables = list()) {
     let app_pool = context$workflow;
     let skip = FALSE;
 
+    # the pipeline data slot defines the workflow module
+    # execute sequence.
+    #
+    # get a specific workflow analysis app module, and then
+    # execute the module under a given workflow context
     for(app in context$pipeline) {
         app = app_pool[[app]];
         skip = FALSE;
