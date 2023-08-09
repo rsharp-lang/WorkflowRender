@@ -18,7 +18,10 @@ hook(app("test2", function(app, context) {
     print(get_config("ttttt"));
 },
 , dependency = set_dependency(
-    context_env = ["ttttt"]
+    context_env = ["ttttt"],
+    workfiles = list(
+        "test1", "/aa/bb.txt"
+    )
 )
 
 ));

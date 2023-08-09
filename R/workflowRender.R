@@ -91,7 +91,7 @@ const .internal_call = function(app, context) {
         const file_err    = dependency.workfiles_missing(dependency$file);
         const msg_err = [
             "There are some dependency of current analysis application is not satisfied:",
-            paste(c("analysis_app:", app$name))
+            paste(c("analysis_app:", app$name), sep = " ")
         ];
 
         throw_err([msg_err, context_err, file_err]);
@@ -113,7 +113,7 @@ const dependency.context_env_missing = function(context) {
         paste([
             `there are ${length(context)} required context symbol is missing or data type is mis-matched in the workflow:`,
             JSON::json_encode(context)
-        ]);
+        ], sep = " ");
     }
 }
 
@@ -125,10 +125,10 @@ const dependency.workfiles_missing = function(file) {
     } else {
         file = file
         |> names
-        |> sapply(app -> `${app}: ${paste(file[[app]], " and ")}`)
-        |> paste("; ")
+        |> sapply(app -> `${app}: ${paste(file[[app]], sep = " and ")}`)
+        |> paste(sep = "; ")
         ;
 
-        paste([`there are ${length(file)} required workspace tempfile is missing in the work directory:`, file]);
+        paste([`there are ${length(file)} required workspace tempfile is missing in the work directory:`, file], sep = " ");
     }
 }
