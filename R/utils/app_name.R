@@ -8,11 +8,28 @@
 #'    character vector
 #'
 const get_app_name = function(app) {
+    let verbose as boolean = as.logical(getOption("verbose"));
+
     if (is.list(app)) {
-        return(app$name);
+        if (verbose) {
+            print("app object is a list.");
+        }
+
+        if (nchar(app$name) > 0) {
+            return(app$name);
+        } else {
+            throw_err(["invalid app object: ", JSON::json_encode(app)]);
+        }        
     } else if(is.function(app)) {
+        if (verbose) {
+            print("try to get the app reference name from a analysis function!");
+        }
+
         get_appName.func_reference(app);
     } else {
+        if (verbose) {
+            print(`the given app object '${app}' is a name reference to the application module!`);
+        }
         app;
     }
 }
