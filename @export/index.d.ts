@@ -116,5 +116,8 @@ declare namespace WorkflowRender {
    function workdir_root(): object;
    /**
    */
+   function workfile(app: any, relpath: any): object;
+   /**
+   */
    function workspace(app: any): object;
 }

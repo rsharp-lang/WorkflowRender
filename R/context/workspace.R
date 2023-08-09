@@ -28,6 +28,12 @@ const workspace = function(app) {
     workdir;
 }
 
+#' Construct of the file path inside a app workspace
+#' 
+const workfile = function(app, relpath) {
+    file.path(workspace(app), relpath);
+}
+
 #' Get workspace root directory
 #'
 #' @details actually this function will returns the ``output`` dir 

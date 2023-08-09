@@ -11,6 +11,8 @@ hook(app("test1", function(app, context) {
     set_config(configs = list(
         ttttt = 1
     ));
+
+    writeLines("zzzzzzzz", con = workfile(app, "/aa/bb.txt"));
 }));
 
 hook(app("test2", function(app, context) {
