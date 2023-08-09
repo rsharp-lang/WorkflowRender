@@ -20,11 +20,18 @@ hook(app("test2", function(app, context) {
 , dependency = set_dependency(
     context_env = ["ttttt"],
     workfiles = list(
-        "test1", "/aa/bb.txt"
+        "test1" = "/aa/bb.txt"
     )
 )
 
 ));
+
+hook(app("test3", function(app, context) {
+
+    print("run app test 3");
+
+}));
+
 
 WorkflowRender::summary();
 WorkflowRender::run();

@@ -88,6 +88,14 @@ const check_dependency.context_env = function(requires, context) {
 #'
 const check_dependency.localfiles = function(requires, context) {
     const err = list();
+    const verbose = as.logical(getOption("verbose"));
+
+    if (verbose) {
+        print("checks for the required app dependency modules:");
+        print(names(requires));    
+
+        str(requires);
+    }
 
     for(appName in names(requires)) {
         # the required file in the requires list is a relative file
