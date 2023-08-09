@@ -75,8 +75,13 @@ const .internal_call = function(app, context) {
         app: app, 
         context: context
     };
+    let verbose = as.logical(getOption("verbose"));
 
     if (dependency$check) {
+        if (verbose) {
+            print(`  * exec: ${app$name}...`);
+        }
+
         # check success, then
         # run current data analysis node
         do.call(app$call, args = argv);

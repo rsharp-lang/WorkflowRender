@@ -9,7 +9,10 @@
 #' @param workfiles a set of the required temp result files in the workflow
 #'    the format of this parameter value is a tuple list of the file path,
 #'    where the key name is the app name and the corresponding tuple list value
-#'    is a character vector of the required multiple reference temp file
+#'    is a character vector of the required multiple reference temp file.
+#' 
+#'    the data format of this parameter would be:
+#'       list(app1 = [file1, file2, ...], app2 = file3, ...)
 #' 
 #' @details the allowed data type of the context symbol could be:
 #'    ``any``, ``numeric``, ``integer``, ``character``, ``logical``, 
