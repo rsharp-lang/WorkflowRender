@@ -18,6 +18,10 @@ hook(app("test1", function(app, context) {
 hook(app("test2", function(app, context) {
     print(workspace(app));
     print(get_config("ttttt"));
+
+    print("file content generated from the test1 app is:");
+    print(readLines(workfile("test1", "/aa/bb.txt")));
+
 },
 , dependency = set_dependency(
     context_env = ["ttttt"],
