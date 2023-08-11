@@ -37,6 +37,12 @@ const run = function(registry = NULL, disables = list()) {
 const __runImpl = function(context, disables = list()) {
     let app_pool = context$workflow;
     let skip = FALSE;
+    let verbose = as.logical(getOption("verbose"));
+
+    if (verbose) {
+        print("view module configs:");
+        str(disables);
+    }
 
     # the pipeline data slot defines the workflow module
     # execute sequence.
@@ -51,10 +57,12 @@ const __runImpl = function(context, disables = list()) {
             if (as.logical(disables[[app$name]])) {
                 skip = TRUE;
             }
-        } else if("disable" in app) {
-            # current app module may be disable by other
-            # application from the workflow upsteam
-            skip = app$disable;
+        } else {
+            if("disable" in app) {
+                # current app module may be disable by other
+                # application from the workflow upsteam
+                skip = app$disable;
+            }
         }
 
         if (!skip) {
