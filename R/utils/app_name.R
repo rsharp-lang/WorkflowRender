@@ -28,7 +28,7 @@ const get_app_name = function(app) {
     }
 }
 
-const app_not_registered = "Target app function is not registered in the workflow yet!";
+const app_not_registered = "target app function is not registered in the workflow yet!";
 const invalid_app_target = "we can not get the workflow app name for the given function object!";
 
 #' Get app name from the generated analysis app module
