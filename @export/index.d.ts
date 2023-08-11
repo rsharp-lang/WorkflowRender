@@ -57,8 +57,9 @@ declare namespace WorkflowRender {
    */
    function echo_warning(msg: any, app?: any): object;
    /**
+     * @param maxchars default value Is ``48``.
    */
-   function filepath_safe(dir: any, filename: any): object;
+   function filepath_safe(dir: any, filename: any, maxchars?: any): object;
    /**
    */
    function finalize(): object;
@@ -69,6 +70,9 @@ declare namespace WorkflowRender {
       /**
       */
       function func_reference(app: any): object;
+      /**
+      */
+      function obj(app: any): object;
    }
    /**
      * @param default default value Is ``null``.
@@ -112,6 +116,9 @@ declare namespace WorkflowRender {
    /**
    */
    function summary(): object;
+   /**
+   */
+   function tabulate_workflow_summary(pool: any): object;
    /**
    */
    function throw_err(msg: any): object;
