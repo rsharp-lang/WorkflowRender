@@ -71,8 +71,9 @@ declare namespace WorkflowRender {
       function func_reference(app: any): object;
    }
    /**
+     * @param default default value Is ``null``.
    */
-   function get_config(name: any): object;
+   function get_config(name: any, default?: any): object;
    /**
    */
    function get_functionName(f: any): object;

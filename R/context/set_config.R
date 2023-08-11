@@ -22,7 +22,7 @@ const set_config = function(configs = list()) {
 
 #' get user parameter value inside current workflow context environment
 #' 
-const get_config = function(name) {
+const get_config = function(name, default = NULL) {
     const ctx = .get_context();
 
     if (!["configs" in ctx]) {
@@ -31,6 +31,6 @@ const get_config = function(name) {
         const env = ctx$configs;
         const result = env[[name]];
 
-        result;
+        result || default;
     }
 }
