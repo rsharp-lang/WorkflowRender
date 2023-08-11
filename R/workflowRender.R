@@ -68,6 +68,8 @@ const __runImpl = function(context, disables = list()) {
         if (!skip) {
             .internal_call(app, context);
         }
+
+        NULL;
     }
 
     invisible(NULL);
