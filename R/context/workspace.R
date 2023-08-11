@@ -28,7 +28,7 @@ const workspace = function(app) {
     workdir;
 }
 
-#' Construct of the file path inside a app workspace
+#' Construct of the file path inside an app workspace
 #' 
 const workfile = function(app, relpath) {
     file.path(workspace(app), relpath);

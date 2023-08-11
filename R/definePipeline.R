@@ -1,3 +1,5 @@
+#' Create a custom pipeline workflow execute sequence
+#' 
 const definePipeline = function(seq) {
     const ctx = .get_context();
     ctx$pipeline = seq;
