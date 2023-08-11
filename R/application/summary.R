@@ -1,5 +1,7 @@
 require(JSON);
 
+#' Inspect the workflow analysis modules
+#' 
 const summary = function() {
     const context = .get_context();
     const pool    = context$workflow;
@@ -17,6 +19,8 @@ const summary = function() {
     invisible(NULL);
 }
 
+#' Extract the workflow analysis contents
+#' 
 const tabulate_workflow_summary = function(pool) {
     const names   = pool@name;
     const description = pool@desc;
