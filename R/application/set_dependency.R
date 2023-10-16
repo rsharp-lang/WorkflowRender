@@ -27,7 +27,7 @@ const set_dependency = function(context_env = list(), workfiles = list()) {
         for(name in names(context_env)) {
             const type_mark = context_env[[name]];
 
-            if (![type_mark in types]) {
+            if (!(type_mark in types)) {
                 throw_err(`Invalid type mark(${type_mark}) for the application dependency!`);
             }
         }

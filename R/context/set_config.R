@@ -6,7 +6,7 @@
 const set_config = function(configs = list()) {
     const ctx = .get_context();
     const cfg = {
-        if (!["configs" in ctx]) {
+        if (!("configs" in ctx)) {
             ctx$configs = list();
         }
 
@@ -25,7 +25,7 @@ const set_config = function(configs = list()) {
 const get_config = function(name, default = NULL) {
     const ctx = .get_context();
 
-    if (!["configs" in ctx]) {
+    if (!("configs" in ctx)) {
         NULL;
     } else {
         const env = ctx$configs;

@@ -57,7 +57,7 @@ const check_dependency.context_env = function(requires, context) {
 
     for(name in names(requires)) {
         const mark  = requires[[name]];
-        const missing = ![name in env];
+        const missing = !(name in env);
 
         if (missing) {
             err[[name]] = "missing";

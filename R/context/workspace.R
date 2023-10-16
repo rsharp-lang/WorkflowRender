@@ -21,7 +21,7 @@ const workspace = function(app) {
         str(app);
     }
 
-    if (![app_name in context$pipeline]) {
+    if (!(app_name in context$pipeline)) {
         echo_warning(`The app(${app_name}) has not been registered in the analysis context yet.`, app);
     }
 
