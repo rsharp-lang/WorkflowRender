@@ -16,17 +16,18 @@ const workspace = function(app) {
     const temp_root = context$temp_dir;
     const app_name  = get_app_name(app);
     const workdir   = normalizePath(`${temp_root}/workflow_tmp/${app_name}/`);
+    const program   = context$pipeline;
 
     if (verbose) {
         print("view of the given app object for get its workspace dir:");
         print("get app_name:");
         str(app_name);
         print("get pipeline workflow components:");
-        str(context$pipeline);
+        str(program);
         # str(app);
     };
 
-    if (!(app_name in context$pipeline)) {
+    if (!(app_name in program)) {
         echo_warning(`The app(${app_name}) has not been registered in the analysis context yet.`, app);
     };
 
