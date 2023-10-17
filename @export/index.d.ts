@@ -14,11 +14,20 @@ declare namespace WorkflowRender {
       */
       function onLoad(): object;
    }
+   /**
+   */
+   function __build_app(f: any): object;
    __global_ctx: any;
    /**
      * @param disables default value Is ``Call "list"()``.
    */
    function __runImpl(context: any, disables?: any): object;
+   /**
+   */
+   function __workfile_uri_parser(uri: any): object;
+   /**
+   */
+   function __workfiles(files_uri: any): object;
    /**
      * @param desc default value Is ``no description``.
      * @param dependency default value Is ``null``.
