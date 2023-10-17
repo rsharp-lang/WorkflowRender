@@ -1,3 +1,5 @@
+# imports attributes = .Internal::attributes;
+
 #' Build workflow app object
 #' 
 #' @details Build a new workflow app module object based on the
@@ -7,7 +9,7 @@
 #'    attribute data inside: app, desc, context_env, workfiles
 #' 
 const __build_app = function(f) {
-    let attrs = attributes(f);
+    let attrs = .Internal::attributes(f);
     let app_name = attrs$app || "";
     let desc = attrs$desc;
     let context_env = attrs$context_env;
