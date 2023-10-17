@@ -24,4 +24,7 @@ const app2 = function(app, context) {
 
 }
 
+
+str(__build_app(app2));
+
 hook(app2);
