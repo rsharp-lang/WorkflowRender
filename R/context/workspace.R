@@ -6,6 +6,9 @@
 #'
 #' @return a character vector of the workspace directory path
 #'    of the specific analysis application. 
+#' 
+#' @details the verbose option could be config from the 
+#'    commandline option: ``--verbose``
 #'
 const workspace = function(app) {
     const verbose   = as.logical(getOption("verbose"));
@@ -16,9 +19,11 @@ const workspace = function(app) {
 
     if (verbose) {
         print("view of the given app object for get its workspace dir:");
-        # str(app_name);
-        # str(context$pipeline);
-        str(app);
+        print("get app_name:");
+        str(app_name);
+        print("get pipeline workflow components:");
+        str(context$pipeline);
+        # str(app);
     };
 
     if (!(app_name in context$pipeline)) {
