@@ -13,6 +13,7 @@ hook(app("echo", function(app, context) {
     print(context$pipeline);
 }));
 
+
 # app object could be reference by the app object itself
 # or the app name
 print(workspace(app1));

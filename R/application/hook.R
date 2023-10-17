@@ -7,6 +7,10 @@ const hook = function(app) {
     const pool      = context$workflow;
     const symbolMap = context$symbols;
 
+    if (is.function(app)) {
+        app <- __build_app(f = app);
+    }
+
     if (!app_check.signature(app)) {
         throw_err([
             "invalid app object signature", 

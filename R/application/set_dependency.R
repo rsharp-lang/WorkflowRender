@@ -1,10 +1,12 @@
 #' function for create application dependency data
 #'
 #' @param context_env a list of the depends environment symbol in the 
-#'    current workflow context, value of this parameter it could be a
-#'    character vector of the required symbol(will assume that no data
-#'    type is required), or a tuple list object with key name is the symbol
-#'    name and the corresponding tuple value is the required symbol type. 
+#'    current workflow context, value of this parameter it could be: 
+#' 
+#'    1. a character vector of the required symbol(will assume that 
+#'       no data type is required), or 
+#'    2. a tuple list object with key name is the symbol name and 
+#'       the corresponding tuple value is the required symbol type. 
 #'
 #' @param workfiles a set of the required temp result files in the workflow
 #'    the format of this parameter value is a tuple list of the file path,
