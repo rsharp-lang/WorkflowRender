@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><p>This function should be call at first</p></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <table style="width: 100%;">
+            <tr>
+                <td>init_context {WorkflowRender}</td>
+                <td style="text-align: right;">R Documentation</td>
+            </tr>
+        </table>
+
+        <h2><p>This function should be call at first</p></h2>
+
+        <h3>Description</h3>
+
+        
+
+        <h3>Usage</h3>
+
+        <div style="width: 100%; padding-left: 3%; color: black;">
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>init_context</strong>(
+    <i>outputdir</i> = ./);</code></pre>
+        </div>
+
+        <h3>Arguments</h3>
+
+        <table>
+            
+<dt>outputdir</dt>
+<dd><p><p>the directory path to the workflow analysis workspace, default path value is current directory.</p></p></dd>
+
+        </table>
+
+
+        <h3 style="display: block;">Details</h3>
+
+        <p>for construct of the runtime environment, the generated context environment for run the analysis workflow has member slots of: 1. root: a character vector for the <code>outputdir</code> directory path. 2. analysis: a character vector for the directory path that contains the analysis result output from current workflow process. 3. temp_dir: a character vector for the directory path that contains the analysis temp files from current workflow process. 4. t0: a date time stamp when start current analysis workflow. 5. workflow: a tuple list object that contains the analysis application object that constructed from the <code>app</code> function. 6. pipeline: a character vector for run the application workflow.</p>
+
+        <h3 style="display: block">Authors</h3>
+
+        xieguigang
+
+        <h3>Value</h3>
+
+        <p>this function has no return value. and the constructed analysis environment context object will be saved in the global environment with symbol name <code>&amp;[workflow_render]</code>.</p>
+
+        <h3 style="display: none;">Examples</h3>
+
+        
+
+        <hr />
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+                href="../WorkflowRender.html">Index</a>]
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
+<script type="text/javascript">r_highlights("example_r");</script>
+
+</html>

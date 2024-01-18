@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><p>Create the file path safely</p></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <table style="width: 100%;">
+            <tr>
+                <td>filepath_safe {WorkflowRender}</td>
+                <td style="text-align: right;">R Documentation</td>
+            </tr>
+        </table>
+
+        <h2><p>Create the file path safely</p></h2>
+
+        <h3>Description</h3>
+
+        
+
+        <h3>Usage</h3>
+
+        <div style="width: 100%; padding-left: 3%; color: black;">
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>filepath_safe</strong>(<i>dir</i>, <i>filename</i>,
+    <i>maxchars</i> = <span style='color: green;'>48</span>);</code></pre>
+        </div>
+
+        <h3>Arguments</h3>
+
+        <table>
+            
+        </table>
+
+
+        <h3 style="display: block;">Details</h3>
+
+        <p>this function will make a safe file path, by processing the file name string in process: 1. removes the unsafe character for windows filesystem 2. make the file name short if the file name string len exccede the max chars</p>
+
+        <h3 style="display: block">Authors</h3>
+
+        xieguigang
+
+        <h3>Value</h3>
+
+        <p>this function generates a new character vector based on the input dir and the filename for save a file safely.</p>
+
+        <h3 style="display: none;">Examples</h3>
+
+        
+
+        <hr />
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+                href="../WorkflowRender.html">Index</a>]
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
+<script type="text/javascript">r_highlights("example_r");</script>
+
+</html>
