@@ -36,8 +36,33 @@ const workspace = function(app) {
 
 #' Construct of the file path inside an app workspace
 #' 
-const workfile = function(app, relpath) {
-    file.path(workspace(app), relpath);
+#' @param app this app parameter value could be in 3 kinds 
+#'    of data type:
+#' 
+#'    1. app tuple list object, which is created via the ``app`` function.
+#'    2. the app name character vector
+#'    3. the workfile path expression, should be in format like: ``app://relpath/to/file.ext``
+#' 
+#' @details the workfile path expression is in format string of: ``app://filepath``,
+#'    example as ``getMzSet://mzset.txt``, where we could parse the reference information
+#'    from this character string: app name is ``getMzSet``, and the relpath data is
+#'    ``mzset.txt``. so, such configuation could be equals to the function invoke
+#'    of the workfile function: ``workfile("getMzSet", "/mzset.txt");``.
+#' 
+const workfile = function(app, relpath = NULL) {
+    if (is.empty(relpath)) {
+        if (is.character(app)) {
+            relpath <- __workfile_uri_parser(app);
+
+            # gets the internal workfile reference
+            # its physical file path
+            file.path(workspace(relpath$app), relpath$file);
+        } else {
+            throw_err("the given expression value should be an internal workfile path reference!");
+        }
+    } else {
+        file.path(workspace(app), relpath);
+    }
 }
 
 #' Get workspace root directory

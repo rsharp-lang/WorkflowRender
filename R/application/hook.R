@@ -8,6 +8,8 @@ const hook = function(app) {
     const symbolMap = context$symbols;
 
     if (is.function(app)) {
+        # build application module by parsing 
+        # the function metadata.
         app <- __build_app(f = app);
     }
 

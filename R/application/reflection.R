@@ -27,6 +27,8 @@ const __build_app = function(f) {
     }
 }
 
+#' parse the workfile expression
+#' 
 const __workfiles = function(files_uri) {
     const uri = lapply(files_uri, si -> __workfile_uri_parser(si));
     const app = uri@app;
@@ -41,6 +43,15 @@ const __workfiles = function(files_uri) {
     app_groups;
 }
 
+#' parse the workfile expression
+#' 
+#' @param uri a character vector that contains the workfile 
+#'    reference expression.
+#' 
+#' @return a tuple list object that contains the necessary 
+#'    parameter value for call ``workfile`` function for gets
+#'    the reference file path to the required data files.
+#' 
 const __workfile_uri_parser = function(uri) {
     # example as: 
     # app_name://file/path/to/file.txt
@@ -50,5 +61,6 @@ const __workfile_uri_parser = function(uri) {
         file = unlist(tuple)
     );
 
+    # app, file
     return(ref);
 }
