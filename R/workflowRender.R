@@ -67,6 +67,10 @@ const __runImpl = function(context, disables = list()) {
 
         if (!skip) {
             .internal_call(app, context);
+        } else {
+            if (verbose) {
+                print(`skip '${app$name}'!`);
+            }            
         }
 
         NULL;
@@ -95,6 +99,10 @@ const .internal_call = function(app, context) {
         # check success, then
         # run current data analysis node
         do.call(app$call, args = argv);
+
+        if (verbose) {
+            print(`done ~ '${app$name}' ...... ${time_span(now() - t0)}`);
+        }
     } else {
         # stop the workflow
         const context_err = dependency.context_env_missing(dependency$context);
