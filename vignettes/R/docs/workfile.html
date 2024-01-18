@@ -27,19 +27,23 @@
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>workfile</strong>(<i>app</i>, <i>relpath</i>);</code></pre>
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>workfile</strong>(<i>app</i>,
+    <i>relpath</i> = <span style='color: blue !important;'>NULL</span>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
 
         <table>
             
+<dt>app</dt>
+<dd><p><p>this app parameter value could be in 3 kinds of data type: 1. app tuple list object, which is created via the <code>app</code> function. 2. the app name character vector 3. the workfile path expression, should be in format like: <code>app://relpath/to/file.ext</code></p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>the workfile path expression is in format string of: <code>app://filepath</code>, example as <code>getMzSet://mzset.txt</code>, where we could parse the reference information from this character string: app name is <code>getMzSet</code>, and the relpath data is <code>mzset.txt</code>. so, such configuation could be equals to the function invoke of the workfile function: <code>workfile("getMzSet", "/mzset.txt");</code>.</p>
 
         <h3 style="display: block">Authors</h3>
 

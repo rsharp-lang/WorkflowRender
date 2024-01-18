@@ -138,8 +138,9 @@ declare namespace WorkflowRender {
    */
    function workdir_root(): object;
    /**
+     * @param relpath default value Is ``null``.
    */
-   function workfile(app: any, relpath: any): object;
+   function workfile(app: any, relpath?: any): object;
    /**
    */
    function workspace(app: any): object;
