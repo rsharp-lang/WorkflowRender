@@ -22,6 +22,14 @@ const set_config = function(configs = list()) {
 
 #' get user parameter value inside current workflow context environment
 #' 
+#' @param name a character vector of the parameter name
+#' @param default the default value for the parameter if missing from the 
+#'    workflow context environment.
+#' 
+#' @return the parameter value, maybe is object value in character type,
+#'    a type cast function expression invoke example as: 
+#'    ``as.logical``, ``as.double``, etc maybe required.
+#' 
 const get_config = function(name, default = NULL) {
     const ctx = .get_context();
 
