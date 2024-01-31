@@ -4,8 +4,9 @@
 #'    contains the workflow parameter values.
 #' 
 const set_config = function(configs = list()) {
-    const ctx = .get_context();
-    const cfg = {
+    let val = NULL;
+    let ctx = .get_context();
+    let cfg = {
         if (!("configs" in ctx)) {
             ctx$configs = list();
         }
@@ -14,7 +15,14 @@ const set_config = function(configs = list()) {
     }
 
     for(name in names(configs)) {
-        cfg[[name]] = configs[[name]];
+        val <- configs[[name]];
+        cfg[[name]] <- val;
+
+        if (is.null(val)) {
+            # list set NULL means delete element     
+            # add warning at here
+            echo_warning(`the config value of '${name}' is nothing!`);       
+        }        
     }
 
     invisible(NULL);
