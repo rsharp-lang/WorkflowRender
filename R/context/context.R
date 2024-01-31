@@ -56,6 +56,6 @@ const .get_context = function() {
     if (exists(workflow_render, globalenv())) {
         get(workflow_render, globalenv());
     } else {
-        stop("You must initialize the analysis context at first!");
+        .Internal::stop("You must initialize the analysis context at first!");
     }
 }

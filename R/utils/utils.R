@@ -29,7 +29,7 @@ const throw_err = function(msg) {
     print("workflow error:");
     print(msg);
 
-    stop(msg);
+    .Internal::stop(msg);
 }
 
 const get_timestamp = function() {
