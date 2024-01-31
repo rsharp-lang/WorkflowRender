@@ -7,14 +7,18 @@ get_config \- get_config(name,
     <i>default</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
-\fBname\fB \fR\- . 
+\fBname\fB \fR\- . a character vector of the parameter name
 .PP
 .PP
-\fBdefault\fB \fR\- NULL. 
+\fBdefault\fB \fR\- NULL. the default value for the parameter if missing from the workflow context environment.
+.PP
+.SH VALUE
+.PP
+the parameter value, maybe is object value in character type, a type cast function expression invoke example as: ``as.logical``, ``as.double``, etc maybe required.
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.get_config at set_config.R:line 25
+SMRUCC/R#.declare_function.get_config at set_config.R:line 33
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2024
