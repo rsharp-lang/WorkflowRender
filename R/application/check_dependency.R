@@ -71,7 +71,7 @@ const check_dependency.context_env = function(requires, context) {
         }
     }
 
-    if (length(err) == 0) {
+    if (length(err) <= 1) {
         NULL;
     } else {
         return(err);
