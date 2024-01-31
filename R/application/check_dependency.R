@@ -54,7 +54,9 @@ const check_dependency.context_env = function(requires, context) {
          'function': "function"
     };
     const env_symbols = names(env);
-    const err = list("environment_symbols(all)" = JSON::json_encode(env_symbols));
+    const err = list(
+        "environment_symbols(all)" = `[${paste(env_symbols, sep = ", ")}]`
+    );
 
     for(name in names(requires)) {
         const mark  = requires[[name]];
