@@ -53,7 +53,8 @@ const check_dependency.context_env = function(requires, context) {
           'logical': "logi", 
          'function': "function"
     };
-    const err = list();
+    const env_symbols = names(env);
+    const err = list("environment_symbols(all)" = JSON::json_encode(env_symbols));
 
     for(name in names(requires)) {
         const mark  = requires[[name]];
