@@ -21,6 +21,10 @@ const summary = function() {
 
 #' Extract the workflow analysis contents
 #' 
+#' @return a dataframe object that contains the workflow analysis 
+#'   modules information, example as the reference name, description, 
+#'   dependency information, etc.
+#' 
 const tabulate_workflow_summary = function(pool) {
     const names   = pool@name;
     const description = pool@desc;

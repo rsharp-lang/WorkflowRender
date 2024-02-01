@@ -18,6 +18,15 @@ const use_cache = function(filepath, create) {
 
 #' check the cache file is exists or not
 #' 
+#' @return a logical value for indicates the specific given file is 
+#' existed or not, for the filepath value in situations of:
+#' 
+#'  1. empty or null string value
+#'  2. file is not existed
+#'  3. file size is ZERO
+#' 
+#' will be determined as false.
+#' 
 const has_cachefile = function(filepath) {
     if (is.null(filepath)) {
         return(FALSE);
