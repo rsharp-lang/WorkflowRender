@@ -5,7 +5,9 @@ const dependency.context_env_missing = function(context) {
         "there is no runtime environment required context symbol is missing.";
     } else {
         paste([
-            `there are ${length(context)} required context symbol is missing or data type is mis-matched in the workflow:`,
+            # the first elements is all context symbols
+            # for debug used only
+            `there are ${length(context)-1} required context symbol is missing or data type is mis-matched in the workflow:`,
             JSON::json_encode(context)
         ], sep = " ");
     }
