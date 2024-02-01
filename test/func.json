@@ -1,0 +1,161 @@
+{
+    "type": "closure",
+    "expressionName": "FunctionDeclare",
+    "Namespace": "MSI",
+    "funcName": "spatial_singlecells",
+    "stackFrame": {
+        "Method": {
+            "Namespace": "SMRUCC\/R#",
+            "Module": "declare_function",
+            "Method": "spatial_singlecells"
+        },
+        "File": "spatial_singlecells.R",
+        "Line": "1"
+    },
+    "parameters": [
+        {
+            "names": [
+                "rawdata"
+            ],
+            "hasInitializeExpression": true,
+            "expressionName": "SymbolDeclare",
+            "type": "generic",
+            "symbolSize": 1,
+            "isTuple": false,
+            "value": {
+                "type": "NA",
+                "expressionName": "Literal",
+                "isNull": true,
+                "isNA": false,
+                "isNumeric": false,
+                "ValueStr": "",
+                "isCallable": false
+            },
+            "unit": null,
+            "stackFrame": {
+                "Method": {
+                    "Namespace": "SMRUCC\/R#_runtime",
+                    "Module": "n\/a",
+                    "Method": "rawdata"
+                },
+                "File": "spatial_singlecells.R",
+                "Line": "1"
+            },
+            "isCallable": false
+        },
+        {
+            "names": [
+                "outputdir"
+            ],
+            "hasInitializeExpression": true,
+            "expressionName": "SymbolDeclare",
+            "type": "generic",
+            "symbolSize": 1,
+            "isTuple": false,
+            "value": {
+                "type": "string",
+                "expressionName": "Literal",
+                "isNull": false,
+                "isNA": false,
+                "isNumeric": false,
+                "ValueStr": ".\/",
+                "isCallable": false
+            },
+            "unit": null,
+            "stackFrame": {
+                "Method": {
+                    "Namespace": "SMRUCC\/R#_runtime",
+                    "Module": "n\/a",
+                    "Method": "outputdir"
+                },
+                "File": "spatial_singlecells.R",
+                "Line": "1"
+            },
+            "isCallable": false
+        },
+        {
+            "names": [
+                "program"
+            ],
+            "hasInitializeExpression": true,
+            "expressionName": "SymbolDeclare",
+            "type": "generic",
+            "symbolSize": 1,
+            "isTuple": false,
+            "value": {
+                "type": "NA",
+                "expressionName": "Literal",
+                "isNull": true,
+                "isNA": false,
+                "isNumeric": false,
+                "ValueStr": "",
+                "isCallable": false
+            },
+            "unit": null,
+            "stackFrame": {
+                "Method": {
+                    "Namespace": "SMRUCC\/R#_runtime",
+                    "Module": "n\/a",
+                    "Method": "program"
+                },
+                "File": "spatial_singlecells.R",
+                "Line": "2"
+            },
+            "isCallable": false
+        },
+        {
+            "names": [
+                "args"
+            ],
+            "hasInitializeExpression": true,
+            "expressionName": "SymbolDeclare",
+            "type": "generic",
+            "symbolSize": 1,
+            "isTuple": false,
+            "value": {
+                "funcName": {
+                    "type": "string",
+                    "expressionName": "Literal",
+                    "isNull": false,
+                    "isNA": false,
+                    "isNumeric": false,
+                    "ValueStr": "Read_parameters",
+                    "isCallable": false
+                },
+                "stackFrame": {
+                    "Method": {
+                        "Namespace": "SMRUCC\/R#",
+                        "Module": "call_function",
+                        "Method": "\"Read_parameters\"(...)"
+                    },
+                    "File": "spatial_singlecells.R",
+                    "Line": "3"
+                },
+                "expressionName": "FunctionCall",
+                "namespace": null,
+                "type": "generic",
+                "parameters": [],
+                "isCallable": false
+            },
+            "unit": null,
+            "stackFrame": {
+                "Method": {
+                    "Namespace": "SMRUCC\/R#_runtime",
+                    "Module": "n\/a",
+                    "Method": "args"
+                },
+                "File": "spatial_singlecells.R",
+                "Line": "3"
+            },
+            "isCallable": false
+        }
+    ],
+    "body": {
+        "type": "closure",
+        "expressionName": "ClosureDeclare",
+        "isEmpty": true,
+        "bodySize": 0,
+        "isCallable": false
+    },
+    "isCallable": true
+}
