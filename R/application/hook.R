@@ -6,8 +6,14 @@ const hook = function(app) {
     const context   = .get_context();
     const pool      = context$workflow;
     const symbolMap = context$symbols;
+    const verbose   = as.logical(getOption("verbose"));
 
     if (is.function(app)) {
+        if (verbose) {
+            print("register a function as the application module:");
+            print(app);
+        }
+
         # build application module by parsing 
         # the function metadata.
         app <- __build_app(f = app);

@@ -16,6 +16,12 @@ const __build_app = function(f) {
     let workfiles = attrs$workfiles;
     
     if (nchar(app_name) == 0) {
+        echo_warning([
+            "invalid application function configuration was found:", 
+            JSON::json_encode(attrs), 
+            JSON::json_encode(f)
+        ]);
+        
         return(NULL);
     } else {
         app(app_name, analysis = f, 
