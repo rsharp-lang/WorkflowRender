@@ -13,18 +13,26 @@ const hook = function(app) {
         app <- __build_app(f = app);
     }
 
+    const app_name = app$name;
+
+    if (nchar(app_name) == 0) {
+        print("We found that an application module has in-correct configuration:");
+        str(app);
+        throw_err("workflow app name could not be empty!");
+    }
+
     if (!app_check.signature(app)) {
         throw_err([
             "invalid app object signature", 
             "you sould construct the app module via the 'app' function!"
         ]);
     } else {
-        pool[[app$name]] = app;
-        symbolMap[[get_functionName(app$call)]] = app$name;
+        pool[[app_name]] = app;
+        symbolMap[[get_functionName(app$call)]] = app_name;
     }
 
     # turn on/activate current analysis app by default
-    context$pipeline = append(context$pipeline, app$name);
+    context$pipeline = append(context$pipeline, app_name);
     context$symbols  = symbolMap; 
 
     # update the global context symbol
