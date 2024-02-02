@@ -44,9 +44,27 @@ const get_config = function(name, default = NULL) {
     if (!("configs" in ctx)) {
         NULL;
     } else {
-        const env = ctx$configs;
-        const result = env[[name]];
+        const path = strsplit(name, "$", fixed = TRUE);
+        const verbose = as.logical(getOption("verbose"));
 
-        result || default;
+        if (verbose) {
+            if (length(path) > 1) {
+                print(`get configuration from path: ${paste(path, sep = " -> ")}`);
+            } else {
+                print(`get configuation via a key: ${name}`);
+            }
+        }
+
+        let config = ctx$configs;
+
+        for(name in path) {
+            if (name in config) {
+                config = config[[name]];
+            } else {
+                return(default);
+            }
+        }
+
+        return(config || default);
     }
 }
