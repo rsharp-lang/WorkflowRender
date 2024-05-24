@@ -2,6 +2,8 @@
 #'
 #' @param app the app object which is generated via the ``app`` function
 #' 
+#' @details the application module will be add to the ``context$workflow`` tuple list.
+#' 
 const hook = function(app) {
     const context   = .get_context();
     const pool      = context$workflow;
