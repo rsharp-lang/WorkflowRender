@@ -1,7 +1,9 @@
 #' try to extract the dependency graph from the application modules
 #' 
-const dependency_graph = function() {
+const dependency_graph = function(mounts) {
     require(igraph);
+
+    WorkflowRender::create_memory_context(mounts);
 
     let context = .get_context();
     let appList = context$workflow;
