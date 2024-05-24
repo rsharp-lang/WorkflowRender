@@ -19,6 +19,10 @@ const dependency_graph = function() {
 }
 
 const dependency_analysis = function(app) {
-    str(app);
-    stop();
+    list(
+        id = app$name,
+        label = app$desc,
+        pars = names(app$contex_env),
+        input_files = unlist(app$tempfiles)
+    );
 }
