@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title><p>Add workflow app component into the registry</p></title>
+    <title><p>try to extract the dependency graph from the application modules</p></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -13,12 +13,12 @@
 
         <table style="width: 100%;">
             <tr>
-                <td>hook {WorkflowRender}</td>
+                <td>dependency_graph {WorkflowRender}</td>
                 <td style="text-align: right;">R Documentation</td>
             </tr>
         </table>
 
-        <h2><p>Add workflow app component into the registry</p></h2>
+        <h2><p>try to extract the dependency graph from the application modules</p></h2>
 
         <h3>Description</h3>
 
@@ -27,22 +27,19 @@
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>hook</strong>(<i>app</i>);</code></pre>
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>dependency_graph</strong>();</code></pre>
         </div>
 
         <h3>Arguments</h3>
 
         <table>
             
-<dt>app</dt>
-<dd><p><p>the app object which is generated via the <code>app</code> function</p></p></dd>
-
         </table>
 
 
-        <h3 style="display: block;">Details</h3>
+        <h3 style="display: none;">Details</h3>
 
-        <p>the application module will be add to the <code>context$workflow</code> tuple list.</p>
+        
 
         <h3 style="display: block">Authors</h3>
 

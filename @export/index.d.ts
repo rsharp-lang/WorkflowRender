@@ -51,6 +51,10 @@ declare namespace WorkflowRender {
       function localfiles(requires: any, context: any): object;
    }
    /**
+     * @param mounts default value Is ``null``.
+   */
+   function create_memory_context(mounts?: any): object;
+   /**
    */
    function definePipeline(seq: any): object;
    module dependency {
@@ -61,6 +65,12 @@ declare namespace WorkflowRender {
       */
       function workfiles_missing(file: any): object;
    }
+   /**
+   */
+   function dependency_analysis(app: any): object;
+   /**
+   */
+   function dependency_graph(): object;
    /**
      * @param app default value Is ``null``.
    */
