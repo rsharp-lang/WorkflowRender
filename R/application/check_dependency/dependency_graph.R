@@ -59,7 +59,7 @@ const dependency_graph = function() {
         let app_id = md5(`app_${app$id}`); # target node
         let files = app$input_files;
 
-        for(name in meta$pars) {         
+        for(name in app$pars) {         
             # u -> v
             graph |> add.edge(u = md5(name), v = app_id);
         }
