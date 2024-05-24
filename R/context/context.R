@@ -45,7 +45,10 @@ const init_context = function(outputdir = "./") {
 
 #' create an in-memory context object just used for run debug
 #' 
-const create_memory_context = function() {
+#' @param mounts should be a callable function for mounts the 
+#'    application modules into the workflow registry.
+#' 
+const create_memory_context = function(mounts = NULL) {
     set(globalenv(), __global_ctx, list(
         root     = NULL,  # set all workspace to empty
         analysis = NULL,
@@ -55,6 +58,10 @@ const create_memory_context = function() {
         pipeline = [],
         symbols  = list()
     ));
+
+    if (!is.null(mounts)) {
+        mounts();
+    }
 }
 
 const __global_ctx = "&[workflow_render]";
