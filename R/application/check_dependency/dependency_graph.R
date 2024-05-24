@@ -56,8 +56,26 @@ const dependency_graph = function() {
     }
 
     for(app in pool) {
+        let app_id = md5(`app_${app$id}`); # target node
+        let files = app$input_files;
 
+        for(name in meta$pars) {         
+            # u -> v
+            graph |> add.edge(u = md5(name), v = app_id);
+        }
+        for(app_name in names(files)) {
+            let filenames = files[[app_name]];
+
+            for(file in filenames) {
+                graph |> add.edge(
+                    u = md5(`${app_name}://${file}`), 
+                    v = app_id
+                ); 
+            }
+        }
     }
+
+    return(graph);
 }
 
 const extract_workflow_vertex = function(meta) {
