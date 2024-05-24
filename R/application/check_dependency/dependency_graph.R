@@ -69,7 +69,8 @@ const dependency_graph = function() {
             for(file in filenames) {
                 graph |> add.edge(
                     u = md5(`${app_name}://${file}`), 
-                    v = app_id
+                    v = app_id,
+                    weight = 1
                 ); 
             }
         }
