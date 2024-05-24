@@ -43,6 +43,20 @@ const init_context = function(outputdir = "./") {
     invisible(NULL);
 }
 
+#' create an in-memory context object just used for run debug
+#' 
+const create_memory_context = function() {
+    set(globalenv(), __global_ctx, list(
+        root     = NULL,  # set all workspace to empty
+        analysis = NULL,
+        temp_dir = NULL,
+        t0       = now(),
+        workflow = list(),
+        pipeline = [],
+        symbols  = list()
+    ));
+}
+
 const __global_ctx = "&[workflow_render]";
 
 #' get current workflow environment context
