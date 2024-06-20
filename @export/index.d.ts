@@ -70,11 +70,14 @@ declare namespace WorkflowRender {
    function dependency_analysis(app: any): object;
    /**
    */
-   function dependency_graph(): object;
+   function dependency_graph(mounts: any): object;
    /**
      * @param app default value Is ``null``.
    */
    function echo_warning(msg: any, app?: any): object;
+   /**
+   */
+   function extract_workflow_vertex(meta: any): object;
    /**
      * @param maxchars default value Is ``48``.
    */
@@ -114,6 +117,9 @@ declare namespace WorkflowRender {
    */
    function init_context(outputdir?: any): object;
    invalid_app_target: any;
+   /**
+   */
+   function pull_configs(): object;
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.

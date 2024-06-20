@@ -1,18 +1,18 @@
-﻿.TH SET_DEPENDENCY 1 2024-May "" "function for create application dependency data"
+﻿.TH SET_DEPENDENCY 1 2024-Jun "" "function for create application dependency data"
 .SH NAME
 set_dependency \- set_dependency(
-    <i>context.env</i> = list(),
-    <i>workfiles</i> = list())
+    <i>context.env</i> = 'list'(),
+    <i>workfiles</i> = 'list'())
 .SH SYNOPSIS
 \fIset_dependency(
-    <i>context.env</i> = list(),
-    <i>workfiles</i> = list())\fR
+    <i>context.env</i> = 'list'(),
+    <i>workfiles</i> = 'list'())\fR
 .SH OPTIONS
 .PP
-\fBcontext.env\fB \fR\- list(). 
+\fBcontext.env\fB \fR\- 'list'(). 
 .PP
 .PP
-\fBworkfiles\fB \fR\- list(). a set of the required temp result files in the workflow the format of this parameter value is a tuple list of the file path, where the key name is the app name and the corresponding tuple list value is a character vector of the required multiple reference temp file. the data format of this parameter would be: list(app1 = [file1, file2, ...], app2 = file3, ...)
+\fBworkfiles\fB \fR\- 'list'(). a set of the required temp result files in the workflow the format of this parameter value is a tuple list of the file path, where the key name is the app name and the corresponding tuple list value is a character vector of the required multiple reference temp file. the data format of this parameter would be: list(app1 = [file1, file2, ...], app2 = file3, ...)
 .PP
 .SH DETAILS
 .PP
