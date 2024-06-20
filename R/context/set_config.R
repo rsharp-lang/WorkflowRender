@@ -39,32 +39,38 @@ const set_config = function(configs = list()) {
 #'    ``as.logical``, ``as.double``, etc maybe required.
 #' 
 const get_config = function(name, default = NULL) {
-    const ctx = .get_context();
+    const path    = strsplit(name, "$", fixed = TRUE);
+    const verbose = as.logical(getOption("verbose"));
+
+    if (verbose) {
+        if (length(path) > 1) {
+            print(`get configuration from path: ${paste(path, sep = " -> ")}`);
+        } else {
+            print(`get configuation via a key: ${name}`);
+        }
+    }
+
+    let config = pull_configs();
+
+    for(name in path) {
+        if (name in config) {
+            config = config[[name]];
+        } else {
+            return(default);
+        }
+    }
+
+    return(config || default);
+}
+
+#' pull all configuration value from workflow registry
+#' 
+const pull_configs = function() {
+    let ctx = .get_context();
 
     if (!("configs" in ctx)) {
-        NULL;
+        list();
     } else {
-        const path = strsplit(name, "$", fixed = TRUE);
-        const verbose = as.logical(getOption("verbose"));
-
-        if (verbose) {
-            if (length(path) > 1) {
-                print(`get configuration from path: ${paste(path, sep = " -> ")}`);
-            } else {
-                print(`get configuation via a key: ${name}`);
-            }
-        }
-
-        let config = ctx$configs;
-
-        for(name in path) {
-            if (name in config) {
-                config = config[[name]];
-            } else {
-                return(default);
-            }
-        }
-
-        return(config || default);
+        ctx$configs;
     }
 }
