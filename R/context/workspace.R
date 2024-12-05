@@ -56,12 +56,12 @@ const workfile = function(app, relpath = NULL) {
 
             # gets the internal workfile reference
             # its physical file path
-            file.path(workspace(relpath$app), relpath$file);
+            file.path(WorkflowRender::workspace(relpath$app), relpath$file);
         } else {
             throw_err("the given expression value should be an internal workfile path reference!");
         }
     } else {
-        file.path(workspace(app), relpath);
+        file.path(WorkflowRender::workspace(app), relpath);
     }
 }
 
