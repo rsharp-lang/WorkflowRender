@@ -1,16 +1,21 @@
 ﻿.TH GET_CONFIG 1 2024-Dec "" "get user parameter value inside current workflow context environment"
 .SH NAME
 get_config \- get_config(name,
-    <i>default</i> = <span style='color: blue !important;'>NULL</span>)
+    <i>default</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>warn.msg</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIget_config(name,
-    <i>default</i> = <span style='color: blue !important;'>NULL</span>)\fR
+    <i>default</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>warn.msg</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
 \fBname\fB \fR\- . a character vector of the parameter name
 .PP
 .PP
 \fBdefault\fB \fR\- NULL. the default value for the parameter if missing from the workflow context environment.
+.PP
+.PP
+\fBwarn.msg\fB \fR\- NULL. 
 .PP
 .SH VALUE
 .PP

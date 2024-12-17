@@ -98,8 +98,9 @@ declare namespace WorkflowRender {
    }
    /**
      * @param default default value Is ``null``.
+     * @param warn_msg default value Is ``null``.
    */
-   function get_config(name: any, default?: any): object;
+   function get_config(name: any, default?: any, warn_msg?: any): object;
    /**
    */
    function get_functionName(f: any): object;
