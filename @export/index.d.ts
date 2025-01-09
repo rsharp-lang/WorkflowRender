@@ -122,6 +122,9 @@ declare namespace WorkflowRender {
    */
    function pull_configs(): object;
    /**
+   */
+   function result_dir(): object;
+   /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
    */

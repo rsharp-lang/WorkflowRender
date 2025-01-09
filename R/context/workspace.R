@@ -73,3 +73,11 @@ const workfile = function(app, relpath = NULL) {
 const workdir_root = function() {
     .get_context()$root;
 }
+
+#' get directory folder path for the analysis output result
+#' 
+#' @details a character vector of the analysis result output directory.
+#' 
+const result_dir = function() {
+    .get_context()$analysis;
+}
