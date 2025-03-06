@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Invoke an analysis application</title>
+    <title>@title Invoke an Analysis Application (Internal Function)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="https://rdocumentation.rsharp.net/assets/page.css">
@@ -18,11 +18,11 @@
             </tr>
         </table>
 
-        <h2>Invoke an analysis application</h2>
+        <h2>@title Invoke an Analysis Application (Internal Function)</h2>
 
         <h3>Description</h3>
 
-        
+        <p>This internal function executes an analysis application after validating its dependencies. It handles application execution, error reporting, and performance profiling.</p>
 
         <h3>Usage</h3>
 
@@ -34,12 +34,19 @@
 
         <table>
             
+<dt>app</dt>
+<dd><p><p>A list defining the analysis application. Must contain: - `name`: (character) Name of the application (for logging). - `call`: (function) The function to execute the application logic. - `profiler`: (list) Stores performance metrics (e.g., execution time).</p></p></dd>
+
+
+<dt>context</dt>
+<dd><p><p>A list or environment providing runtime context, such as input data paths, environment variables, or configuration settings required by the application.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <h3>Key Steps: 1. ​<strong>Dependency Check<em></em>: Validates if required context variables and files exist via `check<em>dependency(app, context)`. - If dependencies are met, proceeds to execute the application. - If dependencies are missing, throws an error with detailed missing resources. 2. ​**Execution**: - Logs start/end timestamps if `options(verbose = TRUE)`. - Executes `app$call` with arguments `app` and `context` using `do.call()`. 3. ​**Error Handling**: - Aggregates missing dependencies into readable error messages. - Calls `throw</em>err()` to terminate the workflow and report issues. 4. ​<em></em>Profiling</strong>: Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.</h3>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,7 +54,7 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution time metrics and may modify the `context` during execution.</p>
 
         <h3 style="display: none;">Examples</h3>
 

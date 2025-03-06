@@ -1,20 +1,32 @@
-﻿.TH __RUNIMPL 1 2025-Mar "" "An internal function for start the workflow"
+﻿.TH __RUNIMPL 1 2025-Mar "internal" "Internal Workflow Execution Engine"
 .SH NAME
 __runImpl \- __runImpl(context,
     <i>disables</i> = 'list'())
 .SH SYNOPSIS
 \fI__runImpl(context,
     <i>disables</i> = 'list'())\fR
+.SH DESCRIPTION
+.PP
+An internal function that drives the execution of a modular workflow. It sequentially processes analysis modules according to the pipeline configuration while respecting disablement rules.
+.PP
 .SH OPTIONS
 .PP
-\fBcontext\fB \fR\- . 
+\fBcontext\fB \fR\- . A workflow context object containing: \itemize{ \item{pipeline - character vector of module execution order} \item{workflow - list of module definitions} }
 .PP
 .PP
-\fBdisables\fB \fR\- 'list'(). 
+\fBdisables\fB \fR\- 'list'(). A named list specifying module disablement status. Format: `list(module_name = TRUE/FALSE)`. Modules with TRUE will be skipped.
+.PP
+.SH VALUE
+.PP
+Invisibly returns NULL. Modifies the workflow context object in-place through module executions.
+.PP
+.SH DETAILS
+.PP
+This function: \enumerate{ \item Retrieves module execution order from `context$pipeline` \item Checks disablement status through two mechanisms: \itemize{ \item Explicit disablement via `disables` parameter \item Module's own `disable` property (set by upstream modules) } \item Executes non-disabled modules using `.internal_call()` \item Provides verbose logging when `options(verbose=TRUE)` } The workflow context is modified in-place by module execution.
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.__runImpl at workflowRender.R:line 37
+SMRUCC/R#.declare_function.__runImpl at workflowRender.R:line 76
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025
