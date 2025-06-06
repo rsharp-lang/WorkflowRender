@@ -1,17 +1,22 @@
 ﻿.TH CREATE_MEMORY_CONTEXT 1 2025-Jun "" "create an in-memory context object just used for run debug"
 .SH NAME
 create_memory_context \- create_memory_context(
-    <i>mounts</i> = <span style='color: blue !important;'>NULL</span>)
+    <i>mounts</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIcreate_memory_context(
-    <i>mounts</i> = <span style='color: blue !important;'>NULL</span>)\fR
+    <i>mounts</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
 \fBmounts\fB \fR\- NULL. should be a callable function for mounts the application modules into the workflow registry.
 .PP
+.PP
+\fBssid\fB \fR\- NULL. 
+.PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.create_memory_context at context.R:line 51
+SMRUCC/R#.declare_function.create_memory_context at context.R:line 53
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025

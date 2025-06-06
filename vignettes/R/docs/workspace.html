@@ -5,7 +5,7 @@
     <title>get app workspace location</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-    <link rel="stylesheet" type="text/css" href="https://rdocumentation.rsharp.net/assets/page.css">
+    <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
 </head>
 
 <body>
@@ -27,15 +27,16 @@
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>workspace</strong>(<i>app</i>);</code></pre>
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>workspace</strong>(<i>app</i>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
 
         <table>
             
-<dt>app</dt>
-<dd><p><p>the app list object or just the app name its character text value.</p></p></dd>
+<dt>ssid</dt>
+<dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
 
         </table>
 
@@ -63,8 +64,8 @@
     </div>
 </body>
 
-<script type="text/javascript" src="https://rdocumentation.rsharp.net/assets/R_syntax.js"></script>
-<script type="text/javascript" src="https://rdocumentation.rsharp.net/assets/highlights.js"></script>
+<script type="text/javascript" src="../../_assets/R_syntax.js"></script>
+<script type="text/javascript" src="../../_assets/highlights.js"></script>
 <script type="text/javascript">r_highlights("example_r");</script>
 
 </html>

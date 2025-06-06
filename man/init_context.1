@@ -1,13 +1,18 @@
 ﻿.TH INIT_CONTEXT 1 2025-Jun "" "This function should be call at first"
 .SH NAME
 init_context \- init_context(
-    <i>outputdir</i> = <span style='color: brown;'><strong>'./'</strong></span>)
+    <i>outputdir</i> = <span style='color: brown;'><strong>'./'</strong></span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIinit_context(
-    <i>outputdir</i> = <span style='color: brown;'><strong>'./'</strong></span>)\fR
+    <i>outputdir</i> = <span style='color: brown;'><strong>'./'</strong></span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
-\fBoutputdir\fB \fR\- './'. the directory path to the workflow analysis workspace, default path value is current directory.
+\fBoutputdir\fB \fR\- './'. 
+.PP
+.PP
+\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
 .PP
 .SH VALUE
 .PP
@@ -19,7 +24,7 @@ for construct of the runtime environment, the generated context environment for 
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.init_context at context.R:line 27
+SMRUCC/R#.declare_function.init_context at context.R:line 28
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025

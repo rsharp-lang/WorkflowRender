@@ -1,11 +1,16 @@
 ﻿.TH WORKSPACE 1 2025-Jun "" "get app workspace location"
 .SH NAME
-workspace \- workspace(app)
+workspace \- workspace(app,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
-\fIworkspace(app)\fR
+\fIworkspace(app,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . the app list object or just the app name its character text value.
+\fBapp\fB \fR\- . 
+.PP
+.PP
+\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
 .PP
 .SH VALUE
 .PP
@@ -17,7 +22,7 @@ the verbose option could be config from the commandline option: ``--verbose``
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.workspace at workspace.R:line 13
+SMRUCC/R#.declare_function.workspace at workspace.R:line 14
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025

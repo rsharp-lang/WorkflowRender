@@ -1,16 +1,25 @@
 ﻿.TH WORKFILE 1 2025-Jun "" "Construct of the file path inside an app workspace"
 .SH NAME
 workfile \- workfile(app,
-    <i>relpath</i> = <span style='color: blue !important;'>NULL</span>)
+    <i>relpath</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIworkfile(app,
-    <i>relpath</i> = <span style='color: blue !important;'>NULL</span>)\fR
+    <i>relpath</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . this app parameter value could be in 3 kinds of data type: 1. app tuple list object, which is created via the ``app`` function. 2. the app name character vector 3. the workfile path expression, should be in format like: ``app://relpath/to/file.ext``
+\fBapp\fB \fR\- . 
 .PP
 .PP
 \fBrelpath\fB \fR\- NULL. 
+.PP
+.PP
+\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+.PP
+.SH VALUE
+.PP
+the data file path of the required reference file inside this workflow
 .PP
 .SH DETAILS
 .PP
@@ -18,7 +27,7 @@ the workfile path expression is in format string of: ``app://filepath``, example
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.workfile at workspace.R:line 52
+SMRUCC/R#.declare_function.workfile at workspace.R:line 56
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025

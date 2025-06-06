@@ -5,8 +5,9 @@
 declare namespace WorkflowRender {
    module _ {
       /**
+        * @param ssid default value Is ``null``.
       */
-      function get_context(): object;
+      function get_context(ssid?: any): object;
       /**
       */
       function internal_call(app: any, context: any): object;
@@ -52,8 +53,9 @@ declare namespace WorkflowRender {
    }
    /**
      * @param mounts default value Is ``null``.
+     * @param ssid default value Is ``null``.
    */
-   function create_memory_context(mounts?: any): object;
+   function create_memory_context(mounts?: any, ssid?: any): object;
    /**
    */
    function definePipeline(seq: any): object;
@@ -73,8 +75,9 @@ declare namespace WorkflowRender {
    function dependency_graph(mounts: any): object;
    /**
      * @param app default value Is ``null``.
+     * @param ssid default value Is ``null``.
    */
-   function echo_warning(msg: any, app?: any): object;
+   function echo_warning(msg: any, app?: any, ssid?: any): object;
    /**
    */
    function extract_workflow_vertex(meta: any): object;
@@ -83,8 +86,9 @@ declare namespace WorkflowRender {
    */
    function filepath_safe(dir: any, filename: any, maxchars?: any): object;
    /**
+     * @param ssid default value Is ``null``.
    */
-   function finalize(): object;
+   function finalize(ssid?: any): object;
    /**
    */
    function get_app_name(app: any): object;
@@ -115,15 +119,17 @@ declare namespace WorkflowRender {
    function hook(app: any): object;
    /**
      * @param outputdir default value Is ``./``.
+     * @param ssid default value Is ``null``.
    */
-   function init_context(outputdir?: any): object;
+   function init_context(outputdir?: any, ssid?: any): object;
    invalid_app_target: any;
    /**
    */
    function pull_configs(): object;
    /**
+     * @param ssid default value Is ``null``.
    */
-   function result_dir(): object;
+   function result_dir(ssid?: any): object;
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
@@ -155,13 +161,16 @@ declare namespace WorkflowRender {
    */
    function use_cache(filepath: any, create: any): object;
    /**
+     * @param ssid default value Is ``null``.
    */
-   function workdir_root(): object;
+   function workdir_root(ssid?: any): object;
    /**
      * @param relpath default value Is ``null``.
+     * @param ssid default value Is ``null``.
    */
-   function workfile(app: any, relpath?: any): object;
+   function workfile(app: any, relpath?: any, ssid?: any): object;
    /**
+     * @param ssid default value Is ``null``.
    */
-   function workspace(app: any): object;
+   function workspace(app: any, ssid?: any): object;
 }

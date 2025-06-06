@@ -5,10 +5,6 @@ __runImpl \- __runImpl(context,
 .SH SYNOPSIS
 \fI__runImpl(context,
     <i>disables</i> = 'list'())\fR
-.SH DESCRIPTION
-.PP
-An internal function that drives the execution of a modular workflow. It sequentially processes analysis modules according to the pipeline configuration while respecting disablement rules.
-.PP
 .SH OPTIONS
 .PP
 \fBcontext\fB \fR\- . A workflow context object containing: \itemize{ \item{pipeline - character vector of module execution order} \item{workflow - list of module definitions} }
@@ -24,6 +20,8 @@ Invisibly returns NULL. Modifies the workflow context object in-place through mo
 .PP
 This function: \enumerate{ \item Retrieves module execution order from `context$pipeline` \item Checks disablement status through two mechanisms: \itemize{ \item Explicit disablement via `disables` parameter \item Module's own `disable` property (set by upstream modules) } \item Executes non-disabled modules using `.internal_call()` \item Provides verbose logging when `options(verbose=TRUE)` } The workflow context is modified in-place by module execution.
 .PP
+.SH SEE ALSO
+\code{\link{.internal_call}} for module execution logic
 .SH FILES
 .PP
 SMRUCC/R#.declare_function.__runImpl at workflowRender.R:line 76

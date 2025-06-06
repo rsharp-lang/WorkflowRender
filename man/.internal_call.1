@@ -1,4 +1,4 @@
-﻿.TH .INTERNAL_CALL 1 2025-Jun "internal" "@title Invoke an Analysis Application (Internal Function)"
+﻿.TH .INTERNAL_CALL 1 2025-Jun "internal" ".internal_call"
 .SH NAME
 .internal_call \- .internal_call(app, context)
 .SH SYNOPSIS
@@ -21,6 +21,10 @@ Invisibly returns `NULL`. The function primarily updates `app$profiler` with exe
 .SH DETAILS
 .PP
 ### Key Steps: 1. ​**Dependency Check**: Validates if required context variables and files exist via `check_dependency(app, context)`. - If dependencies are met, proceeds to execute the application. - If dependencies are missing, throws an error with detailed missing resources. 2. ​**Execution**: - Logs start/end timestamps if `options(verbose = TRUE)`. - Executes `app$call` with arguments `app` and `context` using `do.call()`. 3. ​**Error Handling**: - Aggregates missing dependencies into readable error messages. - Calls `throw_err()` to terminate the workflow and report issues. 4. ​**Profiling**: Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.
+.PP
+.SH EXAMPLES
+.PP
+\dontrun{ # Define a sample application app <- list( name = "demo_analysis", call = function(argv) { print(paste("Running:", argv$app$name)) }, profiler = list() ) # Execute with context .internal_call(app, context = list()) }
 .PP
 .SH FILES
 .PP
