@@ -5,7 +5,8 @@
 #' @details the application module will be add to the ``context$workflow`` tuple list.
 #' 
 const hook = function(app) {
-    const context   = .get_context();
+    const ssid      = NULL;
+    const context   = .get_context(ssid);
     const pool      = context$workflow;
     const symbolMap = context$symbols;
     const verbose   = as.logical(getOption("verbose"));
@@ -44,7 +45,7 @@ const hook = function(app) {
     context$symbols  = symbolMap; 
 
     # update the global context symbol
-    set(globalenv(), __global_ctx, context);
+    set(globalenv(), paste([ __global_ctx,ssid],sep="-"), context);
 
     invisible(NULL);
 }

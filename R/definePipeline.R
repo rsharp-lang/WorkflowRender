@@ -4,9 +4,11 @@
 #' 
 const definePipeline = function(seq) {
     const ctx = .get_context();
+    const ssid = NULL;
+
     ctx$pipeline = seq;
     # update the global context symbol
-    set(globalenv(), __global_ctx, ctx);
+    set(globalenv(), paste([__global_ctx,ssid],sep ="-"), ctx);
 
     invisible(NULL);
 }

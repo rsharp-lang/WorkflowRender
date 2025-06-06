@@ -3,16 +3,17 @@
 #' 
 #' @param app the app list object or just the app name its 
 #'    character text value.
-#'
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
+#' 
 #' @return a character vector of the workspace directory path
 #'    of the specific analysis application. 
 #' 
 #' @details the verbose option could be config from the 
 #'    commandline option: ``--verbose``
 #'
-const workspace = function(app) {
+const workspace = function(app, ssid = NULL) {
     const verbose   = as.logical(getOption("verbose"));
-    const context   = .get_context();
+    const context   = .get_context(ssid);
     const temp_root = context$temp_dir;
     const app_name  = get_app_name(app);
     const workdir   = normalizePath(`${temp_root}/workflow_tmp/${app_name}/`);
@@ -42,6 +43,9 @@ const workspace = function(app) {
 #'    1. app tuple list object, which is created via the ``app`` function.
 #'    2. the app name character vector
 #'    3. the workfile path expression, should be in format like: ``app://relpath/to/file.ext``
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
+#' 
+#' @return the data file path of the required reference file inside this workflow 
 #' 
 #' @details the workfile path expression is in format string of: ``app://filepath``,
 #'    example as ``getMzSet://mzset.txt``, where we could parse the reference information
@@ -49,35 +53,37 @@ const workspace = function(app) {
 #'    ``mzset.txt``. so, such configuation could be equals to the function invoke
 #'    of the workfile function: ``workfile("getMzSet", "/mzset.txt");``.
 #' 
-const workfile = function(app, relpath = NULL) {
+const workfile = function(app, relpath = NULL, ssid = NULL) {
     if (is.empty(relpath)) {
         if (is.character(app)) {
             relpath <- __workfile_uri_parser(app);
 
             # gets the internal workfile reference
             # its physical file path
-            file.path(WorkflowRender::workspace(relpath$app), relpath$file);
+            file.path(WorkflowRender::workspace(relpath$app, ssid), relpath$file);
         } else {
             throw_err("the given expression value should be an internal workfile path reference!");
         }
     } else {
-        file.path(WorkflowRender::workspace(app), relpath);
+        file.path(WorkflowRender::workspace(app, ssid), relpath);
     }
 }
 
 #' Get workspace root directory
 #'
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
 #' @details actually this function will returns the ``output`` dir 
 #'    path which is set via the ``init_context`` function
 #' 
-const workdir_root = function() {
-    .get_context()$root;
+const workdir_root = function(ssid = NULL) {
+    .get_context(ssid)$root;
 }
 
 #' get directory folder path for the analysis output result
 #' 
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
 #' @details a character vector of the analysis result output directory.
 #' 
-const result_dir = function() {
-    .get_context()$analysis;
+const result_dir = function(ssid = NULL) {
+    .get_context(ssid)$analysis;
 }

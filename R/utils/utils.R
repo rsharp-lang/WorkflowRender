@@ -4,8 +4,8 @@
 #' @param msg a character vector of the warning message that this
 #'    workflow produced.
 #'
-const echo_warning = function(msg, app = NULL) {
-    const warning_log = `${.get_context()$temp_dir}/warning`;
+const echo_warning = function(msg, app = NULL, ssid = NULL) {
+    const warning_log = `${.get_context(ssid)$temp_dir}/warning`;
     const link = file(warning_log, "append");
     const app_name = get_app_name(app);
 

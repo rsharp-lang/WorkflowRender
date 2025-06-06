@@ -2,6 +2,7 @@
 #'
 #' @param outputdir the directory path to the workflow analysis workspace,
 #'    default path value is current directory.
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
 #' 
 #' @return this function has no return value. and the constructed 
 #'   analysis environment context object will be saved in the 
@@ -24,7 +25,7 @@
 #'                ``app`` function. 
 #'   6. pipeline: a character vector for run the application workflow.
 #' 
-const init_context = function(outputdir = "./") {
+const init_context = function(outputdir = "./", ssid = NULL) {
     const analysis_output = normalizePath(`${outputdir}/analysis/`);
     const temp_dir = normalizePath(`${outputdir}/tmp/`);
     const context = list(
@@ -38,18 +39,19 @@ const init_context = function(outputdir = "./") {
     );
 
     sink(file = `${temp_dir}/run_analysis-${get_timestamp()}.log`);
-    set(globalenv(), __global_ctx, context);
+    set(globalenv(), paste([__global_ctx,ssid], sep = "-"), context);
 
     invisible(NULL);
 }
 
 #' create an in-memory context object just used for run debug
 #' 
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
 #' @param mounts should be a callable function for mounts the 
 #'    application modules into the workflow registry.
 #' 
-const create_memory_context = function(mounts = NULL) {
-    set(globalenv(), __global_ctx, list(
+const create_memory_context = function(mounts = NULL,ssid = NULL) {
+    set(globalenv(), paste( [__global_ctx,ssid], sep ="-"), list(
         root     = NULL,  # set all workspace to empty
         analysis = NULL,
         temp_dir = NULL,
@@ -68,11 +70,13 @@ const __global_ctx = "&[workflow_render]";
 
 #' get current workflow environment context
 #' 
+#' @param ssid the session id for multiple user environment, default NULL means global user environment
+#' 
 #' @return the context object which is generated via the 
 #'    ``init_context`` function.
 #'
-const .get_context = function() {
-    const workflow_render as string = __global_ctx;
+const .get_context = function(ssid = NULL) {
+    const workflow_render as string = paste([__global_ctx, ssid], sep = "-");
 
     if (exists(workflow_render, globalenv())) {
         get(workflow_render, globalenv());
