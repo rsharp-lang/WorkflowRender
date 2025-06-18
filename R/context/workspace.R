@@ -87,3 +87,10 @@ const workdir_root = function(ssid = NULL) {
 const result_dir = function(ssid = NULL) {
     .get_context(ssid)$analysis;
 }
+
+const workspace_temproot = function(ssid = NULL) {
+    const context   = .get_context(ssid);
+    const temp_root = context$temp_dir;
+
+    temp_root;
+}
