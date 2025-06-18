@@ -173,4 +173,8 @@ declare namespace WorkflowRender {
      * @param ssid default value Is ``null``.
    */
    function workspace(app: any, ssid?: any): object;
+   /**
+     * @param ssid default value Is ``null``.
+   */
+   function workspace_temproot(ssid?: any): object;
 }
