@@ -167,12 +167,14 @@ declare namespace WorkflowRender {
    /**
      * @param relpath default value Is ``null``.
      * @param ssid default value Is ``null``.
+     * @param verbose default value Is ``false``.
    */
-   function workfile(app: any, relpath?: any, ssid?: any): object;
+   function workfile(app: any, relpath?: any, ssid?: any, verbose?: any): object;
    /**
      * @param ssid default value Is ``null``.
+     * @param verbose default value Is ``false``.
    */
-   function workspace(app: any, ssid?: any): object;
+   function workspace(app: any, ssid?: any, verbose?: any): object;
    /**
      * @param ssid default value Is ``null``.
    */

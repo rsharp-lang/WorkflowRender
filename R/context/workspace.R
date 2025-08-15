@@ -11,21 +11,22 @@
 #' @details the verbose option could be config from the 
 #'    commandline option: ``--verbose``
 #'
-const workspace = function(app, ssid = NULL) {
-    const verbose   = as.logical(getOption("verbose"));
-    const context   = .get_context(ssid);
-    const temp_root = context$temp_dir;
-    const app_name  = get_app_name(app);
-    const workdir   = normalizePath(`${temp_root}/workflow_tmp/${app_name}/`);
-    const program   = context$pipeline;
+const workspace = function(app, ssid = NULL, verbose = FALSE) {
+    const verboseOpt = as.logical(getOption("verbose", default = verbose));
+    const context    = .get_context(ssid);
+    const temp_root  = context$temp_dir;
+    const app_name   = get_app_name(app);
+    const workdir    = normalizePath(`${temp_root}/workflow_tmp/${app_name}/`);
+    const program    = context$pipeline;
 
-    if (verbose) {
+    if (verboseOpt) {
         print("view of the given app object for get its workspace dir:");
         print("get app_name:");
         str(app_name);
         print("get pipeline workflow components:");
         str(program);
-        # str(app);
+        print("combine the workdir path:");
+        print(workdir);
     };
 
     if (!(app_name in program)) {
@@ -53,19 +54,19 @@ const workspace = function(app, ssid = NULL) {
 #'    ``mzset.txt``. so, such configuation could be equals to the function invoke
 #'    of the workfile function: ``workfile("getMzSet", "/mzset.txt");``.
 #' 
-const workfile = function(app, relpath = NULL, ssid = NULL) {
+const workfile = function(app, relpath = NULL, ssid = NULL, verbose = FALSE) {
     if (is.empty(relpath)) {
         if (is.character(app)) {
             relpath <- __workfile_uri_parser(app);
 
             # gets the internal workfile reference
             # its physical file path
-            file.path(WorkflowRender::workspace(relpath$app, ssid), relpath$file);
+            file.path(WorkflowRender::workspace(relpath$app, ssid, verbose = verbose), relpath$file);
         } else {
             throw_err("the given expression value should be an internal workfile path reference!");
         }
     } else {
-        file.path(WorkflowRender::workspace(app, ssid), relpath);
+        file.path(WorkflowRender::workspace(app, ssid, verbose = verbose), relpath);
     }
 }
 

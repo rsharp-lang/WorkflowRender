@@ -2,11 +2,13 @@
 .SH NAME
 workfile \- workfile(app,
     <i>relpath</i> = <span style='color: blue !important;'>NULL</span>,
-    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>verbose</i> = <span style='color: blue !important;'>FALSE</span>)
 .SH SYNOPSIS
 \fIworkfile(app,
     <i>relpath</i> = <span style='color: blue !important;'>NULL</span>,
-    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>verbose</i> = <span style='color: blue !important;'>FALSE</span>)\fR
 .SH OPTIONS
 .PP
 \fBapp\fB \fR\- . 
@@ -16,6 +18,9 @@ workfile \- workfile(app,
 .PP
 .PP
 \fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+.PP
+.PP
+\fBverbose\fB \fR\- FALSE. 
 .PP
 .SH VALUE
 .PP
@@ -27,7 +32,7 @@ the workfile path expression is in format string of: ``app://filepath``, example
 .PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.workfile at workspace.R:line 56
+SMRUCC/R#.declare_function.workfile at workspace.R:line 57
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025
