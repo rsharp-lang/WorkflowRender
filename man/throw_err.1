@@ -1,15 +1,25 @@
 ﻿.TH THROW_ERR 1 2025-Aug "" "echo error message on the screen and then crash the workflow"
 .SH NAME
-throw_err \- throw_err(msg)
+throw_err \- throw_err(msg,
+    <i>app</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
-\fIthrow_err(msg)\fR
+\fIthrow_err(msg,
+    <i>app</i> = <span style='color: blue !important;'>NULL</span>,
+    <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
 .SH OPTIONS
 .PP
 \fBmsg\fB \fR\- . 
 .PP
+.PP
+\fBapp\fB \fR\- NULL. 
+.PP
+.PP
+\fBssid\fB \fR\- NULL. 
+.PP
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.throw_err at utils.R:line 28
+SMRUCC/R#.declare_function.throw_err at utils.R:line 27
 .PP
 .SH COPYRIGHT
 Copyright © xieguigang, MIT Licensed 2025
