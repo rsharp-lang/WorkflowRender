@@ -15,8 +15,7 @@ const echo_warning = function(msg, app = NULL, ssid = NULL) {
         msg = `[${app_name}] ${msg}`;
     }
 
-    print(msg);
-    warning(msg);
+    warning(msg, immediate.=TRUE);
     writeLines(msg, con = link);
     close(link);
 }
@@ -25,11 +24,14 @@ const echo_warning = function(msg, app = NULL, ssid = NULL) {
 #'
 #' @details a wrapper of the ``stop`` function.
 #' 
-const throw_err = function(msg) {
+const throw_err = function(msg, app = NULL, ssid = NULL) {
+    let error_log = `${.get_context(ssid)$temp_dir}/error`;
+
     msg <- unlist(msg);
 
     print("workflow error:");
     print(msg);
+    writeLines(msg, con = error_log);
 
     .Internal::stop(msg);
 }
