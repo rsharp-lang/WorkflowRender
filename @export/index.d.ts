@@ -155,8 +155,10 @@ declare namespace WorkflowRender {
    */
    function tabulate_workflow_summary(pool: any): object;
    /**
+     * @param app default value Is ``null``.
+     * @param ssid default value Is ``null``.
    */
-   function throw_err(msg: any): object;
+   function throw_err(msg: any, app?: any, ssid?: any): object;
    /**
    */
    function use_cache(filepath: any, create: any): object;
