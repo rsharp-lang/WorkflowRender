@@ -5,26 +5,59 @@
 \fI.internal_call(app, context)\fR
 .SH DESCRIPTION
 .PP
-This internal function executes an analysis application after validating its dependencies. It handles application execution, error reporting, and performance profiling.
+
+
+This internal function executes an analysis application after validating its dependencies.
+It handles application execution, error reporting, and performance profiling.
 .PP
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . A list defining the analysis application. Must contain: - `name`: (character) Name of the application (for logging). - `call`: (function) The function to execute the application logic. - `profiler`: (list) Stores performance metrics (e.g., execution time).
+\fBapp\fB \fR\- . A list defining the analysis application. Must contain:
+- `name`: (character) Name of the application (for logging).
+- `call`: (function) The function to execute the application logic.
+- `profiler`: (list) Stores performance metrics (e.g., execution time).
 .PP
 .PP
-\fBcontext\fB \fR\- . A list or environment providing runtime context, such as input data paths, environment variables, or configuration settings required by the application.
+\fBcontext\fB \fR\- . A list or environment providing runtime context, such as input data paths,
+environment variables, or configuration settings required by the application.
 .PP
 .SH VALUE
 .PP
-Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution time metrics and may modify the `context` during execution.
+Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution
+time metrics and may modify the `context` during execution.
 .PP
 .SH DETAILS
 .PP
-### Key Steps: 1. ​**Dependency Check**: Validates if required context variables and files exist via `check_dependency(app, context)`. - If dependencies are met, proceeds to execute the application. - If dependencies are missing, throws an error with detailed missing resources. 2. ​**Execution**: - Logs start/end timestamps if `options(verbose = TRUE)`. - Executes `app$call` with arguments `app` and `context` using `do.call()`. 3. ​**Error Handling**: - Aggregates missing dependencies into readable error messages. - Calls `throw_err()` to terminate the workflow and report issues. 4. ​**Profiling**: Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.
+### Key Steps:
+1. ​**Dependency Check**:
+Validates if required context variables and files exist via `check_dependency(app, context)`.
+- If dependencies are met, proceeds to execute the application.
+- If dependencies are missing, throws an error with detailed missing resources.
+2. ​**Execution**:
+- Logs start/end timestamps if `options(verbose = TRUE)`.
+- Executes `app$call` with arguments `app` and `context` using `do.call()`.
+3. ​**Error Handling**:
+- Aggregates missing dependencies into readable error messages.
+- Calls `throw_err()` to terminate the workflow and report issues.
+4. ​**Profiling**:
+Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.
 .PP
 .SH EXAMPLES
 .PP
-\dontrun{ # Define a sample application app <- list( name = "demo_analysis", call = function(argv) { print(paste("Running:", argv$app$name)) }, profiler = list() ) # Execute with context .internal_call(app, context = list()) }
+#\dontrun{
+
+# Define a sample application
+app <- list(
+name = "demo_analysis",
+call = function(argv) {
+print(paste("Running:", argv$app$name))
+},
+profiler = list()
+)
+# Execute with context
+.internal_call(app, context = list())
+
+#}
 .PP
 .SH FILES
 .PP

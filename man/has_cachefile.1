@@ -7,6 +7,15 @@ has_cachefile \- has_cachefile(filepath)
 .PP
 \fBfilepath\fB \fR\- . 
 .PP
+.SH VALUE
+.PP
+a logical value for indicates the specific given file is
+existed or not, for the filepath value in situations of:
+1. empty or null string value
+2. file is not existed
+3. file size is ZERO
+will be determined as false.
+.PP
 .SH FILES
 .PP
 SMRUCC/R#.declare_function.has_cachefile at cache.R:line 30

@@ -36,6 +36,11 @@
 
         <table>
             
+<dt>outputdir</dt>
+<dd><p><p>the directory path to the workflow analysis workspace,
+default path value is current directory.</p></p></dd>
+
+
 <dt>ssid</dt>
 <dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
 
@@ -44,7 +49,32 @@
 
         <h3 style="display: block;">Details</h3>
 
-        <p>for construct of the runtime environment, the generated context environment for run the analysis workflow has member slots of: 1. root: a character vector for the <code>outputdir</code> directory path. 2. analysis: a character vector for the directory path that contains the analysis result output from current workflow process. 3. temp_dir: a character vector for the directory path that contains the analysis temp files from current workflow process. 4. t0: a date time stamp when start current analysis workflow. 5. workflow: a tuple list object that contains the analysis application object that constructed from the <code>app</code> function. 6. pipeline: a character vector for run the application workflow.</p>
+        <p>for construct of the runtime environment, the generated
+context environment for run the analysis workflow has member
+slots of:
+<ol>
+<li>root: a character vector for the <code>outputdir</code> directory path.</li>
+<li>analysis: a character vector for the directory path that</li>
+</ol></p>
+
+<p>contains the analysis result output from current
+workflow process.
+<ol>
+<li>temp_dir: a character vector for the directory path that</li>
+</ol></p>
+
+<p>contains the analysis temp files from current
+workflow process.
+<ol>
+<li>t0: a date time stamp when start current analysis workflow.</li>
+<li>workflow: a tuple list object that contains the analysis</li>
+</ol></p>
+
+<p>application object that constructed from the
+<code>app</code> function.
+<ol>
+<li>pipeline: a character vector for run the application workflow.</li>
+</ol></p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -52,7 +82,9 @@
 
         <h3>Value</h3>
 
-        <p>this function has no return value. and the constructed analysis environment context object will be saved in the global environment with symbol name <code>&[workflow_render]</code>.</p>
+        <p>this function has no return value. and the constructed
+analysis environment context object will be saved in the
+global environment with symbol name <code>&[workflow_render]</code>.</p>
 
         <h3 style="display: none;">Examples</h3>
 

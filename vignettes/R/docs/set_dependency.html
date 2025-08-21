@@ -36,15 +36,37 @@
 
         <table>
             
+<dt>context.env</dt>
+<dd><p><p>a list of the depends environment symbol in the
+current workflow context, value of this parameter it could be:
+<ol>
+<li>a character vector of the required symbol(will assume that</li>
+</ol></p>
+
+<p>no data type is required), or
+<ol>
+<li>a tuple list object with key name is the symbol name and</li>
+</ol></p>
+
+<p>the corresponding tuple value is the required symbol type.</p></p></dd>
+
+
 <dt>workfiles</dt>
-<dd><p><p>a set of the required temp result files in the workflow the format of this parameter value is a tuple list of the file path, where the key name is the app name and the corresponding tuple list value is a character vector of the required multiple reference temp file. the data format of this parameter would be: list(app1 = [file1, file2, ...], app2 = file3, ...)</p></p></dd>
+<dd><p><p>a set of the required temp result files in the workflow
+the format of this parameter value is a tuple list of the file path,
+where the key name is the app name and the corresponding tuple list value
+is a character vector of the required multiple reference temp file.
+the data format of this parameter would be:
+list(app1 = [file1, file2, ...], app2 = file3, ...)</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the allowed data type of the context symbol could be: <code>any</code>, <code>numeric</code>, <code>integer</code>, <code>character</code>, <code>logical</code>, <code>function</code></p>
+        <p>the allowed data type of the context symbol could be:
+<code>any</code>, <code>numeric</code>, <code>integer</code>, <code>character</code>, <code>logical</code>,
+<code>function</code></p>
 
         <h3 style="display: block">Authors</h3>
 

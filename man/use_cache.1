@@ -8,7 +8,15 @@ use_cache \- use_cache(filepath, create)
 \fBfilepath\fB \fR\- . 
 .PP
 .PP
-\fBcreate\fB \fR\- . a callable function that accept a file path parameter to create the target cache file.
+\fBcreate\fB \fR\- . a callable function that accept a file path parameter
+to create the target cache file.
+.PP
+.SH DETAILS
+.PP
+this function will work around with the specific given
+cache file: this function will do nothing if the cache file is
+already exists or invoke the ``create`` function for when file
+exists of the cache data is false.
 .PP
 .SH FILES
 .PP

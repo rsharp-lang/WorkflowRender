@@ -35,14 +35,18 @@
         <table>
             
 <dt>create</dt>
-<dd><p><p>a callable function that accept a file path parameter to create the target cache file.</p></p></dd>
+<dd><p><p>a callable function that accept a file path parameter
+to create the target cache file.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>this function will work around with the specific given
+cache file: this function will do nothing if the cache file is
+already exists or invoke the <code>create</code> function for when file
+exists of the cache data is false.</p>
 
         <h3 style="display: block">Authors</h3>
 

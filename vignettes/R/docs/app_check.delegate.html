@@ -34,12 +34,27 @@
 
         <table>
             
+<dt>analysis</dt>
+<dd><p><p>a callable function to check, just check of the required
+parameters is exists in the definition or not.</p></p></dd>
+
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the analysis function should contains only two required parameters with specific name defined: 1. app: a list object that defines the app object itself 2. context: a list object that accept the workflow environment context due to the reason of analysis app function is called via the <code>do.call</code> function from the RENV base environment, so that the parameter value is aligned with the invoke function target strictly, so you can not change the parameter name or the parameter will not be aligned properly when call this analysis app function.</p>
+        <p>the analysis function should contains only two
+required parameters with specific name defined:
+<ol>
+<li>app: a list object that defines the app object itself</li>
+<li>context: a list object that accept the workflow environment context</li>
+</ol></p>
+
+<p>due to the reason of analysis app function is called via the <code>do.call</code>
+function from the RENV base environment, so that the parameter value is
+aligned with the invoke function target strictly, so you can not change
+the parameter name or the parameter will not be aligned properly when
+call this analysis app function.</p>
 
         <h3 style="display: block">Authors</h3>
 

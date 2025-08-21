@@ -22,7 +22,8 @@
 
         <h3>Description</h3>
 
-        <p>This internal function executes an analysis application after validating its dependencies. It handles application execution, error reporting, and performance profiling.</p>
+        <p>This internal function executes an analysis application after validating its dependencies.
+It handles application execution, error reporting, and performance profiling.</p>
 
         <h3>Usage</h3>
 
@@ -35,18 +36,59 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>A list defining the analysis application. Must contain: - `name`: (character) Name of the application (for logging). - `call`: (function) The function to execute the application logic. - `profiler`: (list) Stores performance metrics (e.g., execution time).</p></p></dd>
+<dd><p><p>A list defining the analysis application. Must contain:
+<ul>
+<li>`name`: (character) Name of the application (for logging).</li>
+<li>`call`: (function) The function to execute the application logic.</li>
+<li>`profiler`: (list) Stores performance metrics (e.g., execution time).</li>
+</ul></p></p></dd>
 
 
 <dt>context</dt>
-<dd><p><p>A list or environment providing runtime context, such as input data paths, environment variables, or configuration settings required by the application.</p></p></dd>
+<dd><p><p>A list or environment providing runtime context, such as input data paths,
+environment variables, or configuration settings required by the application.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <h3>Key Steps: 1. ​<strong>Dependency Check<em></em>: Validates if required context variables and files exist via `check<em>dependency(app, context)`. - If dependencies are met, proceeds to execute the application. - If dependencies are missing, throws an error with detailed missing resources. 2. ​**Execution**: - Logs start/end timestamps if `options(verbose = TRUE)`. - Executes `app$call` with arguments `app` and `context` using `do.call()`. 3. ​**Error Handling**: - Aggregates missing dependencies into readable error messages. - Calls `throw</em>err()` to terminate the workflow and report issues. 4. ​<em></em>Profiling</strong>: Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.</h3>
+        <h3>Key Steps:</h3>
+
+
+<ol>
+<li>​<strong>Dependency Check</strong>:</li>
+</ol>
+
+<p>Validates if required context variables and files exist via `check_dependency(app, context)`.
+<ul>
+<li>If dependencies are met, proceeds to execute the application.</li>
+<li>If dependencies are missing, throws an error with detailed missing resources.</li>
+</ul>
+
+<ol>
+<li>​<strong>Execution</strong>:</li>
+</ol></p>
+
+<ul>
+<li>Logs start/end timestamps if `options(verbose = TRUE)`.</li>
+<li>Executes `app$call` with arguments `app` and `context` using `do.call()`.</li>
+</ul>
+
+<ol>
+<li>​<strong>Error Handling</strong>:</li>
+</ol>
+
+<ul>
+<li>Aggregates missing dependencies into readable error messages.</li>
+<li>Calls `throw_err()` to terminate the workflow and report issues.</li>
+</ul>
+
+<ol>
+<li>​<strong>Profiling</strong>:</li>
+</ol>
+
+<p>Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -54,11 +96,25 @@
 
         <h3>Value</h3>
 
-        <p>Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution time metrics and may modify the `context` during execution.</p>
+        <p>Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution
+time metrics and may modify the `context` during execution.</p>
 
         <h3 style="display: block;">Examples</h3>
 
-        <pre><code id="example_r">\dontrun{ # Define a sample application app <- list( name = "demo_analysis", call = function(argv) { print(paste("Running:", argv$app$name)) }, profiler = list() ) # Execute with context .internal_call(app, context = list()) }</code></pre>
+        <pre><code id="example_r">#\dontrun{
+
+# Define a sample application
+app <- list(
+name = "demo_analysis",
+call = function(argv) {
+print(paste("Running:", argv$app$name))
+},
+profiler = list()
+)
+# Execute with context
+.internal_call(app, context = list())
+
+#}</code></pre>
 
         <hr />
         <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a

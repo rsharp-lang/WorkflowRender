@@ -36,15 +36,29 @@
 
         <table>
             
+<dt>registry</dt>
+<dd><p><p>a callable function for create the workflow registry,
+this parameter could be nothing if this workflow processor apps has
+been registered into the workflow as the processor components via
+the <code>hook</code> function.</p></p></dd>
+
+
 <dt>disables</dt>
-<dd><p><p>a tuple list object that contains the workflow module activate swtches. the list tuple key name should be the analysis app name and the corresponding slot value should be a logical value for indicates that the workflow module is disable or not: true for disable and skip, and false or null and missing for enable the corresponding workflow module</p></p></dd>
+<dd><p><p>a tuple list object that contains the workflow module
+activate swtches. the list tuple key name should be the analysis app
+name and the corresponding slot value should be a logical value for
+indicates that the workflow module is disable or not: true for disable
+and skip, and false or null and missing for enable the corresponding
+workflow module</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>A workflow is consist with a set of the analysis modules in side, the executative sequence define in workflow is based on the module name vector in the pipeline data slot</p>
+        <p>A workflow is consist with a set of the analysis modules in side,
+the executative sequence define in workflow is based on the module name
+vector in the pipeline data slot</p>
 
         <h3 style="display: block">Authors</h3>
 

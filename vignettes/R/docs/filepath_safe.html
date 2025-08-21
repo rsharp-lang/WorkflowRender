@@ -38,9 +38,14 @@
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>this function will make a safe file path, by
+processing the file name string in process:
+<ol>
+<li>removes the unsafe character for windows filesystem</li>
+<li>make the file name short if the file name string len exccede the max chars</li>
+</ol></p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -48,7 +53,8 @@
 
         <h3>Value</h3>
 
-        <p>this function generates a new character vector based on the input dir and the filename for save a file safely.</p>
+        <p>this function generates a new character vector based on the
+input dir and the filename for save a file safely.</p>
 
         <h3 style="display: none;">Examples</h3>
 

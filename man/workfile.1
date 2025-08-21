@@ -11,7 +11,11 @@ workfile \- workfile(app,
     <i>verbose</i> = <span style='color: blue !important;'>FALSE</span>)\fR
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . 
+\fBapp\fB \fR\- . this app parameter value could be in 3 kinds
+of data type:
+1. app tuple list object, which is created via the ``app`` function.
+2. the app name character vector
+3. the workfile path expression, should be in format like: ``app://relpath/to/file.ext``
 .PP
 .PP
 \fBrelpath\fB \fR\- NULL. 
@@ -28,7 +32,11 @@ the data file path of the required reference file inside this workflow
 .PP
 .SH DETAILS
 .PP
-the workfile path expression is in format string of: ``app://filepath``, example as ``getMzSet://mzset.txt``, where we could parse the reference information from this character string: app name is ``getMzSet``, and the relpath data is ``mzset.txt``. so, such configuation could be equals to the function invoke of the workfile function: ``workfile("getMzSet", "/mzset.txt");``.
+the workfile path expression is in format string of: ``app://filepath``,
+example as ``getMzSet://mzset.txt``, where we could parse the reference information
+from this character string: app name is ``getMzSet``, and the relpath data is
+``mzset.txt``. so, such configuation could be equals to the function invoke
+of the workfile function: ``workfile("getMzSet", "/mzset.txt");``.
 .PP
 .SH FILES
 .PP
