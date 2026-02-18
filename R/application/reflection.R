@@ -48,15 +48,15 @@ const __build_app = function(f) {
 #' parse the workfile expression
 #' 
 const __workfiles = function(files_uri) {
-    const uri = lapply(files_uri, si -> __workfile_uri_parser(si));
-    const app = uri@app;
-    const file = uri@file;
-    const app_groups = data.frame(app, file) 
+    let uri = lapply(files_uri, si -> __workfile_uri_parser(si));
+    print(files_uri);
+    let app = uri@app;
+    let file = uri@file;
+    let app_groups = data.frame(app, file) 
     |> as.list(byrow = TRUE) 
     |> groupBy("app") 
-    |> lapply(function(app) {
-        sapply(app, a -> a$file); 
-    });
+    |> lapply(app -> app@file)
+    ;
 
     app_groups;
 }
