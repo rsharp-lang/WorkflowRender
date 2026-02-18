@@ -30,6 +30,9 @@ declare namespace WorkflowRender {
    */
    function __workfiles(files_uri: any): object;
    /**
+   */
+   function __workfiles_data(files_uri: any): object;
+   /**
      * @param desc default value Is ``no description``.
      * @param dependency default value Is ``null``.
    */

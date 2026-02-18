@@ -57,8 +57,9 @@ const __workfiles = function(files_uri) {
 
 const __workfiles_data = function(files_uri) {
     let uri = lapply(files_uri, si -> __workfile_uri_parser(si));
-    let app = uri@app;
-    let file = uri@file;
+    str(uri);
+    let app = as.character(uri@app);
+    let file = as.character(uri@file);
     let app_groups = data.frame(app, file) 
     |> as.list(byrow = TRUE) 
     |> groupBy("app") 
