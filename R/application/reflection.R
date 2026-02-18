@@ -48,8 +48,15 @@ const __build_app = function(f) {
 #' parse the workfile expression
 #' 
 const __workfiles = function(files_uri) {
+    if (length(files_uri) == 0) {
+        NULL;
+    } else {
+        __workfiles_data(files_uri);
+    }
+}
+
+const __workfiles_data = function(files_uri) {
     let uri = lapply(files_uri, si -> __workfile_uri_parser(si));
-    print(files_uri);
     let app = uri@app;
     let file = uri@file;
     let app_groups = data.frame(app, file) 
