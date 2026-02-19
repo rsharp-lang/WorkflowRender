@@ -1,96 +1,90 @@
-#' @title Invoke an Analysis Application (Internal Function)
+
+#' Internal Workflow Execution Engine
 #' 
 #' @description 
-#' This internal function executes an analysis application after validating its dependencies. 
-#' It handles application execution, error reporting, and performance profiling.
-#' 
-#' @param app A list defining the analysis application. Must contain:
-#'   - `name`: (character) Name of the application (for logging).
-#'   - `call`: (function) The function to execute the application logic.
-#'   - `profiler`: (list) Stores performance metrics (e.g., execution time).
-#' @param context A list or environment providing runtime context, such as input data paths, 
-#'   environment variables, or configuration settings required by the application.
-#' 
-#' @return Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution 
-#'   time metrics and may modify the `context` during execution.
+#' An internal function that drives the execution of a modular workflow. 
+#' It sequentially processes analysis modules according to the pipeline 
+#' configuration while respecting disablement rules.
+#'
+#' @param context A workflow context object containing:
+#' \itemize{
+#'   \item{pipeline - character vector of module execution order}
+#'   \item{workflow - list of module definitions}
+#' }
+#' @param disables A named list specifying module disablement status. 
+#' Format: `list(module_name = TRUE/FALSE)`. Modules with TRUE will be skipped.
 #' 
 #' @details
-#' ### Key Steps:
-#' 1. ​**Dependency Check**:  
-#'    Validates if required context variables and files exist via `check_dependency(app, context)`.  
-#'    - If dependencies are met, proceeds to execute the application.  
-#'    - If dependencies are missing, throws an error with detailed missing resources.
-#' 
-#' 2. ​**Execution**:  
-#'    - Logs start/end timestamps if `options(verbose = TRUE)`.  
-#'    - Executes `app$call` with arguments `app` and `context` using `do.call()`.  
-#' 
-#' 3. ​**Error Handling**:  
-#'    - Aggregates missing dependencies into readable error messages.  
-#'    - Calls `throw_err()` to terminate the workflow and report issues.  
-#' 
-#' 4. ​**Profiling**:  
-#'    Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.
-#' 
-#' @examples
-#' \dontrun{
-#' # Define a sample application
-#' app <- list(
-#'   name = "demo_analysis",
-#'   call = function(argv) {
-#'     print(paste("Running:", argv$app$name))
-#'   },
-#'   profiler = list()
-#' )
-#' 
-#' # Execute with context
-#' .internal_call(app, context = list())
+#' This function:
+#' \enumerate{
+#'   \item Retrieves module execution order from `context$pipeline`
+#'   \item Checks disablement status through two mechanisms:
+#'     \itemize{
+#'       \item Explicit disablement via `disables` parameter
+#'       \item Module's own `disable` property (set by upstream modules)
+#'     }
+#'   \item Executes non-disabled modules using `.internal_call()`
+#'   \item Provides verbose logging when `options(verbose=TRUE)`
 #' }
 #' 
+#' The workflow context is modified in-place by module execution.
+#'
 #' @note
-#' - This is an internal function and not intended for direct use.  
-#' - Error messages include:  
-#'   - Missing context variables (e.g., `dependency$context_env_missing`).  
-#'   - Missing files (e.g., `dependency$workfiles_missing`).  
+#' This is an internal function not meant for direct calling by users. 
+#' Modules can control subsequent module execution by setting their 
+#' `disable` property.
 #' 
+#' @return
+#' Invisibly returns NULL. Modifies the workflow context object in-place
+#' through module executions.
+#'
 #' @keywords internal
-const .internal_call = function(app, context) {
-    # check of the app dependency
-    let dependency = check_dependency(app, context);
-    let t0   = now();
-    let argv = {
-        app: app, 
-        context: context
-    };
+#' @seealso \code{\link{.internal_call}} for module execution logic
+const __runImpl = function(context, disables = list()) {
+    let app_pool = context$workflow;
+    let skip = FALSE;
     let verbose = as.logical(getOption("verbose"));
 
-    if (dependency$check) {
-        if (verbose) {
-            print(`  * exec: ${app$name}...`);
-        }
-
-        # check success, then
-        # run current data analysis node
-        do.call(app$call, args = argv);
-
-        if (verbose) {
-            print(`done ~ '${app$name}' ...... ${time_span(now() - t0)}`);
-        }
-    } else {
-        # stop the workflow
-        const context_err = dependency.context_env_missing(dependency$context);
-        const file_err    = dependency.workfiles_missing(dependency$file);
-        const msg_err = [
-            "There are some dependency of current analysis application is not satisfied:",
-            paste(c("analysis_app:", app$name), sep = " ")
-        ];
-
-        throw_err([msg_err, context_err, file_err]);
+    if (verbose) {
+        print("view module configs:");
+        str(disables);
     }
 
-    app$profiler = {
-        time: time_span(now() - t0)
-    };
+    # the pipeline data slot defines the workflow module
+    # execute sequence.
+    #
+    # get a specific workflow analysis app module, and then
+    # execute the module under a given workflow context
+    for(let app_name in context$pipeline) {
+        let app  = app_pool[[app_name]];
+        let skip = FALSE;
+
+        if (is.null(app$name)) {
+            throw_err(`missing app module definition object for '${app_name}', please check of the app function has been hooked or not?`);
+        }
+
+        if (app$name in disables) {
+            if (as.logical(disables[[app$name]])) {
+                skip = TRUE;
+            }
+        } else {
+            if("disable" in app) {
+                # current app module may be disable by other
+                # application from the workflow upsteam
+                skip = app$disable;
+            }
+        }
+
+        if (!skip) {
+            .internal_call(app, context);
+        } else {
+            if (verbose) {
+                print(`skip '${app$name}'!`);
+            }            
+        }
+
+        NULL;
+    }
 
     invisible(NULL);
 }
