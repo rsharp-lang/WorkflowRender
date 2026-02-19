@@ -88,9 +88,13 @@ const __runImpl = function(context, disables = list()) {
     #
     # get a specific workflow analysis app module, and then
     # execute the module under a given workflow context
-    for(app in context$pipeline) {
-        app = app_pool[[app]];
-        skip = FALSE;
+    for(let app_name in context$pipeline) {
+        let app  = app_pool[[app_name]];
+        let skip = FALSE;
+
+        if (is.null(app$name)) {
+            throw_err(`missing app module definition object for '${app_name}', please check of the app function has been hooked or not?`);
+        }
 
         if (app$name in disables) {
             if (as.logical(disables[[app$name]])) {
