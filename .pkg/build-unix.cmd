@@ -5,7 +5,7 @@ SET R_HOME=%drive%\GCModeller\src\R-sharp\App\net10.0
 SET Rscript="%R_HOME%/Rscript.exe"
 SET REnv="%R_HOME%/R#.exe"
 
-%Rscript% --build /src ../ /save ../workflow.zip --skip-src-build
-%REnv% --install.packages ../workflow.zip
+%Rscript% --build /src ../ /save ../WorkflowRender.zip --skip-src-build
+%REnv% --install.packages ../WorkflowRender.zip
 
 pause
