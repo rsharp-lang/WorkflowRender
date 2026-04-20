@@ -38,7 +38,7 @@ const init_context = function(outputdir = "./", ssid = NULL) {
         symbols  = list()
     );
 
-    sink(file = `${temp_dir}/run_analysis-${get_timestamp()}.log`);
+    sink(file = `${temp_dir}/logs/run_analysis-${get_timestamp()}.log`);
     set(globalenv(), paste([__global_ctx,ssid], sep = "-"), context);
 
     invisible(NULL);
