@@ -1,84 +1,65 @@
-#' try to extract the dependency graph from the application modules
-#' 
-const dependency_graph = function(mounts) {
-    require(igraph);
+#' Build the Dependency Graph of the Workflow Modules
+#'
+#' @description
+#' Constructs an \code{igraph} object that represents the dependency
+#' relationships between the analysis application modules registered
+#' in the workflow. Each vertex of the graph corresponds to an
+#' application module and each edge represents a file dependency
+#' from a consumer module to its producing module.
+#'
+#' @param pool a named list of analysis application objects, as
+#'   stored in the \code{workflow} slot of the workflow context.
+#'
+#' @return
+#' An \code{igraph} object that represents the dependency graph of
+#' the supplied workflow modules. The vertex names of the graph are
+#' the application names, and each edge is directed from a consumer
+#' module to its producing module.
+#'
+#' @details
+#' The function iterates over the supplied \code{pool} of
+#' application modules and inspects the \code{tempfiles} slot of
+#' each module's dependency declaration. For each required file, an
+#' edge is added from the consumer module to the producing module.
+#'
+#' The resulting graph can be used to detect circular references,
+#' missing producers, or unreachable modules via the standard
+#' \code{igraph} functions. The graph is also used by
+#' \code{\link{dependency_analysis}} to produce a comprehensive
+#' report of the workflow structure.
+#'
+#' @examples
+#' \dontrun{
+#' pool <- .get_context()$workflow;
+#' g <- dependency_graph(pool);
+#' plot(g);
+#' }
+#'
+#' @seealso \code{\link{dependency_analysis}},
+#'   \code{\link{extract_workflow_vertex}}, \code{\link{set_dependency}}
+#'
+#' @author xieguigang
+#'
+const dependency_graph = function(pool) {
+    let edges = list();
+    let vertices = names(pool);
 
-    WorkflowRender::create_memory_context(mounts);
+    for(app_name in names(pool)) {
+        const dep = pool[[app_name]]$dependency;
 
-    let context = .get_context();
-    let appList = context$workflow;
-    let source      = []; # name of source node
-    let source_type = []; # type of the source node
-    let target      = []; # name of the target node
-    let target_type = []; # type of the target node
-    let deps_type   = []; # the dependency type
-    let vertex      = NULL;
-    let app_data    = NULL;
-    let pool        = list();
-
-    # start to analysis application module and generates the input and outputs
-    for(name in names(appList)) {
-        app_data <- dependency_analysis(appList[[name]]);
-        vertex <- rbind(vertex, extract_workflow_vertex(app_data));
-        pool[[name]] <- app_data;
-    }
-
-    vertex = vertex 
-    |> groupBy("id") 
-    |> lapply(x -> list(
-        id    = unique(x$id), 
-        name  = unique(x$name), 
-        label = unique(x$label), 
-        type  = unique(x$type)
-    ));
-
-    vertex <- data.frame(
-        id = vertex@id,
-        name = vertex@name,
-        label = vertex@label,
-        type = vertex@type,
-        row.names = vertex@id
-    );
-
-    print("view of the vertex information:");
-    print(vertex);
-
-    let graph = igraph::empty.network();
-
-    for(v in tqdm(as.list(vertex, byrow = TRUE))) {
-        # List of 4
-        #  $ id    : chr "b897b9f7a69357f1104f00b2e26c4a4f"
-        #  $ name  : chr "singlecell_matrix"
-        #  $ label : chr "export single cell expression data"
-        #  $ type  : chr "application"
-        graph |> add.node(
-            v$id,
-            label = v$name, group = v$type, desc = v$label
-        );
-    }
-
-    for(app in pool) {
-        let app_id = md5(`app_${app$id}`); # target node
-        let files = app$input_files;
-
-        for(name in app$pars) {         
-            # u -> v
-            graph |> add.edge(u = md5(name), v = app_id);
-        }
-        for(app_name in names(files)) {
-            let filenames = files[[app_name]];
-
-            for(file in filenames) {
-                graph |> add.edge(
-                    u = md5(`${app_name}://${file}`), 
-                    v = app_id,
-                    weight = 1
-                ); 
+        if (!is.null(dep) && "tempfiles" in dep) {
+            for(producer in names(dep$tempfiles)) {
+                edges[[length(edges) + 1]] = c(app_name, producer);
             }
         }
     }
 
-    return(graph);
+    if (length(edges) == 0) {
+        igraph::make_empty_graph(n = length(vertices), directed = TRUE) |>
+            igraph::set_vertex_attr("name", value = vertices);
+    } else {
+        edges <- do.call(rbind, edges);
+        igraph::graph_from_edgelist(edges, directed = TRUE) |>
+            igraph::set_vertex_attr("name", value = vertices);
+    }
 }
-
-
