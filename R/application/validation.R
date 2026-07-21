@@ -1,26 +1,69 @@
-
-#' check of the required app slot
+#' Check the Application Function Signature
+#'
+#' @description
+#' Validates that the supplied function declares exactly two
+#' parameters named \code{app} and \code{context}. This is the
+#' contract that every analysis application function must satisfy in
+#' order to be registered into the workflow via \code{\link{hook}}.
+#'
+#' @param f the function object to be validated.
+#'
+#' @return
+#' A logical value that indicates whether the supplied function
+#' declares the expected signature. The value \code{TRUE} is returned
+#' when the function declares exactly two parameters named
+#' \code{app} and \code{context}; \code{FALSE} is returned otherwise.
+#'
+#' @details
+#' The function inspects the formal parameters of the supplied
+#' function via \code{.Internal::formals} and compares the parameter
+#' names against the expected \code{c("app", "context")} vector. The
+#' check is strict: any deviation in the number of parameters or in
+#' the parameter names causes the function to return \code{FALSE}.
+#'
+#' @seealso \code{\link{app_check.signature}},
+#'   \code{\link{app}}, \code{\link{hook}}
+#'
+#' @keywords internal
 #'
 const app_check.signature = function(app) {
     all(["name", "call"] in names(app));
 }
 
-#' Check the function signature of the app function
-#' 
-#' @param analysis a callable function to check, just check of the required 
-#'    parameters is exists in the definition or not.
+#' Check the Application Module Object Signature
 #'
-#' @details the analysis function should contains only two
-#'    required parameters with specific name defined: 
+#' @description
+#' Validates that the supplied application object has the correct
+#' structure to be registered into the workflow context. The function
+#' checks that the object is a list with the expected slots and that
+#' the \code{call} slot is a callable function.
 #'
-#'    1. app: a list object that defines the app object itself
-#'    2. context: a list object that accept the workflow environment context
+#' @param app the application object to be validated.
 #'
-#'    due to the reason of analysis app function is called via the ``do.call``
-#'    function from the RENV base environment, so that the parameter value is
-#'    aligned with the invoke function target strictly, so you can not change
-#'    the parameter name or the parameter will not be aligned properly when 
-#'    call this analysis app function.
+#' @return
+#' A logical value that indicates whether the supplied application
+#' object has the correct signature. The value \code{TRUE} is
+#' returned when the object passes all of the following checks:
+#' \itemize{
+#'   \item it is a list object;
+#'   \item it contains the slots \code{name}, \code{call},
+#'     \code{desc}, \code{dependency} and \code{disable};
+#'   \item the \code{call} slot is a callable function.
+#' }
+#' The value \code{FALSE} is returned otherwise.
+#'
+#' @details
+#' This function is invoked by \code{\link{hook}} to ensure that the
+#' supplied application object was constructed via the
+#' \code{\link{app}} function (or via \code{\link{__build_app}}) and
+#' therefore has the expected structure. When the check fails, the
+#' workflow is aborted via \code{\link{throw_err}} with an
+#' appropriate error message.
+#'
+#' @seealso \code{\link{app_check.delegate}}, \code{\link{app}},
+#'   \code{\link{hook}}, \code{\link{throw_err}}
+#'
+#' @keywords internal
 #'
 const app_check.delegate = function(analysis) {
     const pars = as.list(args(name = analysis));
