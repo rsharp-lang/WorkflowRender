@@ -1,45 +1,67 @@
-
 #' Internal Workflow Execution Engine
-#' 
-#' @description 
-#' An internal function that drives the execution of a modular workflow. 
-#' It sequentially processes analysis modules according to the pipeline 
-#' configuration while respecting disablement rules.
 #'
-#' @param context A workflow context object containing:
+#' @description
+#' An internal function that drives the execution of a modular workflow.
+#' It sequentially processes analysis modules according to the pipeline
+#' configuration stored inside the workflow context while respecting the
+#' disablement rules that may be configured either through the
+#' \code{disables} argument or through the \code{disable} flag of each
+#' individual application module.
+#'
+#' @param context A workflow context object, typically obtained via
+#' \code{\link{.get_context}}. The following slots are used by this
+#' function:
 #' \itemize{
-#'   \item{pipeline - character vector of module execution order}
-#'   \item{workflow - list of module definitions}
+#'   \item{\code{pipeline} - a character vector that defines the module
+#'         execution order.}
+#'   \item{\code{workflow} - a named list of registered module
+#'         definitions, keyed by module name.}
 #' }
-#' @param disables A named list specifying module disablement status. 
-#' Format: `list(module_name = TRUE/FALSE)`. Modules with TRUE will be skipped.
-#' 
+#' @param disables A named list specifying module disablement status.
+#' The expected format is \code{list(module_name = TRUE/FALSE)}. Modules
+#' whose entry is set to \code{TRUE} will be skipped during execution.
+#'
 #' @details
-#' This function:
+#' This function performs the following steps for each module name found
+#' in \code{context$pipeline}:
 #' \enumerate{
-#'   \item Retrieves module execution order from `context$pipeline`
-#'   \item Checks disablement status through two mechanisms:
+#'   \item Retrieves the module definition object from
+#'         \code{context$workflow}.
+#'   \item Checks the disablement status through two independent
+#'         mechanisms:
 #'     \itemize{
-#'       \item Explicit disablement via `disables` parameter
-#'       \item Module's own `disable` property (set by upstream modules)
+#'       \item Explicit disablement via the \code{disables} parameter
+#'             passed to this function.
+#'       \item The module's own \code{disable} property, which may have
+#'             been set by upstream modules to short-circuit downstream
+#'             execution.
 #'     }
-#'   \item Executes non-disabled modules using `.internal_call()`
-#'   \item Provides verbose logging when `options(verbose=TRUE)`
+#'   \item Executes non-disabled modules by invoking
+#'         \code{\link{.internal_call}} with the module definition and
+#'         the workflow context.
+#'   \item Produces verbose logging when
+#'         \code{options(verbose = TRUE)} is set, including the list of
+#'         disabled modules and the configuration values.
 #' }
-#' 
-#' The workflow context is modified in-place by module execution.
+#'
+#' The workflow context is modified in-place by each module execution,
+#' which allows downstream modules to consume results produced by their
+#' upstream predecessors.
+#'
+#' @return
+#' Invisibly returns \code{NULL}. The side effect of this function is the
+#' execution of the workflow modules and the in-place modification of the
+#' workflow context object.
 #'
 #' @note
-#' This is an internal function not meant for direct calling by users. 
-#' Modules can control subsequent module execution by setting their 
-#' `disable` property.
-#' 
-#' @return
-#' Invisibly returns NULL. Modifies the workflow context object in-place
-#' through module executions.
+#' This is an internal function and is not intended to be called directly
+#' by users. Modules may control the execution of subsequent modules by
+#' setting their own \code{disable} property to \code{TRUE} at runtime.
 #'
 #' @keywords internal
-#' @seealso \code{\link{.internal_call}} for module execution logic
+#' @seealso \code{\link{.internal_call}} for the module execution logic,
+#'   \code{\link{run}} for the public entry point of the workflow engine.
+#'
 const __runImpl = function(context, disables = list()) {
     let app_pool = context$workflow;
     let skip = FALSE;
@@ -80,7 +102,7 @@ const __runImpl = function(context, disables = list()) {
         } else {
             if (verbose) {
                 print(`skip '${app$name}'!`);
-            }            
+            }
         }
 
         NULL;
