@@ -1,5 +1,34 @@
-#' pull all configuration value from workflow registry
-#' 
+#' Pull All Configuration Values from the Workflow Registry
+#'
+#' @description
+#' Retrieves the complete set of user-supplied configuration values
+#' that have been stored in the \code{configs} slot of the current
+#' workflow context. This function is the low-level accessor used by
+#' \code{\link{get_config}} to resolve individual parameter values.
+#'
+#' @return
+#' A named list object that contains all of the configuration values
+#' stored in the workflow context. When no configuration has been set
+#' yet, an empty list is returned.
+#'
+#' @details
+#' The function inspects the workflow context returned by
+#' \code{\link{.get_context}} and returns its \code{configs} slot when
+#' present. When the \code{configs} slot has not been initialized
+#' (for example, when \code{\link{set_config}} has not been called
+#' yet), the function returns an empty list so that downstream code
+#' can safely iterate over the result without additional null checks.
+#'
+#' @examples
+#' \dontrun{
+#' configs <- pull_configs();
+#' }
+#'
+#' @seealso \code{\link{get_config}}, \code{\link{set_config}},
+#'   \code{\link{.get_context}}
+#'
+#' @author xieguigang
+#'
 const pull_configs = function() {
     let ctx = .get_context();
 
