@@ -2,11 +2,13 @@
 .SH NAME
 run \- run(
     <i>registry</i> = <span style='color: blue !important;'>NULL</span>,
-    <i>disables</i> = 'list'())
+    <i>disables</i> = 'list'(),
+    <i>debug</i> = 'c'())
 .SH SYNOPSIS
 \fIrun(
     <i>registry</i> = <span style='color: blue !important;'>NULL</span>,
-    <i>disables</i> = 'list'())\fR
+    <i>disables</i> = 'list'(),
+    <i>debug</i> = 'c'())\fR
 .SH OPTIONS
 .PP
 \fBregistry\fB \fR\- NULL. a callable function for create the workflow registry,
@@ -21,6 +23,9 @@ name and the corresponding slot value should be a logical value for
 indicates that the workflow module is disable or not: true for disable
 and skip, and false or null and missing for enable the corresponding
 workflow module
+.PP
+.PP
+\fBdebug\fB \fR\- 'c'(). 
 .PP
 .SH DETAILS
 .PP

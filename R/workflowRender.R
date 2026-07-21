@@ -15,11 +15,14 @@
 #'    the executative sequence define in workflow is based on the module name
 #'    vector in the pipeline data slot
 #' 
-const run = function(registry = NULL, disables = list()) {
+const run = function(registry = NULL, disables = list(), debug = c()) {
     const verbose = as.logical(getOption("verbose"));
 
     if (!is.null(registry)) {
         do.call(registry, args = list());
+    }
+    if (length(debug) > 0) {
+        WorkflowRender::definePipeline(debug);
     }
 
     if (verbose) {

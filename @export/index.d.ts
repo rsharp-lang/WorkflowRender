@@ -136,8 +136,9 @@ declare namespace WorkflowRender {
    /**
      * @param registry default value Is ``null``.
      * @param disables default value Is ``Call "list"()``.
+     * @param debug default value Is ``Call "c"()``.
    */
-   function run(registry?: any, disables?: any): object;
+   function run(registry?: any, disables?: any, debug?: any): object;
    /**
      * @param configs default value Is ``Call "list"()``.
    */
