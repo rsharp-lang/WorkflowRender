@@ -1,15 +1,35 @@
-﻿.TH __WORKFILES 1 2026-7月 "" "__workfiles"
+﻿.TH __WORKFILES 1 2026-7月 "internal" "Internal Function for Parsing the Workfile URI Expression"
 .SH NAME
 __workfiles \- __workfiles(files.uri)
 .SH SYNOPSIS
 \fI__workfiles(files.uri)\fR
+.SH DESCRIPTION
+.PP
+
+
+Wraps the actual URI parser \code{\link{__workfiles_data}} with a
+short-circuit for the empty-input case. This function is invoked
+internally by \code{\link{__build_app}} to convert the
+\code{@workfiles} attribute of a tagged function into the
+structured dependency list expected by \code{\link{set_dependency}}.
+.PP
 .SH OPTIONS
 .PP
 \fBfiles.uri\fB \fR\- . 
 .PP
+.SH VALUE
+.PP
+A named list object that groups the parsed file paths by their
+producing application name, suitable for direct use as the
+\code{workfiles} argument of \code{\link{set_dependency}}. When
+\code{files_uri} is empty, \code{NULL} is returned instead.
+.PP
+.SH SEE ALSO
+\code{\link{__workfiles_data}},
+\code{\link{__workfile_uri_parser}}, \code{\link{set_dependency}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.__workfiles at uri_parser.R:line 3
+SMRUCC/R#.declare_function.__workfiles at uri_parser.R:line 25
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

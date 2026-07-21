@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Check of the analysis app dependency</title>
+    <title>Check the Dependencies of an Analysis Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Check of the analysis app dependency</h2>
+        <h2>Check the Dependencies of an Analysis Application</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Generic function that validates the dependencies of an analysis
+application against the current workflow context. The function
+dispatches to one of the specialized implementations based on the
+type of the dependency declaration found in the application
+object.</p>
 
         <h3>Usage</h3>
 
@@ -36,15 +40,37 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>the analysis app object list which is construct
-via the <code>app</code> function.</p></p></dd>
+<dd><p><p>the application object whose dependencies should be
+checked. The object is expected to be a list with a
+\code{dependency} slot, as produced by \code{\link{app}}.</p></p></dd>
+
+
+<dt>context</dt>
+<dd><p><p>the workflow context object that is used to resolve
+the dependency declarations. The object is typically obtained
+via \code{\link{.get_context}}.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function inspects the \code{dependency} slot of the supplied
+application object and dispatches to the appropriate
+implementation:
+\itemize{
+\item When the dependency declaration contains a
+\code{context_env} slot, the function dispatches to
+\code{\link{check<em>dependency.context</em>env}} to validate the
+environment symbol dependencies.
+\item When the dependency declaration contains a
+\code{tempfiles} slot, the function dispatches to
+\code{\link{check_dependency.localfiles}} to validate the
+workspace file dependencies.
+}
+The two checks are combined so that the overall \code{check}
+result is \code{TRUE} only when both the environment symbol and
+the workspace file dependencies are satisfied.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -52,27 +78,30 @@ via the <code>app</code> function.</p></p></dd>
 
         <h3>Value</h3>
 
-        <p>this function returns a data list that contains the
-dependency check result. there are some data symbol inside
-this result object list:
-<ol>
-<li>check: logical, for indicate the dependency check success or not;</li>
-<li>context: a tuple list object that contains of context symbol names</li>
-</ol></p>
+        <p>A named list object that summarizes the result of the dependency
+check. The list contains the following elements:
+\describe{
+\item{\code{check}}{a logical value that is \code{TRUE} when all
+dependencies are satisfied and \code{FALSE} otherwise.}
+\item{\code{context}}{a list describing the missing or
+mismatched environment symbols, when applicable.}
+\item{\code{file}}{a list describing the missing workspace
+files, when applicable.}
+}</p>
 
-<p>which are not check success, and the reason of failure;
-<ol>
-<li>file: character vector of dependency of local workspace file</li>
-</ol></p>
+        <h3 style="display: block;">Examples</h3>
 
-<p>check not success</p>
+        <pre><code id="example_r">#\dontrun{
 
-        <h3 style="display: none;">Examples</h3>
+result <- check_dependency(my_app, .get_context());
+if (!result$check) {
+print("dependency check failed!");
+}
 
-        
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

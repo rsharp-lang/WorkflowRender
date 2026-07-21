@@ -1,22 +1,57 @@
-﻿.TH __WORKFILE_URI_PARSER 1 2026-7月 "" "parse the workfile expression"
+﻿.TH __WORKFILE_URI_PARSER 1 2026-7月 "internal" "Parse a Single Workfile URI Expression"
 .SH NAME
 __workfile_uri_parser \- __workfile_uri_parser(uri)
 .SH SYNOPSIS
 \fI__workfile_uri_parser(uri)\fR
+.SH DESCRIPTION
+.PP
+
+
+Parses a single workfile URI expression of the form
+\code{app://relpath/to/file.ext} into a list with two elements
+that can be used to look up the physical file path via the
+\code{\link{workfile}} function.
+.PP
 .SH OPTIONS
 .PP
-\fBuri\fB \fR\- . a character vector that contains the workfile
-reference expression.
+\fBuri\fB \fR\- . a character vector that contains the workfile reference
+expression to be parsed.
 .PP
 .SH VALUE
 .PP
-a tuple list object that contains the necessary
-parameter value for call ``workfile`` function for gets
-the reference file path to the required data files.
+A named list object that contains the necessary parameter values
+for calling the \code{\link{workfile}} function to obtain the
+reference file path of the required data file. The list has two
+elements:
+\describe{
+\item{\code{app}}{the name of the producing application.}
+\item{\code{file}}{the relative file path inside that
+application's workspace directory.}
+}
 .PP
+.SH DETAILS
+.PP
+The expected URI format is \code{app_name://file/path/to/file.txt}.
+The function splits the input string on the \code{://} separator
+via \code{\link{tagvalue}} and uses the left-hand side as the
+application name and the right-hand side as the relative file path.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+ref <- __workfile_uri_parser("getMzSet://mzset.txt");
+# ref$app   == "getMzSet"
+# ref$file  == "mzset.txt"
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{workfile}}, \code{\link{__workfiles}},
+\code{\link{tagvalue}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.__workfile_uri_parser at uri_parser.R:line 33
+SMRUCC/R#.declare_function.__workfile_uri_parser at uri_parser.R:line 107
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

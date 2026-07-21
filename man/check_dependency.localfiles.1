@@ -1,26 +1,63 @@
-﻿.TH CHECK_DEPENDENCY.LOCALFILES 1 2026-7月 "" "Check for the upstream file dependency"
+﻿.TH CHECK_DEPENDENCY.LOCALFILES 1 2026-7月 "internal" "Check the Workspace File Dependencies of an Application"
 .SH NAME
 check_dependency.localfiles \- check_dependency.localfiles(requires, context)
 .SH SYNOPSIS
 \fIcheck_dependency.localfiles(requires, context)\fR
+.SH DESCRIPTION
+.PP
+
+
+Validates that all of the workspace files declared by an analysis
+application are present in the workspace directories of their
+producing applications. This implementation of the
+\code{\link{check_dependency}} generic function is responsible for
+the \code{tempfiles} part of the dependency declaration.
+.PP
 .SH OPTIONS
 .PP
-\fBrequires\fB \fR\- . the required temp work files, should be a tuple list
-object that contains the app reference and the related temp workfile,
-example data format of this tuple list would be:
-list(app1 = [file1, file2, ...], app2 = file3, ...)
+\fBrequires\fB \fR\- . 
 .PP
 .PP
-\fBcontext\fB \fR\- . 
+\fBcontext\fB \fR\- . the workflow context object that is used to resolve
+the workspace directory paths. The object is typically obtained
+via \code{\link{.get_context}}.
+.PP
+.SH VALUE
+.PP
+A named list object that summarizes the result of the workspace
+file dependency check. The list contains the following elements:
+\describe{
+\item{\code{check}}{a logical value that is \code{TRUE} when all
+required workspace files are present on disk, and \code{FALSE}
+otherwise.}
+\item{\code{file}}{a named list that describes the missing
+files. The element names are the names of the producing
+applications and the element values are character vectors of
+the missing file paths relative to each application's
+workspace directory.}
+}
 .PP
 .SH DETAILS
 .PP
-the workfile path in the ``requires`` tuple file list should be
-a relative file path which is relative to the app workdir
+The function iterates over the supplied \code{workfiles}
+declaration and checks each file against the workspace directory
+of its producing application. The workspace directory path is
+resolved via \code{\link{workspace}}. When a required file does
+not exist on disk, the file path is recorded in the \code{file}
+list under the name of its producing application.
+When at least one file is missing, the \code{check} result is set
+to \code{FALSE}. The recorded \code{file} list is later used by
+\code{\link{dependency.workfiles_missing}} to produce a
+human-readable error message.
 .PP
+.SH SEE ALSO
+\code{\link{check_dependency}},
+\code{\link{check_dependency.context_env}},
+\code{\link{set_dependency}}, \code{\link{workspace}},
+\code{\link{dependency.workfiles_missing}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.check_dependency.localfiles at localfiles.R:line 12
+SMRUCC/R#.declare_function.check_dependency.localfiles at localfiles.R:line 53
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

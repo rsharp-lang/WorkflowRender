@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>print warning message on the screen and the log file</title>
+    <title>Print a Warning Message to the Screen and the Log File</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>print warning message on the screen and the log file</h2>
+        <h2>Print a Warning Message to the Screen and the Log File</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Emits a warning message both to the standard R# warning stream and
+to the warning log file located inside the workflow temporary
+directory. The message is prefixed with the name of the application
+module that produced it (when available) so that the source of the
+warning can be easily identified when reviewing the log file.</p>
 
         <h3>Usage</h3>
 
@@ -36,20 +40,36 @@
 
         <table>
             
-<dt>app</dt>
-<dd><p><p>the app object where this warning message is produced.</p></p></dd>
-
-
 <dt>msg</dt>
-<dd><p><p>a character vector of the warning message that this
-workflow produced.</p></p></dd>
+<dd><p><p>a character vector (or any object coercible to one) of
+the warning message text that the workflow produced. The elements
+of the vector are unlisted and concatenated before being written.</p></p></dd>
+
+
+<dt>app</dt>
+<dd><p><p>the application object that produced this warning
+message. This parameter can be \code{NULL} when the warning is not
+associated with a specific application module. When non-null, the
+application name is resolved via \code{\link{get<em>app</em>name}} and
+used as a prefix for the message.</p></p></dd>
+
+
+<dt>ssid</dt>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the global
+session environment.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The warning log file path is constructed as
+\code{<temp<em>dir>/warning}, where \code{temp</em>dir} is the temporary
+directory of the current workflow context. The file is opened in
+append mode so that successive warnings accumulate across the entire
+workflow run, and is closed before the function returns to ensure
+that the data is flushed to disk.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -57,14 +77,20 @@ workflow produced.</p></p></dd>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effects of this function
+are the emission of an immediate warning to the standard output and
+the appending of the warning message to the warning log file.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+echo_warning("value of arg1 is missing, using default.");
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

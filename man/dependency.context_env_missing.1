@@ -1,15 +1,46 @@
-﻿.TH DEPENDENCY.CONTEXT_ENV_MISSING 1 2026-7月 "" "dependency.context_env_missing"
+﻿.TH DEPENDENCY.CONTEXT_ENV_MISSING 1 2026-7月 "internal" "Generate the Error Message for Missing Context Symbols"
 .SH NAME
 dependency.context_env_missing \- dependency.context_env_missing(context)
 .SH SYNOPSIS
 \fIdependency.context_env_missing(context)\fR
+.SH DESCRIPTION
+.PP
+
+
+Builds a human-readable error message that describes the runtime
+environment context symbols that are required by an analysis
+application but are missing or have a mismatched data type. This
+function is invoked by \code{\link{.internal_call}} when the
+dependency check for an application fails.
+.PP
 .SH OPTIONS
 .PP
-\fBcontext\fB \fR\- . 
+\fBcontext\fB \fR\- . a named list that describes the missing or mismatched
+context symbols. Each element of the list corresponds to a single
+symbol, where the element name is the symbol name and the element
+value is a short reason string (such as \code{"missing"} or
+\code{"mis-matched"}). The first element of the list is expected
+to be a debug summary of all available environment symbols.
 .PP
+.SH VALUE
+.PP
+A character vector that contains the formatted error message. When
+\code{context} is \code{NULL} or empty, a message indicating that no
+required context symbol is missing is returned instead.
+.PP
+.SH DETAILS
+.PP
+The returned message includes the number of missing or mismatched
+symbols and a JSON-encoded representation of the \code{context}
+list, which makes it easy to inspect the exact symbols that caused
+the dependency check to fail.
+.PP
+.SH SEE ALSO
+\code{\link{check_dependency.context_env}},
+\code{\link{dependency.workfiles_missing}}, \code{\link{throw_err}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.dependency.context_env_missing at errors.R:line 3
+SMRUCC/R#.declare_function.dependency.context_env_missing at errors.R:line 33
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

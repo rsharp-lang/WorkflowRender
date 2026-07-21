@@ -1,15 +1,60 @@
-﻿.TH DEPENDENCY_GRAPH 1 2026-7月 "" "dependency_graph"
+﻿.TH DEPENDENCY_GRAPH 1 2026-7月 "" "Build the Dependency Graph of the Workflow Modules"
 .SH NAME
-dependency_graph \- dependency_graph(mounts)
+dependency_graph \- dependency_graph(pool)
 .SH SYNOPSIS
-\fIdependency_graph(mounts)\fR
+\fIdependency_graph(pool)\fR
+.SH DESCRIPTION
+.PP
+
+
+Constructs an \code{igraph} object that represents the dependency
+relationships between the analysis application modules registered
+in the workflow. Each vertex of the graph corresponds to an
+application module and each edge represents a file dependency
+from a consumer module to its producing module.
+.PP
 .SH OPTIONS
 .PP
-\fBmounts\fB \fR\- . 
+\fBpool\fB \fR\- . a named list of analysis application objects, as
+stored in the \code{workflow} slot of the workflow context.
 .PP
+.SH VALUE
+.PP
+An \code{igraph} object that represents the dependency graph of
+the supplied workflow modules. The vertex names of the graph are
+the application names, and each edge is directed from a consumer
+module to its producing module.
+.PP
+.SH DETAILS
+.PP
+The function iterates over the supplied \code{pool} of
+application modules and inspects the \code{tempfiles} slot of
+each module's dependency declaration. For each required file, an
+edge is added from the consumer module to the producing module.
+The resulting graph can be used to detect circular references,
+missing producers, or unreachable modules via the standard
+\code{igraph} functions. The graph is also used by
+\code{\link{dependency_analysis}} to produce a comprehensive
+report of the workflow structure.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+pool <- .get_context()$workflow;
+g <- dependency_graph(pool);
+plot(g);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{dependency_analysis}},
+\code{\link{extract_workflow_vertex}}, \code{\link{set_dependency}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.dependency_graph at dependency_graph.R:line 3
+SMRUCC/R#.declare_function.dependency_graph at dependency_graph.R:line 43
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Set workflow application disable flag</title>
+    <title>Set the Disable Flag of a Workflow Application Module</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Set workflow application disable flag</h2>
+        <h2>Set the Disable Flag of a Workflow Application Module</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Toggles the \code{disable} flag of one or more analysis application
+modules that have been registered in the workflow context. When a
+module is disabled, the workflow execution engine will skip it
+during the next run, but the module is still kept in the workflow
+registry so that it can be re-enabled later.</p>
 
         <h3>Usage</h3>
 
@@ -36,14 +40,29 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>the app name or the app object itself</p></p></dd>
+<dd><p><p>a character vector of the application names whose
+\code{disable} flag should be toggled. Each name must correspond
+to a module that has been registered in the workflow context via
+\code{\link{hook}}.</p></p></dd>
+
+
+<dt>disable</dt>
+<dd><p><p>a logical value that specifies the new value of the
+\code{disable} flag. The default value of \code{TRUE} disables
+the supplied modules; passing \code{FALSE} re-enables them.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>This function is used to disable a specific analysis application
+module in the workflow context. The function iterates over the
+supplied \code{app} names and sets the \code{disable} slot of the
+corresponding module in the \code{context$workflow} tuple list to
+the supplied \code{disable} value. The updated context is then
+written back to the global environment so that the change is
+visible to subsequent calls to \code{\link{run}}.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -51,14 +70,24 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{disable} slot of the targeted
+application modules in the workflow context stored in the global
+environment.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+# disable the "filter" module for the next run
+set_disable("filter");
+# re-enable it later
+set_disable("filter", disable = FALSE);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>get app workspace location</title>
+    <title>Get the Workspace Location of an Analysis Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>get app workspace location</h2>
+        <h2>Get the Workspace Location of an Analysis Application</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Returns the workspace directory path that has been allocated to a
+specific analysis application inside the workflow temporary
+directory. The workspace directory is used by the application to
+store its intermediate result files so that they can be consumed
+by downstream modules.</p>
 
         <h3>Usage</h3>
 
@@ -37,20 +41,35 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>the app list object or just the app name its
-character text value.</p></p></dd>
+<dd><p><p>the application list object produced by
+\code{\link{app}}, or alternatively a character vector giving the
+application name directly.</p></p></dd>
 
 
 <dt>ssid</dt>
-<dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.</p></p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><p>a logical value that controls whether diagnostic
+information about the resolved workspace path should be printed.
+The default value of \code{FALSE} suppresses the output. When
+\code{options(verbose = TRUE)} is set, the function always
+behaves as if \code{verbose = TRUE}.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the verbose option could be config from the
-commandline option: <code>--verbose</code></p>
+        <p>The verbose option can also be configured from the command-line
+option \code{--verbose}. When the requested application has not
+been registered in the analysis context yet, a warning is emitted
+via \code{\link{echo_warning}} but the workspace path is still
+returned so that the calling code can decide how to handle the
+situation.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -58,15 +77,21 @@ commandline option: <code>--verbose</code></p>
 
         <h3>Value</h3>
 
-        <p>a character vector of the workspace directory path
-of the specific analysis application.</p>
+        <p>A character vector of the workspace directory path of the specific
+analysis application. The path is normalized to an absolute path
+and is located under
+\code{<temp<em>dir>/workflow</em>tmp/<app_name>/}.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+ws <- workspace("my_analysis_module");
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

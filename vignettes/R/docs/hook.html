@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Add workflow app component into the registry</title>
+    <title>Add a Workflow Application Component into the Registry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Add workflow app component into the registry</h2>
+        <h2>Add a Workflow Application Component into the Registry</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Registers an analysis application module into the workflow context
+so that it can be invoked by the workflow execution engine. The
+supplied application object is appended to the \code{workflow}
+tuple list of the context and its name is appended to the
+\code{pipeline} execution sequence.</p>
 
         <h3>Usage</h3>
 
@@ -35,14 +39,43 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>the app object which is generated via the <code>app</code> function</p></p></dd>
+<dd><p><p>the application object to be registered. This parameter
+can be supplied in two forms:
+\enumerate{
+\item An application list object produced by the
+\code{\link{app}} function.
+\item A bare function object that has been tagged with the
+\code{@app} custom attribute (and optionally \code{@desc},
+\code{@context_env} and \code{@workfiles}). In this case the
+function is automatically converted into an application
+object via \code{\link{<em></em>build_app}} before being registered.
+}</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the application module will be add to the <code>context$workflow</code> tuple list.</p>
+        <p>The application module is added to the \code{context$workflow}
+tuple list, keyed by its name. In addition, the function name of
+the analysis callable is recorded in the \code{symbols} map of the
+context so that the application name can later be resolved from a
+bare function reference via
+\code{\link{get<em>appName.func</em>reference}}.
+Before registering the module, the function performs two
+validation checks:
+\itemize{
+\item The application name must be a non-empty string. When the
+name is empty, the workflow is aborted via
+\code{\link{throw_err}}.
+\item The application object must pass the signature check
+performed by \code{\link{app_check.signature}}. When the check
+fails, the workflow is aborted with an explanatory error
+message.
+}
+Finally, the application name is appended to the \code{pipeline}
+slot of the context so that the module is activated by default in
+subsequent workflow runs.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -50,14 +83,26 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{workflow}, \code{pipeline} and
+\code{symbols} slots of the workflow context stored in the global
+environment.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+# register an application object
+hook(app("demo", function(app, context) { print("hi"); }));
+# register a tagged function
+[@app "demo"]
+let demo = function(app, context) { print("hi"); };
+hook(demo);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

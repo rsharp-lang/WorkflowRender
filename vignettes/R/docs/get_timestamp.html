@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>get a character vector of current timespan</title>
+    <title>Get a Character Vector of the Current Timestamp</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>get a character vector of current timespan</h2>
+        <h2>Get a Character Vector of the Current Timestamp</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Returns the current date and time as a character vector formatted
+in a way that is safe to use inside a file path. The default format
+\code{yyyy-MM-dd hh-mm-ss} avoids characters such as colons that
+are not allowed in file names on some operating systems.</p>
 
         <h3>Usage</h3>
 
@@ -39,8 +42,10 @@
 
         <h3 style="display: block;">Details</h3>
 
-        <p>this character vector of the current timespan
-could be used inside a file path safely.</p>
+        <p>This character vector of the current timestamp can be used safely
+inside a file path, for example to generate unique log file names
+for successive workflow runs. The function delegates to
+\code{toString(now(), "yyyy-MM-dd hh-mm-ss")}.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -48,14 +53,19 @@ could be used inside a file path safely.</p>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A character vector of the current timestamp in the format
+\code{yyyy-MM-dd hh-mm-ss}.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+logfile <- paste0("run-", get_timestamp(), ".log");
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

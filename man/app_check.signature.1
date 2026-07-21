@@ -1,15 +1,42 @@
-﻿.TH APP_CHECK.SIGNATURE 1 2026-7月 "" "app_check.signature"
+﻿.TH APP_CHECK.SIGNATURE 1 2026-7月 "internal" "Check the Application Function Signature"
 .SH NAME
 app_check.signature \- app_check.signature(app)
 .SH SYNOPSIS
 \fIapp_check.signature(app)\fR
+.SH DESCRIPTION
+.PP
+
+
+Validates that the supplied function declares exactly two
+parameters named \code{app} and \code{context}. This is the
+contract that every analysis application function must satisfy in
+order to be registered into the workflow via \code{\link{hook}}.
+.PP
 .SH OPTIONS
 .PP
 \fBapp\fB \fR\- . 
 .PP
+.SH VALUE
+.PP
+A logical value that indicates whether the supplied function
+declares the expected signature. The value \code{TRUE} is returned
+when the function declares exactly two parameters named
+\code{app} and \code{context}; \code{FALSE} is returned otherwise.
+.PP
+.SH DETAILS
+.PP
+The function inspects the formal parameters of the supplied
+function via \code{.Internal::formals} and compares the parameter
+names against the expected \code{c("app", "context")} vector. The
+check is strict: any deviation in the number of parameters or in
+the parameter names causes the function to return \code{FALSE}.
+.PP
+.SH SEE ALSO
+\code{\link{app_check.signature}},
+\code{\link{app}}, \code{\link{hook}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.app_check.signature at validation.R:line 4
+SMRUCC/R#.declare_function.app_check.signature at validation.R:line 29
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

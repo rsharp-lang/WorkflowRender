@@ -1,20 +1,66 @@
-﻿.TH SET_DISABLE 1 2026-7月 "" "Set workflow application disable flag"
+﻿.TH SET_DISABLE 1 2026-7月 "" "Set the Disable Flag of a Workflow Application Module"
 .SH NAME
 set_disable \- set_disable(app,
     <i>flag</i> = <span style='color: blue !important;'>TRUE</span>)
 .SH SYNOPSIS
 \fIset_disable(app,
     <i>flag</i> = <span style='color: blue !important;'>TRUE</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Toggles the \code{disable} flag of one or more analysis application
+modules that have been registered in the workflow context. When a
+module is disabled, the workflow execution engine will skip it
+during the next run, but the module is still kept in the workflow
+registry so that it can be re-enabled later.
+.PP
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . the app name or the app object itself
+\fBapp\fB \fR\- . a character vector of the application names whose
+\code{disable} flag should be toggled. Each name must correspond
+to a module that has been registered in the workflow context via
+\code{\link{hook}}.
 .PP
 .PP
 \fBflag\fB \fR\- TRUE. 
 .PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{disable} slot of the targeted
+application modules in the workflow context stored in the global
+environment.
+.PP
+.SH DETAILS
+.PP
+This function is used to disable a specific analysis application
+module in the workflow context. The function iterates over the
+supplied \code{app} names and sets the \code{disable} slot of the
+corresponding module in the \code{context$workflow} tuple list to
+the supplied \code{disable} value. The updated context is then
+written back to the global environment so that the change is
+visible to subsequent calls to \code{\link{run}}.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+# disable the "filter" module for the next run
+set_disable("filter");
+# re-enable it later
+set_disable("filter", disable = FALSE);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{hook}}, \code{\link{run}},
+\code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.set_disable at set_disable.R:line 5
+SMRUCC/R#.declare_function.set_disable at set_disable.R:line 47
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

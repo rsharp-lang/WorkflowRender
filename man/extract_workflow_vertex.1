@@ -1,15 +1,69 @@
-﻿.TH EXTRACT_WORKFLOW_VERTEX 1 2026-7月 "" "extract_workflow_vertex"
+﻿.TH EXTRACT_WORKFLOW_VERTEX 1 2026-7月 "" "Extract the Vertex Information from a Workflow Dependency Graph"
 .SH NAME
-extract_workflow_vertex \- extract_workflow_vertex(meta)
+extract_workflow_vertex \- extract_workflow_vertex(graph)
 .SH SYNOPSIS
-\fIextract_workflow_vertex(meta)\fR
+\fIextract_workflow_vertex(graph)\fR
+.SH DESCRIPTION
+.PP
+
+
+Extracts the vertex information from an \code{igraph} object that
+represents the dependency graph of a workflow. The extracted
+information is returned as a data frame that can be used for
+downstream inspection or for rendering a visual overview of the
+workflow structure.
+.PP
 .SH OPTIONS
 .PP
-\fBmeta\fB \fR\- . 
+\fBgraph\fB \fR\- . an \code{igraph} object that represents the
+dependency graph of a workflow, as produced by
+\code{\link{dependency_graph}}.
 .PP
+.SH VALUE
+.PP
+A data frame object that describes the vertices of the supplied
+dependency graph. The columns of the data frame are:
+\describe{
+\item{\code{name}}{the name of the application module.}
+\item{\code{in_degree}}{the number of modules that depend on
+this module (i.e. the number of incoming edges).}
+\item{\code{out_degree}}{the number of modules that this module
+depends on (i.e. the number of outgoing edges).}
+\item{\code{is_leaf}}{a logical flag that is \code{TRUE} when
+the module has no outgoing edges (i.e. it does not depend on
+any other module).}
+\item{\code{is_root}}{a logical flag that is \code{TRUE} when
+the module has no incoming edges (i.e. no other module
+depends on it).}
+}
+.PP
+.SH DETAILS
+.PP
+The function uses the standard \code{igraph} functions to extract
+the vertex names and the in/out degree of each vertex. The
+\code{is_leaf} and \code{is_root} flags are derived from the
+degree information to make it easy to identify the entry points
+and the terminal modules of the workflow.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+pool <- .get_context()$workflow;
+g <- dependency_graph(pool);
+vertices <- extract_workflow_vertex(g);
+print(vertices);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{dependency_graph}},
+\code{\link{dependency_analysis}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.extract_workflow_vertex at extract_workflow_vertex.R:line 1
+SMRUCC/R#.declare_function.extract_workflow_vertex at extract_workflow_vertex.R:line 51
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

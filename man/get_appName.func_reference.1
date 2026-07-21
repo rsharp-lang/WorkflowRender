@@ -1,15 +1,50 @@
-﻿.TH GET_APPNAME.FUNC_REFERENCE 1 2026-7月 "" "get_appName.func_reference"
+﻿.TH GET_APPNAME.FUNC_REFERENCE 1 2026-7月 "internal" "Get the Application Name from a Function Reference"
 .SH NAME
 get_appName.func_reference \- get_appName.func_reference(app)
 .SH SYNOPSIS
 \fIget_appName.func_reference(app)\fR
+.SH DESCRIPTION
+.PP
+
+
+Resolves the application name that has been associated with a bare
+function reference. This implementation of the
+\code{\link{get_app_name}} generic function is used when the
+supplied object is a callable function rather than a fully-formed
+application list.
+.PP
 .SH OPTIONS
 .PP
 \fBapp\fB \fR\- . 
 .PP
+.SH VALUE
+.PP
+A character vector of the application name that has been
+associated with the supplied function reference. When the function
+has not been registered in the workflow context yet, an empty
+string is returned and a warning is emitted via
+\code{\link{echo_warning}}.
+.PP
+.SH DETAILS
+.PP
+The function looks up the name of the supplied function via
+\code{\link{get_functionName}} and then uses that name as a key
+into the \code{symbols} map of the workflow context. The
+\code{symbols} map is populated by \code{\link{hook}} when an
+application is registered, and maps the function name of the
+analysis callable to the application name.
+When the function name cannot be found in the \code{symbols} map,
+the function emits a warning via \code{\link{echo_warning}} and
+returns an empty string. This allows the calling code to detect
+the missing registration and handle it gracefully.
+.PP
+.SH SEE ALSO
+\code{\link{get_app_name}},
+\code{\link{get_appName.obj}}, \code{\link{get_functionName}},
+\code{\link{hook}}, \code{\link{echo_warning}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.get_appName.func_reference at func_reference.R:line 6
+SMRUCC/R#.declare_function.get_appName.func_reference at func_reference.R:line 42
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

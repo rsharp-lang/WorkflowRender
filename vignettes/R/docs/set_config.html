@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Set user parameters to the workflow context</title>
+    <title>Set User Parameters in the Workflow Context</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>Set user parameters to the workflow context</h2>
+        <h2>Set User Parameters in the Workflow Context</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Stores one or more user-supplied parameter values into the
+\code{configs} slot of the workflow context. The stored values can
+later be retrieved at runtime by the workflow modules via the
+\code{\link{get_config}} function.</p>
 
         <h3>Usage</h3>
 
@@ -36,15 +39,23 @@
         <table>
             
 <dt>configs</dt>
-<dd><p><p>a key-value paire tuple list object that
-contains the workflow parameter values.</p></p></dd>
+<dd><p><p>a key-value pair tuple list object that contains the
+workflow parameter values. The element names of the list are used
+as the parameter names, and the corresponding element values are
+stored as the parameter values.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function lazily creates the \code{configs} slot of the workflow
+context when it does not yet exist, and then iterates over the
+supplied \code{configs} list to merge each key-value pair into the
+existing configuration. When a value of \code{NULL} is supplied
+for a given key, a warning is emitted via \code{\link{echo_warning}}
+because setting a list element to \code{NULL} in R# is interpreted
+as deleting that element, which is rarely the intended behavior.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -52,14 +63,20 @@ contains the workflow parameter values.</p></p></dd>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{configs} slot of the workflow context
+stored in the global environment.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+WorkflowRender::set_config(list(arg1 = "xxx", arg2 = "xxx"));
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

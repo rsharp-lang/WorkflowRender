@@ -1,4 +1,4 @@
-﻿.TH CREATE_MEMORY_CONTEXT 1 2026-7月 "" "create an in-memory context object just used for run debug"
+﻿.TH CREATE_MEMORY_CONTEXT 1 2026-7月 "" "Create an In-Memory Workflow Context for Debugging"
 .SH NAME
 create_memory_context \- create_memory_context(
     <i>mounts</i> = <span style='color: blue !important;'>NULL</span>,
@@ -7,17 +7,62 @@ create_memory_context \- create_memory_context(
 \fIcreate_memory_context(
     <i>mounts</i> = <span style='color: blue !important;'>NULL</span>,
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Creates a lightweight in-memory workflow context object that is
+intended for debugging and unit testing scenarios where no on-disk
+workspace is required. All workspace directory paths of the created
+context are set to \code{NULL}, and the optional \code{mounts}
+callback can be used to register application modules into the
+workflow registry immediately after the context is created.
+.PP
 .SH OPTIONS
 .PP
-\fBmounts\fB \fR\- NULL. should be a callable function for mounts the
-application modules into the workflow registry.
+\fBmounts\fB \fR\- NULL. an optional callable function that is invoked (with
+no arguments) after the in-memory context has been installed.
+This function is expected to mount the application modules into
+the workflow registry by calling \code{\link{hook}} for each
+module that should participate in the workflow.
 .PP
 .PP
-\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.
 .PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effect of this function is
+the installation of an in-memory workflow context object in the
+global environment.
+.PP
+.SH DETAILS
+.PP
+The created context has the same structure as the one produced by
+\code{\link{init_context}}, but with all directory paths set to
+\code{NULL}. This makes the function particularly useful for
+dependency-graph analysis (see \code{\link{dependency_graph}}) and
+for unit tests that do not need to touch the filesystem.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+create_memory_context(function() {
+hook(my_analysis_module);
+});
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{init_context}}, \code{\link{.get_context}},
+\code{\link{hook}}, \code{\link{dependency_graph}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.create_memory_context at memory_access.R:line 7
+SMRUCC/R#.declare_function.create_memory_context at memory_access.R:line 44
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

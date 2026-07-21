@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>dependency_graph</title>
+    <title>Build the Dependency Graph of the Workflow Modules</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,28 +18,44 @@
             </tr>
         </table>
 
-        <h2>dependency_graph</h2>
+        <h2>Build the Dependency Graph of the Workflow Modules</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Constructs an \code{igraph} object that represents the dependency
+relationships between the analysis application modules registered
+in the workflow. Each vertex of the graph corresponds to an
+application module and each edge represents a file dependency
+from a consumer module to its producing module.</p>
 
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>dependency_graph</strong>(<i>mounts</i>);</code></pre>
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>dependency_graph</strong>(<i>pool</i>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
 
         <table>
             
+<dt>pool</dt>
+<dd><p><p>a named list of analysis application objects, as
+stored in the \code{workflow} slot of the workflow context.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function iterates over the supplied \code{pool} of
+application modules and inspects the \code{tempfiles} slot of
+each module's dependency declaration. For each required file, an
+edge is added from the consumer module to the producing module.
+The resulting graph can be used to detect circular references,
+missing producers, or unreachable modules via the standard
+\code{igraph} functions. The graph is also used by
+\code{\link{dependency_analysis}} to produce a comprehensive
+report of the workflow structure.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +63,23 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>An \code{igraph} object that represents the dependency graph of
+the supplied workflow modules. The vertex names of the graph are
+the application names, and each edge is directed from a consumer
+module to its producing module.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+pool <- .get_context()$workflow;
+g <- dependency_graph(pool);
+plot(g);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

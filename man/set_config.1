@@ -1,18 +1,58 @@
-﻿.TH SET_CONFIG 1 2026-7月 "" "Set user parameters to the workflow context"
+﻿.TH SET_CONFIG 1 2026-7月 "" "Set User Parameters in the Workflow Context"
 .SH NAME
 set_config \- set_config(
     <i>configs</i> = 'list'())
 .SH SYNOPSIS
 \fIset_config(
     <i>configs</i> = 'list'())\fR
+.SH DESCRIPTION
+.PP
+
+
+Stores one or more user-supplied parameter values into the
+\code{configs} slot of the workflow context. The stored values can
+later be retrieved at runtime by the workflow modules via the
+\code{\link{get_config}} function.
+.PP
 .SH OPTIONS
 .PP
-\fBconfigs\fB \fR\- 'list'(). a key-value paire tuple list object that
-contains the workflow parameter values.
+\fBconfigs\fB \fR\- 'list'(). a key-value pair tuple list object that contains the
+workflow parameter values. The element names of the list are used
+as the parameter names, and the corresponding element values are
+stored as the parameter values.
 .PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{configs} slot of the workflow context
+stored in the global environment.
+.PP
+.SH DETAILS
+.PP
+The function lazily creates the \code{configs} slot of the workflow
+context when it does not yet exist, and then iterates over the
+supplied \code{configs} list to merge each key-value pair into the
+existing configuration. When a value of \code{NULL} is supplied
+for a given key, a warning is emitted via \code{\link{echo_warning}}
+because setting a list element to \code{NULL} in R# is interpreted
+as deleting that element, which is rarely the intended behavior.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+WorkflowRender::set_config(list(arg1 = "xxx", arg2 = "xxx"));
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{get_config}}, \code{\link{pull_configs}},
+\code{\link{echo_warning}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.set_config at set_config.R:line 6
+SMRUCC/R#.declare_function.set_config at set_config.R:line 38
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

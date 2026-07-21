@@ -1,15 +1,85 @@
-﻿.TH DEPENDENCY_ANALYSIS 1 2026-7月 "" "dependency_analysis"
+﻿.TH DEPENDENCY_ANALYSIS 1 2026-7月 "" "Analyze the Dependency Graph of the Workflow Modules"
 .SH NAME
-dependency_analysis \- dependency_analysis(app)
+dependency_analysis \- dependency_analysis(
+    <i>verbose</i> = <span style='color: blue !important;'>FALSE</span>)
 .SH SYNOPSIS
-\fIdependency_analysis(app)\fR
+\fIdependency_analysis(
+    <i>verbose</i> = <span style='color: blue !important;'>FALSE</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Builds a dependency graph of all analysis application modules that
+have been registered in the current workflow context and analyzes
+the graph to detect potential issues such as missing dependencies,
+circular references, or unreachable modules. The function is
+primarily intended for debugging and for producing a visual
+overview of the workflow structure.
+.PP
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . 
+\fBverbose\fB \fR\- FALSE. a logical value that controls whether diagnostic
+information about the dependency analysis should be printed.
+The default value of \code{FALSE} suppresses the output. When
+\code{options(verbose = TRUE)} is set, the function always
+behaves as if \code{verbose = TRUE}.
 .PP
+.SH VALUE
+.PP
+A named list object that contains the result of the dependency
+analysis. The list contains the following elements:
+\describe{
+\item{\code{graph}}{an \code{igraph} object that represents the
+dependency graph of the workflow modules. Each vertex
+corresponds to an application module and each edge represents
+a file dependency from one module to another.}
+\item{\code{vertices}}{a data frame that describes the vertices
+of the dependency graph, as produced by
+\code{\link{extract_workflow_vertex}}.}
+\item{\code{issues}}{a list of detected issues, such as missing
+dependencies or circular references.}
+}
+.PP
+.SH DETAILS
+.PP
+The function performs the following steps:
+\enumerate{
+\item Retrieves the workflow context via \code{\link{.get_context}}
+and collects the dependency declarations of all registered
+application modules.
+\item Builds a dependency graph via \code{\link{dependency_graph}}
+in which each vertex represents an application module and each
+edge represents a file dependency from a consumer module to
+its producing module.
+\item Extracts the vertex information via
+\code{\link{extract_workflow_vertex}} for downstream
+inspection.
+\item Analyzes the graph for potential issues such as missing
+dependencies, circular references, or unreachable modules.
+}
+When \code{verbose} is \code{TRUE}, the function prints the
+dependency graph and the detected issues to the standard output
+for debugging purposes.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+WorkflowRender::init_context("/path/to/workdir/");
+hook(app("demo", function(app, context) { print("hi"); }));
+result <- dependency_analysis();
+print(result$graph);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{dependency_graph}},
+\code{\link{extract_workflow_vertex}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.dependency_analysis at dependency_analysis.R:line 2
+SMRUCC/R#.declare_function.dependency_analysis at dependency_analysis.R:line 66
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

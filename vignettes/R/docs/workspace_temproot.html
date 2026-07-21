@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>workspace_temproot</title>
+    <title>Get the Workspace Temporary Root Directory</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>workspace_temproot</h2>
+        <h2>Get the Workspace Temporary Root Directory</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Returns the temporary root directory of the current workflow
+workspace. This directory holds all of the intermediate files
+produced by the workflow modules, including the per-application
+workspace directories returned by \code{\link{workspace}}.</p>
 
         <h3>Usage</h3>
 
@@ -35,12 +38,19 @@
 
         <table>
             
+<dt>ssid</dt>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The returned path corresponds to the \code{temp_dir} slot of the
+workflow context, which is initialized by
+\code{\link{init_context}} to \code{<outputdir>/tmp/}.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -48,14 +58,19 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A character vector of the temporary root directory path of the
+workflow workspace.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+tmp <- workspace_temproot();
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

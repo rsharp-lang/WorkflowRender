@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>create an in-memory context object just used for run debug</title>
+    <title>Create an In-Memory Workflow Context for Debugging</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,16 @@
             </tr>
         </table>
 
-        <h2>create an in-memory context object just used for run debug</h2>
+        <h2>Create an In-Memory Workflow Context for Debugging</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Creates a lightweight in-memory workflow context object that is
+intended for debugging and unit testing scenarios where no on-disk
+workspace is required. All workspace directory paths of the created
+context are set to \code{NULL}, and the optional \code{mounts}
+callback can be used to register application modules into the
+workflow registry immediately after the context is created.</p>
 
         <h3>Usage</h3>
 
@@ -36,20 +41,29 @@
 
         <table>
             
-<dt>ssid</dt>
-<dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
-
-
 <dt>mounts</dt>
-<dd><p><p>should be a callable function for mounts the
-application modules into the workflow registry.</p></p></dd>
+<dd><p><p>an optional callable function that is invoked (with
+no arguments) after the in-memory context has been installed.
+This function is expected to mount the application modules into
+the workflow registry by calling \code{\link{hook}} for each
+module that should participate in the workflow.</p></p></dd>
+
+
+<dt>ssid</dt>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The created context has the same structure as the one produced by
+\code{\link{init_context}}, but with all directory paths set to
+\code{NULL}. This makes the function particularly useful for
+dependency-graph analysis (see \code{\link{dependency_graph}}) and
+for unit tests that do not need to touch the filesystem.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -57,14 +71,22 @@ application modules into the workflow registry.</p></p></dd>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the installation of an in-memory workflow context object in the
+global environment.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+create_memory_context(function() {
+hook(my_analysis_module);
+});
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

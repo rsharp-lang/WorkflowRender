@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>__workfiles</title>
+    <title>Internal Function for Parsing the Workfile URI Expression</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>__workfiles</h2>
+        <h2>Internal Function for Parsing the Workfile URI Expression</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Wraps the actual URI parser \code{\link{<em></em>workfiles_data}} with a
+short-circuit for the empty-input case. This function is invoked
+internally by \code{\link{<em></em>build_app}} to convert the
+\code{@workfiles} attribute of a tagged function into the
+structured dependency list expected by \code{\link{set_dependency}}.</p>
 
         <h3>Usage</h3>
 
@@ -34,6 +38,11 @@
 
         <table>
             
+<dt>files.uri</dt>
+<dd><p><p>a character vector of workfile URI expressions
+in the format \code<a href='{app://relpath/to/file.ext}' title='{app://relpath/to/file.ext}'>{app://relpath/to/file.ext}</a>. May be
+\code{NULL} or empty.</p></p></dd>
+
         </table>
 
 
@@ -47,14 +56,17 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A named list object that groups the parsed file paths by their
+producing application name, suitable for direct use as the
+\code{workfiles} argument of \code{\link{set_dependency}}. When
+\code{files_uri} is empty, \code{NULL} is returned instead.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

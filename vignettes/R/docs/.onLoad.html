@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>.onLoad</title>
+    <title>Package Load Hook</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>.onLoad</h2>
+        <h2>Package Load Hook</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Displays the content of the \code{DESCRIPTION} file of the
+\code{WorkflowRender} package when the package is loaded into the
+R# runtime. This is primarily a diagnostic helper that allows the
+user to verify the package metadata (version, dependencies, etc.)
+at load time.</p>
 
         <h3>Usage</h3>
 
@@ -37,9 +41,12 @@
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function is invoked automatically by the R# runtime when the
+package is attached. It calls \code{str(description("WorkflowRender"))}
+to print a compact structure representation of the parsed
+\code{DESCRIPTION} file to the standard output.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +54,16 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the printing of the package description metadata to the standard
+output.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Work with cache file</title>
+    <title>Work with a Cache File</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Work with cache file</h2>
+        <h2>Work with a Cache File</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Conditionally creates a cache file by invoking a user-supplied
+factory function only when the cache file does not yet exist (or
+is considered invalid). This pattern allows expensive computations
+to be skipped on subsequent runs when the cached result is already
+available on disk.</p>
 
         <h3>Usage</h3>
 
@@ -34,19 +38,29 @@
 
         <table>
             
+<dt>filepath</dt>
+<dd><p><p>a character vector of the cache file path to be
+tested and (when necessary) created.</p></p></dd>
+
+
 <dt>create</dt>
-<dd><p><p>a callable function that accept a file path parameter
-to create the target cache file.</p></p></dd>
+<dd><p><p>a callable function that accepts a single file path
+parameter and is responsible for producing the target cache file
+at that location. This function is invoked only when
+\code{\link{has_cachefile}} reports that the cache file is missing
+or invalid.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>this function will work around with the specific given
-cache file: this function will do nothing if the cache file is
-already exists or invoke the <code>create</code> function for when file
-exists of the cache data is false.</p>
+        <p>This function works around the specific given cache file as
+follows: it does nothing if the cache file already exists (and is
+non-empty), and it invokes the supplied \code{create} function
+when the cache file is missing or has a size of zero bytes. The
+validity of the cache file is determined by
+\code{\link{has_cachefile}}.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -54,14 +68,21 @@ exists of the cache data is false.</p>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the potential creation of the cache file at the supplied path.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+use_cache("/path/to/cache.rds", function(path) {
+saveRDS(compute_expensive_result(), path);
+});
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

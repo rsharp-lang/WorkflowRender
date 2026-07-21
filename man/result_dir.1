@@ -1,21 +1,51 @@
-﻿.TH RESULT_DIR 1 2026-7月 "" "get directory folder path for the analysis output result"
+﻿.TH RESULT_DIR 1 2026-7月 "" "Get the Directory Path for the Analysis Output Result"
 .SH NAME
 result_dir \- result_dir(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIresult_dir(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Returns the directory path where the analysis result output files
+of the current workflow should be written. This directory is a
+sub-directory of the workspace root and is created by
+\code{\link{init_context}}.
+.PP
 .SH OPTIONS
 .PP
-\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.
+.PP
+.SH VALUE
+.PP
+A character vector of the analysis result output directory path.
 .PP
 .SH DETAILS
 .PP
-a character vector of the analysis result output directory.
+The returned path corresponds to the \code{analysis} slot of the
+workflow context, which is initialized by
+\code{\link{init_context}} to \code{<outputdir>/analysis/}.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+out <- result_dir();
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{init_context}}, \code{\link{workdir_root}},
+\code{\link{workspace_temproot}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.result_dir at workdir.R:line 16
+SMRUCC/R#.declare_function.result_dir at workdir.R:line 66
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

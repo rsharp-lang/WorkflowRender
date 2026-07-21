@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>.internal_call</title>
+    <title>Invoke an Analysis Application (Internal Function)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,12 +18,14 @@
             </tr>
         </table>
 
-        <h2>.internal_call</h2>
+        <h2>Invoke an Analysis Application (Internal Function)</h2>
 
         <h3>Description</h3>
 
-        <p>This internal function executes an analysis application after validating its dependencies.
-It handles application execution, error reporting, and performance profiling.</p>
+        <p>This internal function executes a single analysis application after
+validating its declared dependencies. It is responsible for application
+invocation, error reporting on missing dependencies, and performance
+profiling of the executed module.</p>
 
         <h3>Usage</h3>
 
@@ -36,59 +38,59 @@ It handles application execution, error reporting, and performance profiling.</p
         <table>
             
 <dt>app</dt>
-<dd><p><p>A list defining the analysis application. Must contain:
-<ul>
-<li>`name`: (character) Name of the application (for logging).</li>
-<li>`call`: (function) The function to execute the application logic.</li>
-<li>`profiler`: (list) Stores performance metrics (e.g., execution time).</li>
-</ul></p></p></dd>
+<dd><p><p>A list defining the analysis application. The following
+slots are expected to be present:
+\describe{
+\item{\code{name}}{(character) Name of the application, used for
+logging and error reporting.}
+\item{\code{call}}{(function) The function that implements the
+application logic. It must accept two parameters named
+\code{app} and \code{context}.}
+\item{\code{profiler}}{(list) A slot used to store performance
+metrics, such as the total execution time of the module.}
+}</p></p></dd>
 
 
 <dt>context</dt>
-<dd><p><p>A list or environment providing runtime context, such as input data paths,
-environment variables, or configuration settings required by the application.</p></p></dd>
+<dd><p><p>A list or environment providing the runtime context,
+such as input data paths, environment variables, or configuration
+settings required by the application. This is the workflow context
+object created by \code{\link{init_context}}.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <h3>Key Steps:</h3>
-
-
-<ol>
-<li>​<strong>Dependency Check</strong>:</li>
-</ol>
-
-<p>Validates if required context variables and files exist via `check_dependency(app, context)`.
-<ul>
-<li>If dependencies are met, proceeds to execute the application.</li>
-<li>If dependencies are missing, throws an error with detailed missing resources.</li>
-</ul>
-
-<ol>
-<li>​<strong>Execution</strong>:</li>
-</ol></p>
-
-<ul>
-<li>Logs start/end timestamps if `options(verbose = TRUE)`.</li>
-<li>Executes `app$call` with arguments `app` and `context` using `do.call()`.</li>
-</ul>
-
-<ol>
-<li>​<strong>Error Handling</strong>:</li>
-</ol>
-
-<ul>
-<li>Aggregates missing dependencies into readable error messages.</li>
-<li>Calls `throw_err()` to terminate the workflow and report issues.</li>
-</ul>
-
-<ol>
-<li>​<strong>Profiling</strong>:</li>
-</ol>
-
-<p>Records total execution time in `app$profiler$time` using `time_span()` for human-readable formatting.</p>
+        <p>The function performs the following steps in order:
+\enumerate{
+\item \strong{Dependency Check}: Validates whether the required
+context variables and workspace files exist via
+\code{\link{check_dependency}}.
+\itemize{
+\item If all dependencies are satisfied, the function proceeds
+to execute the application.
+\item If any dependency is missing, an error is thrown with a
+detailed report of the missing resources.
+}
+\item \strong{Execution}:
+\itemize{
+\item Logs the start and end timestamps when
+\code{options(verbose = TRUE)} is set.
+\item Executes \code{app$call} with arguments \code{app} and
+\code{context} using \code{do.call()}.
+}
+\item \strong{Error Handling}:
+\itemize{
+\item Aggregates missing dependencies into a human-readable
+error message.
+\item Calls \code{\link{throw_err}} to terminate the workflow
+and report the issues to the user.
+}
+\item \strong{Profiling}:
+Records the total execution time in \code{app$profiler$time}
+using \code{\link{time_span}} for human-readable formatting.
+}</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -96,8 +98,10 @@ environment variables, or configuration settings required by the application.</p
 
         <h3>Value</h3>
 
-        <p>Invisibly returns `NULL`. The function primarily updates `app$profiler` with execution
-time metrics and may modify the `context` during execution.</p>
+        <p>Invisibly returns \code{NULL}. The function primarily updates
+\code{app$profiler} with execution time metrics and may modify the
+\code{context} object during execution as a side effect of running
+the application.</p>
 
         <h3 style="display: block;">Examples</h3>
 
@@ -106,8 +110,8 @@ time metrics and may modify the `context` during execution.</p>
 # Define a sample application
 app <- list(
 name = "demo_analysis",
-call = function(argv) {
-print(paste("Running:", argv$app$name))
+call = function(app, context) {
+print(paste("Running:", app$name))
 },
 profiler = list()
 )
@@ -117,7 +121,7 @@ profiler = list()
 #}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿.TH THROW_ERR 1 2026-7月 "" "echo error message on the screen and then crash the workflow"
+﻿.TH THROW_ERR 1 2026-7月 "" "Echo an Error Message and Crash the Workflow"
 .SH NAME
 throw_err \- throw_err(msg,
     <i>app</i> = <span style='color: blue !important;'>NULL</span>,
@@ -7,23 +7,61 @@ throw_err \- throw_err(msg,
 \fIthrow_err(msg,
     <i>app</i> = <span style='color: blue !important;'>NULL</span>,
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Prints an error message to the standard output, writes the same
+message to the error log file located inside the workflow temporary
+directory, and then terminates the workflow by raising a stop
+condition. This function is the canonical way to report fatal
+errors from inside workflow modules.
+.PP
 .SH OPTIONS
 .PP
-\fBmsg\fB \fR\- . 
+\fBmsg\fB \fR\- . a character vector (or any object coercible to one) of
+the error message text. The elements of the vector are unlisted
+and concatenated before being displayed and written.
 .PP
 .PP
-\fBapp\fB \fR\- NULL. 
+\fBapp\fB \fR\- NULL. reserved for future use; the application object that
+produced this error message. Currently not used by the
+implementation but accepted for API symmetry with
+\code{\link{echo_warning}}.
 .PP
 .PP
-\fBssid\fB \fR\- NULL. 
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the global
+session environment.
+.PP
+.SH VALUE
+.PP
+This function does not return; it terminates the workflow via
+\code{.Internal::stop()}.
 .PP
 .SH DETAILS
 .PP
-a wrapper of the ``stop`` function.
+This function is a thin wrapper around the \code{stop} function
+that additionally writes the error message to the error log file
+located at \code{<temp_dir>/error}. The error log is overwritten on
+each invocation, which means that only the most recent fatal error
+is preserved in the log file at the end of a failed workflow run.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+throw_err("required input file is missing!");
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{echo_warning}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.throw_err at utils.R:line 27
+SMRUCC/R#.declare_function.throw_err at utils.R:line 101
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

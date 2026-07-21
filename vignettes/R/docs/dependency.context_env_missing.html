@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>dependency.context_env_missing</title>
+    <title>Generate the Error Message for Missing Context Symbols</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>dependency.context_env_missing</h2>
+        <h2>Generate the Error Message for Missing Context Symbols</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Builds a human-readable error message that describes the runtime
+environment context symbols that are required by an analysis
+application but are missing or have a mismatched data type. This
+function is invoked by \code{\link{.internal_call}} when the
+dependency check for an application fails.</p>
 
         <h3>Usage</h3>
 
@@ -34,12 +38,23 @@
 
         <table>
             
+<dt>context</dt>
+<dd><p><p>a named list that describes the missing or mismatched
+context symbols. Each element of the list corresponds to a single
+symbol, where the element name is the symbol name and the element
+value is a short reason string (such as \code{"missing"} or
+\code{"mis-matched"}). The first element of the list is expected
+to be a debug summary of all available environment symbols.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The returned message includes the number of missing or mismatched
+symbols and a JSON-encoded representation of the \code{context}
+list, which makes it easy to inspect the exact symbols that caused
+the dependency check to fail.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +62,16 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A character vector that contains the formatted error message. When
+\code{context} is \code{NULL} or empty, a message indicating that no
+required context symbol is missing is returned instead.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

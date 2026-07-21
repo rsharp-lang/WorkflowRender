@@ -1,4 +1,4 @@
-﻿.TH ECHO_WARNING 1 2026-7月 "" "print warning message on the screen and the log file"
+﻿.TH ECHO_WARNING 1 2026-7月 "" "Print a Warning Message to the Screen and the Log File"
 .SH NAME
 echo_warning \- echo_warning(msg,
     <i>app</i> = <span style='color: blue !important;'>NULL</span>,
@@ -7,20 +7,65 @@ echo_warning \- echo_warning(msg,
 \fIecho_warning(msg,
     <i>app</i> = <span style='color: blue !important;'>NULL</span>,
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Emits a warning message both to the standard R# warning stream and
+to the warning log file located inside the workflow temporary
+directory. The message is prefixed with the name of the application
+module that produced it (when available) so that the source of the
+warning can be easily identified when reviewing the log file.
+.PP
 .SH OPTIONS
 .PP
-\fBmsg\fB \fR\- . a character vector of the warning message that this
-workflow produced.
+\fBmsg\fB \fR\- . a character vector (or any object coercible to one) of
+the warning message text that the workflow produced. The elements
+of the vector are unlisted and concatenated before being written.
 .PP
 .PP
-\fBapp\fB \fR\- NULL. the app object where this warning message is produced.
+\fBapp\fB \fR\- NULL. the application object that produced this warning
+message. This parameter can be \code{NULL} when the warning is not
+associated with a specific application module. When non-null, the
+application name is resolved via \code{\link{get_app_name}} and
+used as a prefix for the message.
 .PP
 .PP
-\fBssid\fB \fR\- NULL. 
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the global
+session environment.
 .PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effects of this function
+are the emission of an immediate warning to the standard output and
+the appending of the warning message to the warning log file.
+.PP
+.SH DETAILS
+.PP
+The warning log file path is constructed as
+\code{<temp_dir>/warning}, where \code{temp_dir} is the temporary
+directory of the current workflow context. The file is opened in
+append mode so that successive warnings accumulate across the entire
+workflow run, and is closed before the function returns to ensure
+that the data is flushed to disk.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+echo_warning("value of arg1 is missing, using default.");
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{throw_err}}, \code{\link{get_app_name}},
+\code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.echo_warning at utils.R:line 7
+SMRUCC/R#.declare_function.echo_warning at utils.R:line 45
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

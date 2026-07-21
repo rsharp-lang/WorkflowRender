@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>extract_workflow_vertex</title>
+    <title>Extract the Vertex Information from a Workflow Dependency Graph</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,28 +18,41 @@
             </tr>
         </table>
 
-        <h2>extract_workflow_vertex</h2>
+        <h2>Extract the Vertex Information from a Workflow Dependency Graph</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Extracts the vertex information from an \code{igraph} object that
+represents the dependency graph of a workflow. The extracted
+information is returned as a data frame that can be used for
+downstream inspection or for rendering a visual overview of the
+workflow structure.</p>
 
         <h3>Usage</h3>
 
         <div style="width: 100%; padding-left: 3%; color: black;">
-            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>extract_workflow_vertex</strong>(<i>meta</i>);</code></pre>
+            <pre><code class='language-R' style="color: black; font-weight:normal;"><strong>extract_workflow_vertex</strong>(<i>graph</i>);</code></pre>
         </div>
 
         <h3>Arguments</h3>
 
         <table>
             
+<dt>graph</dt>
+<dd><p><p>an \code{igraph} object that represents the
+dependency graph of a workflow, as produced by
+\code{\link{dependency_graph}}.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function uses the standard \code{igraph} functions to extract
+the vertex names and the in/out degree of each vertex. The
+\code{is<em>leaf} and \code{is</em>root} flags are derived from the
+degree information to make it easy to identify the entry points
+and the terminal modules of the workflow.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +60,35 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A data frame object that describes the vertices of the supplied
+dependency graph. The columns of the data frame are:
+\describe{
+\item{\code{name}}{the name of the application module.}
+\item{\code{in_degree}}{the number of modules that depend on
+this module (i.e. the number of incoming edges).}
+\item{\code{out_degree}}{the number of modules that this module
+depends on (i.e. the number of outgoing edges).}
+\item{\code{is_leaf}}{a logical flag that is \code{TRUE} when
+the module has no outgoing edges (i.e. it does not depend on
+any other module).}
+\item{\code{is_root}}{a logical flag that is \code{TRUE} when
+the module has no incoming edges (i.e. no other module
+depends on it).}
+}</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+pool <- .get_context()$workflow;
+g <- dependency_graph(pool);
+vertices <- extract_workflow_vertex(g);
+print(vertices);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

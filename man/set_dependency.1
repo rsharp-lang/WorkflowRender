@@ -1,4 +1,4 @@
-﻿.TH SET_DEPENDENCY 1 2026-7月 "" "function for create application dependency data"
+﻿.TH SET_DEPENDENCY 1 2026-7月 "" "Create an Application Dependency Declaration"
 .SH NAME
 set_dependency \- set_dependency(
     <i>context.env</i> = 'list'(),
@@ -7,27 +7,71 @@ set_dependency \- set_dependency(
 \fIset_dependency(
     <i>context.env</i> = 'list'(),
     <i>workfiles</i> = 'list'())\fR
+.SH DESCRIPTION
+.PP
+
+
+Constructs a dependency declaration list that describes the
+environment symbols and the workspace files that an analysis
+application requires in order to run successfully. The returned
+list is intended to be supplied as the \code{dependency} argument
+of the \code{\link{app}} function.
+.PP
 .SH OPTIONS
 .PP
 \fBcontext.env\fB \fR\- 'list'(). 
 .PP
 .PP
-\fBworkfiles\fB \fR\- 'list'(). a set of the required temp result files in the workflow
-the format of this parameter value is a tuple list of the file path,
-where the key name is the app name and the corresponding tuple list value
-is a character vector of the required multiple reference temp file.
-the data format of this parameter would be:
-list(app1 = [file1, file2, ...], app2 = file3, ...)
+\fBworkfiles\fB \fR\- 'list'(). a set of the required temporary result files in
+the workflow. The format of this parameter value is a tuple list
+of the file paths, where the key name is the producing
+application name and the corresponding tuple list value is a
+character vector of the required reference temporary files. The
+expected data format of this parameter is:
+\code{list(app1 = [file1, file2, ...], app2 = file3, ...)}.
+.PP
+.SH VALUE
+.PP
+A named list object with two elements:
+\describe{
+\item{\code{context_env}}{the validated environment symbol
+dependency list.}
+\item{\code{tempfiles}}{the workspace file dependency list,
+identical to the supplied \code{workfiles} argument.}
+}
 .PP
 .SH DETAILS
 .PP
-the allowed data type of the context symbol could be:
-``any``, ``numeric``, ``integer``, ``character``, ``logical``,
-``function``
+The allowed data type values for the context symbols are:
+\code{"any"}, \code{"numeric"}, \code{"integer"},
+\code{"character"}, \code{"logical"} and \code{"function"}.
+When the \code{context_env} parameter is supplied as a character
+vector rather than a named list, the function converts it into a
+named list in which every symbol is marked as type \code{"any"}.
+When the \code{context_env} parameter is supplied as a named list,
+the function validates each type mark against the list of allowed
+types and aborts the workflow via \code{\link{throw_err}} when an
+invalid type mark is encountered.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+deps <- set_dependency(
+context_env = list(arg1 = "character", arg2 = "numeric"),
+workfiles   = list(upstream = "result.txt")
+);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{app}}, \code{\link{check_dependency}},
+\code{\link{throw_err}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.set_dependency at set_dependency.R:line 23
+SMRUCC/R#.declare_function.set_dependency at set_dependency.R:line 65
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

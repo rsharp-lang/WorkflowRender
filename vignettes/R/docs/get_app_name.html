@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Helper function for get app name</title>
+    <title>Get the Application Name of a Workflow Module</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Helper function for get app name</h2>
+        <h2>Get the Application Name of a Workflow Module</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Generic function that resolves the application name of a workflow
+module from either a fully-formed application object or a bare
+function reference. The function dispatches to one of the
+specialized implementations based on the type of the supplied
+argument.</p>
 
         <h3>Usage</h3>
 
@@ -35,15 +39,34 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>the app object list itself or the character
-vector of the name value</p></p></dd>
+<dd><p><p>the application object whose name should be extracted.
+This parameter can be supplied in two forms:
+\enumerate{
+\item An application list object produced by the
+\code{\link{app}} function. In this case the function
+dispatches to \code{\link{get_appName.obj}}.
+\item A bare function reference that has been registered in
+the workflow context via \code{\link{hook}}. In this case
+the function dispatches to
+\code{\link{get<em>appName.func</em>reference}}.
+}</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function uses the R# generic function dispatch mechanism to
+select the appropriate implementation:
+\itemize{
+\item When \code{app} is a list object, the function dispatches
+to \code{\link{get_appName.obj}}, which simply returns the
+value of the \code{name} slot.
+\item When \code{app} is a callable function, the function
+dispatches to \code{\link{get<em>appName.func</em>reference}}, which
+looks up the application name in the \code{symbols} map of
+the workflow context.
+}</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -51,15 +74,23 @@ vector of the name value</p></p></dd>
 
         <h3>Value</h3>
 
-        <p>this function always returns the app name
-character vector</p>
+        <p>A character vector of the application name. When the supplied
+object is a bare function reference that has not been registered
+in the workflow context yet, an empty string is returned.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+# from an application object
+name <- get_app_name(my_app);
+# from a function reference
+name <- get_app_name(my_func);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

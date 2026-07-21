@@ -71,11 +71,12 @@ declare namespace WorkflowRender {
       function workfiles_missing(file: any): object;
    }
    /**
+     * @param verbose default value Is ``false``.
    */
-   function dependency_analysis(app: any): object;
+   function dependency_analysis(verbose?: any): object;
    /**
    */
-   function dependency_graph(mounts: any): object;
+   function dependency_graph(pool: any): object;
    /**
      * @param app default value Is ``null``.
      * @param ssid default value Is ``null``.
@@ -83,7 +84,7 @@ declare namespace WorkflowRender {
    function echo_warning(msg: any, app?: any, ssid?: any): object;
    /**
    */
-   function extract_workflow_vertex(meta: any): object;
+   function extract_workflow_vertex(graph: any): object;
    /**
      * @param maxchars default value Is ``48``.
    */

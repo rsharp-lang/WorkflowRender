@@ -1,15 +1,52 @@
-﻿.TH GET_FUNCTIONNAME 1 2026-7月 "" "get function name"
+﻿.TH GET_FUNCTIONNAME 1 2026-7月 "internal" "Get the Function Name of a Function Object"
 .SH NAME
 get_functionName \- get_functionName(f)
 .SH SYNOPSIS
 \fIget_functionName(f)\fR
+.SH DESCRIPTION
+.PP
+
+
+Extracts the name of a function object by inspecting the
+\code{name} attribute that is set on the function when it is
+defined. This function is used internally by
+\code{\link{get_appName.func_reference}} to look up the application
+name that has been associated with a bare function reference.
+.PP
 .SH OPTIONS
 .PP
-\fBf\fB \fR\- . 
+\fBf\fB \fR\- . the function object whose name should be extracted.
 .PP
+.SH VALUE
+.PP
+A character vector of the function name. When the supplied
+function does not carry a \code{name} attribute, an empty string
+is returned.
+.PP
+.SH DETAILS
+.PP
+The function inspects the custom attributes of the supplied
+function via \code{.Internal::attributes} and returns the value of
+the \code{name} attribute. When the attribute is missing or its
+value is \code{NULL}, the function returns an empty string so
+that downstream code can safely use the result as a character
+vector without additional null checks.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+let demo = function(app, context) { print("hi"); };
+print(get_functionName(demo));
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{get_appName.func_reference}},
+\code{\link{get_app_name}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.get_functionName at get_functionName.R:line 9
+SMRUCC/R#.declare_function.get_functionName at get_functionName.R:line 36
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

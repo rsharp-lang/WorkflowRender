@@ -1,21 +1,64 @@
-﻿.TH TABULATE_WORKFLOW_SUMMARY 1 2026-7月 "" "Extract the workflow analysis contents"
+﻿.TH TABULATE_WORKFLOW_SUMMARY 1 2026-7月 "" "Extract the Workflow Analysis Contents as a Data Frame"
 .SH NAME
 tabulate_workflow_summary \- tabulate_workflow_summary(pool)
 .SH SYNOPSIS
 \fItabulate_workflow_summary(pool)\fR
+.SH DESCRIPTION
+.PP
+
+
+Builds a data frame object that summarizes the workflow analysis
+modules contained in the supplied module pool. The data frame is
+intended to be printed by \code{\link{summary}} for human
+inspection of the registered modules.
+.PP
 .SH OPTIONS
 .PP
-\fBpool\fB \fR\- . 
+\fBpool\fB \fR\- . a named list of analysis application objects, as
+stored in the \code{workflow} slot of the workflow context.
 .PP
 .SH VALUE
 .PP
-a dataframe object that contains the workflow analysis
-modules information, example as the reference name, description,
-dependency information, etc.
+A data frame object that contains the workflow analysis modules
+information. The columns of the data frame are:
+\describe{
+\item{\code{appName}}{the name of the analysis application.}
+\item{\code{description}}{the human-readable description of the
+application.}
+\item{\code{dependency.env}}{a JSON-encoded representation of
+the environment symbol dependency declaration.}
+\item{\code{dependency.workfiles}}{a JSON-encoded representation
+of the workspace file dependency declaration.}
+\item{\code{disable}}{a logical flag that indicates whether the
+module is disabled.}
+}
+The row names of the data frame are set to \code{#1}, \code{#2},
+\dots to provide a stable index for each module.
 .PP
+.SH DETAILS
+.PP
+The dependency information of each module is JSON-encoded via
+\code{JSON::json_encode} so that the complex nested list structure
+of the dependency declaration can be displayed in a compact form
+inside a single data frame cell.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+pool <- .get_context()$workflow;
+df <- tabulate_workflow_summary(pool);
+print(df);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{summary}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.tabulate_workflow_summary at summary.R:line 28
+SMRUCC/R#.declare_function.tabulate_workflow_summary at summary.R:line 103
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

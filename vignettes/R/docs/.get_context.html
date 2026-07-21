@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>get current workflow environment context</title>
+    <title>Get the Current Workflow Environment Context</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>get current workflow environment context</h2>
+        <h2>Get the Current Workflow Environment Context</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Retrieves the workflow context object that was previously installed
+by \code{\link{init<em>context}} or \code{\link{create</em>memory_context}}.
+The context is looked up from the global environment using a symbol
+name composed from \code{<em></em>global_ctx} and the supplied session
+identifier.</p>
 
         <h3>Usage</h3>
 
@@ -36,14 +40,20 @@
         <table>
             
 <dt>ssid</dt>
-<dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>When the requested context cannot be found in the global
+environment, the function aborts the workflow with an error
+message instructing the user to initialize the analysis context
+first. This makes the function a safe accessor that can be called
+from any other workflow function without additional null checks.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -51,15 +61,21 @@
 
         <h3>Value</h3>
 
-        <p>the context object which is generated via the
-<code>init_context</code> function.</p>
+        <p>The workflow context object that was generated via the
+\code{\link{init_context}} function (or its in-memory counterpart
+\code{\link{create<em>memory</em>context}}).</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+ctx <- .get_context();
+print(ctx$pipeline);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

@@ -1,15 +1,44 @@
-﻿.TH DEPENDENCY.WORKFILES_MISSING 1 2026-7月 "" "dependency.workfiles_missing"
+﻿.TH DEPENDENCY.WORKFILES_MISSING 1 2026-7月 "internal" "Generate the Error Message for Missing Required Work Files"
 .SH NAME
 dependency.workfiles_missing \- dependency.workfiles_missing(file)
 .SH SYNOPSIS
 \fIdependency.workfiles_missing(file)\fR
+.SH DESCRIPTION
+.PP
+
+
+Builds a human-readable error message that describes the workspace
+temporary files that are required by an analysis application but are
+not present in the corresponding application workspace directory.
+This function is invoked by \code{\link{.internal_call}} when the
+file dependency check for an application fails.
+.PP
 .SH OPTIONS
 .PP
-\fBfile\fB \fR\- . 
+\fBfile\fB \fR\- . a named list that describes the missing workspace files.
+Each element of the list corresponds to a single application, where
+the element name is the application name and the element value is a
+character vector of the missing file paths relative to that
+application's workspace directory.
 .PP
+.SH VALUE
+.PP
+A character vector that contains the formatted error message. When
+\code{file} is \code{NULL} or empty, a message indicating that no
+required workspace temporary file is missing is returned instead.
+.PP
+.SH DETAILS
+.PP
+The returned message includes the number of applications with
+missing files and a per-application breakdown of the missing file
+paths, joined by semicolons for compactness.
+.PP
+.SH SEE ALSO
+\code{\link{check_dependency.localfiles}},
+\code{\link{dependency.context_env_missing}}, \code{\link{throw_err}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.dependency.workfiles_missing at errors.R:line 18
+SMRUCC/R#.declare_function.dependency.workfiles_missing at errors.R:line 76
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

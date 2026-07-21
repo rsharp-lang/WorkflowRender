@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Check the function signature of the app function</title>
+    <title>Check the Application Module Object Signature</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>Check the function signature of the app function</h2>
+        <h2>Check the Application Module Object Signature</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Validates that the supplied application object has the correct
+structure to be registered into the workflow context. The function
+checks that the object is a list with the expected slots and that
+the \code{call} slot is a callable function.</p>
 
         <h3>Usage</h3>
 
@@ -34,27 +37,20 @@
 
         <table>
             
-<dt>analysis</dt>
-<dd><p><p>a callable function to check, just check of the required
-parameters is exists in the definition or not.</p></p></dd>
+<dt>app</dt>
+<dd><p><p>the application object to be validated.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the analysis function should contains only two
-required parameters with specific name defined:
-<ol>
-<li>app: a list object that defines the app object itself</li>
-<li>context: a list object that accept the workflow environment context</li>
-</ol></p>
-
-<p>due to the reason of analysis app function is called via the <code>do.call</code>
-function from the RENV base environment, so that the parameter value is
-aligned with the invoke function target strictly, so you can not change
-the parameter name or the parameter will not be aligned properly when
-call this analysis app function.</p>
+        <p>This function is invoked by \code{\link{hook}} to ensure that the
+supplied application object was constructed via the
+\code{\link{app}} function (or via \code{\link{<em></em>build_app}}) and
+therefore has the expected structure. When the check fails, the
+workflow is aborted via \code{\link{throw_err}} with an
+appropriate error message.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -62,14 +58,23 @@ call this analysis app function.</p>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A logical value that indicates whether the supplied application
+object has the correct signature. The value \code{TRUE} is
+returned when the object passes all of the following checks:
+\itemize{
+\item it is a list object;
+\item it contains the slots \code{name}, \code{call},
+\code{desc}, \code{dependency} and \code{disable};
+\item the \code{call} slot is a callable function.
+}
+The value \code{FALSE} is returned otherwise.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

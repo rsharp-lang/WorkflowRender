@@ -1,24 +1,42 @@
-﻿.TH HAS_CACHEFILE 1 2026-7月 "" "check the cache file is exists or not"
+﻿.TH HAS_CACHEFILE 1 2026-7月 "" "Check Whether a Cache File Exists"
 .SH NAME
 has_cachefile \- has_cachefile(filepath)
 .SH SYNOPSIS
 \fIhas_cachefile(filepath)\fR
+.SH DESCRIPTION
+.PP
+
+
+Tests whether a given cache file path refers to an existing,
+non-empty file that can be safely reused as a cache. The function
+returns \code{FALSE} for any of the following situations:
+\enumerate{
+\item the \code{filepath} value is \code{NULL};
+\item the \code{filepath} value is an empty string;
+\item the file does not exist on disk;
+\item the file exists but has a size of zero bytes.
+}
+.PP
 .SH OPTIONS
 .PP
-\fBfilepath\fB \fR\- . 
+\fBfilepath\fB \fR\- . a character vector of the cache file path to be
+tested.
 .PP
 .SH VALUE
 .PP
-a logical value for indicates the specific given file is
-existed or not, for the filepath value in situations of:
-1. empty or null string value
-2. file is not existed
-3. file size is ZERO
-will be determined as false.
+A logical value that indicates whether the specific given file is
+a valid cache file. The value \code{TRUE} is returned only when the
+file exists and has a non-zero size; \code{FALSE} is returned
+otherwise.
 .PP
+.SH SEE ALSO
+\code{\link{use_cache}}, \code{\link{file.exists}},
+\code{\link{file.size}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.has_cachefile at cache.R:line 30
+SMRUCC/R#.declare_function.has_cachefile at cache.R:line 76
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

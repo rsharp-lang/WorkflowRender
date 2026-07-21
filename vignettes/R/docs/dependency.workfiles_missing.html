@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>dependency.workfiles_missing</title>
+    <title>Generate the Error Message for Missing Required Work Files</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>dependency.workfiles_missing</h2>
+        <h2>Generate the Error Message for Missing Required Work Files</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Builds a human-readable error message that describes the workspace
+temporary files that are required by an analysis application but are
+not present in the corresponding application workspace directory.
+This function is invoked by \code{\link{.internal_call}} when the
+file dependency check for an application fails.</p>
 
         <h3>Usage</h3>
 
@@ -34,12 +38,21 @@
 
         <table>
             
+<dt>file</dt>
+<dd><p><p>a named list that describes the missing workspace files.
+Each element of the list corresponds to a single application, where
+the element name is the application name and the element value is a
+character vector of the missing file paths relative to that
+application's workspace directory.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The returned message includes the number of applications with
+missing files and a per-application breakdown of the missing file
+paths, joined by semicolons for compactness.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +60,16 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A character vector that contains the formatted error message. When
+\code{file} is \code{NULL} or empty, a message indicating that no
+required workspace temporary file is missing is returned instead.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

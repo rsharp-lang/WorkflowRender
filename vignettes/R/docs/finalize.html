@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Mark end of the analysis workflow</title>
+    <title>Mark the End of the Analysis Workflow</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Mark end of the analysis workflow</h2>
+        <h2>Mark the End of the Analysis Workflow</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Finalizes the current workflow session by reporting the total elapsed
+time, unloading the workflow context environment, and closing the log
+file that was opened by \code{\link{init_context}}. This function
+should be called as the last step of a workflow run to ensure that
+all allocated resources are released cleanly.</p>
 
         <h3>Usage</h3>
 
@@ -36,15 +40,33 @@
         <table>
             
 <dt>ssid</dt>
-<dd><p><p>the session id for the multiple user environment,default NULL means global session environment</p></p></dd>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the global
+session environment. When a non-null value is supplied, only the
+context associated with that session identifier is unloaded.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>this function used for unload a specific workflow environment
-release the resources of the pipeline workflow modules</p>
+        <p>This function is used to unload a specific workflow environment. It
+performs the following actions in order:
+\enumerate{
+\item Prints a finalization banner together with the total elapsed
+time of the workflow, computed as the difference between the
+current time and the \code{t0} timestamp stored in the workflow
+context.
+\item Removes the workflow context object from the global
+environment. The symbol name of the context is composed from
+\code{<em></em>global_ctx} and the supplied \code{ssid}.
+\item Closes the log file connection that was opened by
+\code{\link{init_context}} via \code{sink()}, flushing any
+buffered messages to disk.
+}
+Releasing the resources of the pipeline workflow modules in this way
+avoids memory leaks across successive workflow runs and ensures that
+log files are properly closed.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -52,14 +74,23 @@ release the resources of the pipeline workflow modules</p>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effects of this function are
+the removal of the workflow context object from the global
+environment and the closing of the active log file connection.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+WorkflowRender::init_context("/path/to/workdir/");
+# ... run workflow modules ...
+WorkflowRender::run();
+WorkflowRender::finalize();
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

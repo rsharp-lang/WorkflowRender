@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>parse the workfile expression</title>
+    <title>Parse a Single Workfile URI Expression</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>parse the workfile expression</h2>
+        <h2>Parse a Single Workfile URI Expression</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Parses a single workfile URI expression of the form
+\code<a href='{app://relpath/to/file.ext}' title='{app://relpath/to/file.ext}'>{app://relpath/to/file.ext}</a> into a list with two elements
+that can be used to look up the physical file path via the
+\code{\link{workfile}} function.</p>
 
         <h3>Usage</h3>
 
@@ -35,15 +38,18 @@
         <table>
             
 <dt>uri</dt>
-<dd><p><p>a character vector that contains the workfile
-reference expression.</p></p></dd>
+<dd><p><p>a character vector that contains the workfile reference
+expression to be parsed.</p></p></dd>
 
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The expected URI format is \code<a href='{app_name://file/path/to/file.txt}' title='{app_name://file/path/to/file.txt}'>{app_name://file/path/to/file.txt}</a>.
+The function splits the input string on the \code{://} separator
+via \code{\link{tagvalue}} and uses the left-hand side as the
+application name and the right-hand side as the relative file path.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -51,16 +57,28 @@ reference expression.</p></p></dd>
 
         <h3>Value</h3>
 
-        <p>a tuple list object that contains the necessary
-parameter value for call <code>workfile</code> function for gets
-the reference file path to the required data files.</p>
+        <p>A named list object that contains the necessary parameter values
+for calling the \code{\link{workfile}} function to obtain the
+reference file path of the required data file. The list has two
+elements:
+\describe{
+\item{\code{app}}{the name of the producing application.}
+\item{\code{file}}{the relative file path inside that
+application's workspace directory.}
+}</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+ref <- __workfile_uri_parser("getMzSet://mzset.txt");
+# ref$app   == "getMzSet"
+# ref$file  == "mzset.txt"
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

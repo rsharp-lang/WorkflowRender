@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Construct of the file path inside an app workspace</title>
+    <title>Construct a File Path Inside an Application Workspace</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Construct of the file path inside an app workspace</h2>
+        <h2>Construct a File Path Inside an Application Workspace</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Resolves the physical file path of a data file that is located
+inside the workspace directory of a specific analysis application.
+The function accepts either an explicit application name plus a
+relative file path, or a compact workfile URI expression of the
+form \code<a href='{app://relpath/to/file.ext}' title='{app://relpath/to/file.ext}'>{app://relpath/to/file.ext}</a>.</p>
 
         <h3>Usage</h3>
 
@@ -38,28 +42,55 @@
         <table>
             
 <dt>app</dt>
-<dd><p><p>this app parameter value could be in 3 kinds
-of data type:
-<ol>
-<li>app tuple list object, which is created via the <code>app</code> function.</li>
-<li>the app name character vector</li>
-<li>the workfile path expression, should be in format like: <code>app://relpath/to/file.ext</code></li>
-</ol></p></p></dd>
+<dd><p><p>this parameter value can be supplied in three different
+forms:
+\enumerate{
+\item An application tuple list object, as created by the
+\code{\link{app}} function.
+\item A character vector giving the application name directly.
+\item A workfile path expression in the format
+\code<a href='{app://relpath/to/file.ext}' title='{app://relpath/to/file.ext}'>{app://relpath/to/file.ext}</a>. When this form is used, the
+\code{relpath} parameter must be left as \code{NULL}.
+}</p></p></dd>
+
+
+<dt>relpath</dt>
+<dd><p><p>a character vector of the file path relative to the
+workspace directory of the application. When \code{NULL} (the
+default), the function assumes that the \code{app} parameter
+contains a workfile URI expression that should be parsed to
+extract both the application name and the relative file path.</p></p></dd>
 
 
 <dt>ssid</dt>
-<dd><p><p>the session id for multiple user environment, default NULL means global user environment</p></p></dd>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.</p></p></dd>
+
+
+<dt>verbose</dt>
+<dd><p><p>a logical value that controls whether diagnostic
+information about the resolved file path should be printed. The
+default value of \code{FALSE} suppresses the output.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>the workfile path expression is in format string of: <code>app://filepath</code>,
-example as <code>getMzSet://mzset.txt</code>, where we could parse the reference information
-from this character string: app name is <code>getMzSet</code>, and the relpath data is
-<code>mzset.txt</code>. so, such configuation could be equals to the function invoke
-of the workfile function: <code>workfile("getMzSet", "/mzset.txt");</code>.</p>
+        <p>The workfile path expression uses the format string
+\code<a href='{app://filepath}' title='{app://filepath}'>{app://filepath}</a>. For example, the expression
+\code<a href='{getMzSet://mzset.txt}' title='{getMzSet://mzset.txt}'>{getMzSet://mzset.txt}</a> is parsed to extract the application
+name \code{getMzSet} and the relative path \code{mzset.txt}. This
+expression is therefore equivalent to the explicit function call
+\code{workfile("getMzSet", "/mzset.txt")}.
+When the \code{relpath} parameter is supplied as an empty value
+but the \code{app} parameter is a character vector, the function
+delegates the parsing of the URI expression to the internal helper
+\code{\link{<em></em>workfile<em>uri</em>parser}}. When the \code{app} parameter
+is not a character vector in this situation, an error is raised
+because the supplied value cannot be interpreted as an internal
+workfile path reference.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -67,14 +98,22 @@ of the workfile function: <code>workfile("getMzSet", "/mzset.txt");</code>.</p>
 
         <h3>Value</h3>
 
-        <p>the data file path of the required reference file inside this workflow</p>
+        <p>A character vector of the physical file path of the requested
+reference file inside the workflow workspace.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+# explicit form
+path <- workfile("getMzSet", "mzset.txt");
+# URI expression form
+path <- workfile("getMzSet://mzset.txt");
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

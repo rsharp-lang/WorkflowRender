@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>echo error message on the screen and then crash the workflow</title>
+    <title>Echo an Error Message and Crash the Workflow</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>echo error message on the screen and then crash the workflow</h2>
+        <h2>Echo an Error Message and Crash the Workflow</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Prints an error message to the standard output, writes the same
+message to the error log file located inside the workflow temporary
+directory, and then terminates the workflow by raising a stop
+condition. This function is the canonical way to report fatal
+errors from inside workflow modules.</p>
 
         <h3>Usage</h3>
 
@@ -36,12 +40,34 @@
 
         <table>
             
+<dt>msg</dt>
+<dd><p><p>a character vector (or any object coercible to one) of
+the error message text. The elements of the vector are unlisted
+and concatenated before being displayed and written.</p></p></dd>
+
+
+<dt>app</dt>
+<dd><p><p>reserved for future use; the application object that
+produced this error message. Currently not used by the
+implementation but accepted for API symmetry with
+\code{\link{echo_warning}}.</p></p></dd>
+
+
+<dt>ssid</dt>
+<dd><p><p>the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the global
+session environment.</p></p></dd>
+
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>a wrapper of the <code>stop</code> function.</p>
+        <p>This function is a thin wrapper around the \code{stop} function
+that additionally writes the error message to the error log file
+located at \code{<temp_dir>/error}. The error log is overwritten on
+each invocation, which means that only the most recent fatal error
+is preserved in the log file at the end of a failed workflow run.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -49,14 +75,19 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>This function does not return; it terminates the workflow via
+\code{.Internal::stop()}.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+throw_err("required input file is missing!");
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

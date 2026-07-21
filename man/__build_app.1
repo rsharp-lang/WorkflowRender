@@ -1,21 +1,76 @@
-﻿.TH __BUILD_APP 1 2026-7月 "" "Build workflow app object"
+﻿.TH __BUILD_APP 1 2026-7月 "internal" "Build a Workflow Application Object from a Tagged Function"
 .SH NAME
 __build_app \- __build_app(f)
 .SH SYNOPSIS
 \fI__build_app(f)\fR
+.SH DESCRIPTION
+.PP
+
+
+Builds a new workflow application module object based on the
+custom attribute values that have been tagged on the target
+function. This function is invoked internally by
+\code{\link{hook}} when a bare function (rather than an
+application list object) is supplied for registration.
+.PP
 .SH OPTIONS
 .PP
-\fBf\fB \fR\- . the target function f which tagged the required
-attribute data inside: app, desc, context_env, workfiles
+\fBf\fB \fR\- . the target function \code{f} that has been tagged with
+the required attribute data. The following custom attributes are
+inspected:
+\describe{
+\item{\code{app}}{(character) The application name. When this
+attribute is missing or empty, the function emits a warning
+and returns \code{NULL}.}
+\item{\code{desc}}{(character) The human-readable description
+of the application. When this attribute is missing, the
+function attempts to extract a description from the
+\code{r-sharp-help} JSON attribute of the function.}
+\item{\code{context_env}}{(list) The environment symbol
+dependency declaration, forwarded to
+\code{\link{set_dependency}}.}
+\item{\code{workfiles}}{(list) The workspace file dependency
+declaration, parsed by \code{\link{__workfiles}} and then
+forwarded to \code{\link{set_dependency}}.}
+}
+.PP
+.SH VALUE
+.PP
+A named list object that represents the analysis application
+module, as produced by \code{\link{app}}. When the \code{app}
+attribute is missing or empty, the function returns \code{NULL}
+after emitting a warning via \code{\link{echo_warning}}.
 .PP
 .SH DETAILS
 .PP
-Build a new workflow app module object based on the
-custom attribute values that tagged on the target function
+When the \code{desc} attribute is missing or empty, the function
+falls back to the \code{r-sharp-help} JSON attribute of the
+function (when present) and extracts either the \code{description}
+or the \code{title} field from the parsed JSON object. This allows
+the description text to be derived automatically from the function
+comment documentation when no explicit \code{@desc} attribute has
+been supplied.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+[@app "demo"]
+[@desc "a demo module"]
+let demo = function(app, context) { print("hi"); };
+app_obj <- __build_app(demo);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{hook}}, \code{\link{app}},
+\code{\link{set_dependency}}, \code{\link{__workfiles}},
+\code{\link{echo_warning}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.__build_app at reflection.R:line 11
+SMRUCC/R#.declare_function.__build_app at reflection.R:line 60
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

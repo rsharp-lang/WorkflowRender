@@ -1,15 +1,33 @@
-﻿.TH __WORKFILES_DATA 1 2026-7月 "" "__workfiles_data"
+﻿.TH __WORKFILES_DATA 1 2026-7月 "internal" "Group the Parsed Workfile URI Expressions by Application Name"
 .SH NAME
 __workfiles_data \- __workfiles_data(files.uri)
 .SH SYNOPSIS
 \fI__workfiles_data(files.uri)\fR
+.SH DESCRIPTION
+.PP
+
+
+Parses a vector of workfile URI expressions and groups the
+resulting file paths by their producing application name. This
+function is the workhorse behind \code{\link{__workfiles}} and is
+not intended to be called directly.
+.PP
 .SH OPTIONS
 .PP
 \fBfiles.uri\fB \fR\- . 
 .PP
+.SH VALUE
+.PP
+A named list object whose element names are the application names
+and whose element values are character vectors of the file paths
+produced by each application.
+.PP
+.SH SEE ALSO
+\code{\link{__workfiles}},
+\code{\link{__workfile_uri_parser}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.__workfiles_data at uri_parser.R:line 11
+SMRUCC/R#.declare_function.__workfiles_data at uri_parser.R:line 54
 .PP
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

@@ -1,21 +1,72 @@
-﻿.TH GET_APP_NAME 1 2026-7月 "" "Helper function for get app name"
+﻿.TH GET_APP_NAME 1 2026-7月 "" "Get the Application Name of a Workflow Module"
 .SH NAME
 get_app_name \- get_app_name(app)
 .SH SYNOPSIS
 \fIget_app_name(app)\fR
+.SH DESCRIPTION
+.PP
+
+
+Generic function that resolves the application name of a workflow
+module from either a fully-formed application object or a bare
+function reference. The function dispatches to one of the
+specialized implementations based on the type of the supplied
+argument.
+.PP
 .SH OPTIONS
 .PP
-\fBapp\fB \fR\- . the app object list itself or the character
-vector of the name value
+\fBapp\fB \fR\- . the application object whose name should be extracted.
+This parameter can be supplied in two forms:
+\enumerate{
+\item An application list object produced by the
+\code{\link{app}} function. In this case the function
+dispatches to \code{\link{get_appName.obj}}.
+\item A bare function reference that has been registered in
+the workflow context via \code{\link{hook}}. In this case
+the function dispatches to
+\code{\link{get_appName.func_reference}}.
+}
 .PP
 .SH VALUE
 .PP
-this function always returns the app name
-character vector
+A character vector of the application name. When the supplied
+object is a bare function reference that has not been registered
+in the workflow context yet, an empty string is returned.
 .PP
+.SH DETAILS
+.PP
+The function uses the R# generic function dispatch mechanism to
+select the appropriate implementation:
+\itemize{
+\item When \code{app} is a list object, the function dispatches
+to \code{\link{get_appName.obj}}, which simply returns the
+value of the \code{name} slot.
+\item When \code{app} is a callable function, the function
+dispatches to \code{\link{get_appName.func_reference}}, which
+looks up the application name in the \code{symbols} map of
+the workflow context.
+}
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+# from an application object
+name <- get_app_name(my_app);
+# from a function reference
+name <- get_app_name(my_func);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{get_appName.obj}},
+\code{\link{get_appName.func_reference}}, \code{\link{app}},
+\code{\link{hook}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.get_app_name at get_app_name.R:line 10
+SMRUCC/R#.declare_function.get_app_name at get_app_name.R:line 55
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

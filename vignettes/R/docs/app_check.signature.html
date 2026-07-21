@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>app_check.signature</title>
+    <title>Check the Application Function Signature</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>app_check.signature</h2>
+        <h2>Check the Application Function Signature</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Validates that the supplied function declares exactly two
+parameters named \code{app} and \code{context}. This is the
+contract that every analysis application function must satisfy in
+order to be registered into the workflow via \code{\link{hook}}.</p>
 
         <h3>Usage</h3>
 
@@ -34,12 +37,19 @@
 
         <table>
             
+<dt>f</dt>
+<dd><p><p>the function object to be validated.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function inspects the formal parameters of the supplied
+function via \code{.Internal::formals} and compares the parameter
+names against the expected \code{c("app", "context")} vector. The
+check is strict: any deviation in the number of parameters or in
+the parameter names causes the function to return \code{FALSE}.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +57,17 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A logical value that indicates whether the supplied function
+declares the expected signature. The value \code{TRUE} is returned
+when the function declares exactly two parameters named
+\code{app} and \code{context}; \code{FALSE} is returned otherwise.</p>
 
         <h3 style="display: none;">Examples</h3>
 
         
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

@@ -1,22 +1,52 @@
-﻿.TH WORKDIR_ROOT 1 2026-7月 "" "Get workspace root directory"
+﻿.TH WORKDIR_ROOT 1 2026-7月 "" "Get the Workspace Root Directory"
 .SH NAME
 workdir_root \- workdir_root(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fIworkdir_root(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Returns the root directory path of the current workflow workspace.
+This is the same directory that was supplied to
+\code{\link{init_context}} as the \code{outputdir} parameter.
+.PP
 .SH OPTIONS
 .PP
-\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.
+.PP
+.SH VALUE
+.PP
+A character vector of the workspace root directory path.
 .PP
 .SH DETAILS
 .PP
-actually this function will returns the ``output`` dir
-path which is set via the ``init_context`` function
+Actually this function returns the \code{root} directory path that
+was set via the \code{\link{init_context}} function. It is a
+convenience accessor that allows workflow modules to refer to the
+workspace root without having to call \code{\link{.get_context}}
+directly.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+root <- workdir_root();
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{init_context}}, \code{\link{result_dir}},
+\code{\link{workspace_temproot}}, \code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.workdir_root at workdir.R:line 7
+SMRUCC/R#.declare_function.workdir_root at workdir.R:line 32
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

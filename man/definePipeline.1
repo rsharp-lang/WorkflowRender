@@ -1,19 +1,58 @@
-﻿.TH DEFINEPIPELINE 1 2026-7月 "" "Create a custom pipeline workflow execute sequence"
+﻿.TH DEFINEPIPELINE 1 2026-7月 "" "Create a Custom Pipeline Workflow Execution Sequence"
 .SH NAME
 definePipeline \- definePipeline(seq)
 .SH SYNOPSIS
 \fIdefinePipeline(seq)\fR
+.SH DESCRIPTION
+.PP
+
+
+Overrides the execution order of the workflow modules by replacing
+the \code{pipeline} slot of the workflow context with the supplied
+sequence of module names. This function is typically used for
+debugging or running a specific subset of the registered workflow
+modules without modifying the registration order.
+.PP
 .SH OPTIONS
 .PP
-\fBseq\fB \fR\- . a character vector of the app module names inside the workflow.
+\fBseq\fB \fR\- . a character vector of the application module names that
+should be executed, in the order in which they should be invoked.
+Each name must correspond to a module that has been registered in
+the workflow context via \code{\link{hook}}.
+.PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{pipeline} slot of the workflow context
+stored in the global environment.
 .PP
 .SH DETAILS
 .PP
-this function usually used for debug a specific workflow module
+This function is usually used for debugging a specific workflow
+module or for reordering the execution sequence at runtime. The
+supplied sequence replaces the existing \code{pipeline} slot of the
+workflow context in-place, and the updated context is written back
+to the global environment so that subsequent calls to
+\code{\link{run}} will respect the new order.
 .PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+# run only the "filter" and "export" modules in that order
+WorkflowRender::definePipeline(c("filter", "export"));
+WorkflowRender::run();
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{run}}, \code{\link{hook}},
+\code{\link{.get_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.definePipeline at definePipeline.R:line 7
+SMRUCC/R#.declare_function.definePipeline at definePipeline.R:line 40
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

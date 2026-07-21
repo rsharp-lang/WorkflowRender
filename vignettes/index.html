@@ -1,20 +1,43 @@
 ﻿<head>
-<title>Compose the data analysis workflow</title>
+<title>Compose and Execute Modular Data Analysis Workflows</title>
 </head>
 <body>
-<h1>Compose the data analysis workflow</h1>
+<h1>Compose and Execute Modular Data Analysis Workflows</h1>
 <pre>Package: WorkflowRender
 Type: Package
-Title: Compose the data analysis workflow
-Version: 0.1.0
+Title: Compose and Execute Modular Data Analysis Workflows
+Version: 0.2.0
+Date: 2026-07-21
 Author: xieguigang
 Maintainer: xieguigang &lt;xie.guigang@gcmodeller.org>
-Description: Compose the data analysis workflow, this is a package helper
-   for create modular analysis workflow.
-License: MIT
+Description: A helper package for creating and executing modular data
+    analysis workflows. WorkflowRender allows users to compose a data
+    analysis pipeline from individual application modules, register
+    them into a shared workflow context, declare inter-module
+    dependencies (both environment symbols and workspace files), and
+    execute the pipeline in the correct order with automatic
+    dependency validation, performance profiling and structured
+    logging. The package also provides utilities for inspecting the
+    registered modules, toggling module activation at runtime,
+    overriding the execution sequence for debugging, and analyzing
+    the dependency graph of the workflow for circular references or
+    missing producers.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 3.5.0)
+Imports:
+    JSON,
+    igraph
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+URL: https://github.com/xieguigang/WorkflowRender
+BugReports: https://github.com/xieguigang/WorkflowRender/issues
 </pre>
 <br />
 <a href="./keywords.html">View package by keywords.</a>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Extract the workflow analysis contents</title>
+    <title>Extract the Workflow Analysis Contents as a Data Frame</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>Extract the workflow analysis contents</h2>
+        <h2>Extract the Workflow Analysis Contents as a Data Frame</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Builds a data frame object that summarizes the workflow analysis
+modules contained in the supplied module pool. The data frame is
+intended to be printed by \code{\link{summary}} for human
+inspection of the registered modules.</p>
 
         <h3>Usage</h3>
 
@@ -34,12 +37,19 @@
 
         <table>
             
+<dt>pool</dt>
+<dd><p><p>a named list of analysis application objects, as
+stored in the \code{workflow} slot of the workflow context.</p></p></dd>
+
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The dependency information of each module is JSON-encoded via
+\code{JSON::json_encode} so that the complex nested list structure
+of the dependency declaration can be displayed in a compact form
+inside a single data frame cell.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,16 +57,34 @@
 
         <h3>Value</h3>
 
-        <p>a dataframe object that contains the workflow analysis
-modules information, example as the reference name, description,
-dependency information, etc.</p>
+        <p>A data frame object that contains the workflow analysis modules
+information. The columns of the data frame are:
+\describe{
+\item{\code{appName}}{the name of the analysis application.}
+\item{\code{description}}{the human-readable description of the
+application.}
+\item{\code{dependency.env}}{a JSON-encoded representation of
+the environment symbol dependency declaration.}
+\item{\code{dependency.workfiles}}{a JSON-encoded representation
+of the workspace file dependency declaration.}
+\item{\code{disable}}{a logical flag that indicates whether the
+module is disabled.}
+}
+The row names of the data frame are set to \code{#1}, \code{#2},
+\dots to provide a stable index for each module.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+pool <- .get_context()$workflow;
+df <- tabulate_workflow_summary(pool);
+print(df);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

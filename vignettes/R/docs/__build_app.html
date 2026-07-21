@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Build workflow app object</title>
+    <title>Build a Workflow Application Object from a Tagged Function</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Build workflow app object</h2>
+        <h2>Build a Workflow Application Object from a Tagged Function</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Builds a new workflow application module object based on the
+custom attribute values that have been tagged on the target
+function. This function is invoked internally by
+\code{\link{hook}} when a bare function (rather than an
+application list object) is supplied for registration.</p>
 
         <h3>Usage</h3>
 
@@ -35,16 +39,37 @@
         <table>
             
 <dt>f</dt>
-<dd><p><p>the target function f which tagged the required
-attribute data inside: app, desc, context_env, workfiles</p></p></dd>
+<dd><p><p>the target function \code{f} that has been tagged with
+the required attribute data. The following custom attributes are
+inspected:
+\describe{
+\item{\code{app}}{(character) The application name. When this
+attribute is missing or empty, the function emits a warning
+and returns \code{NULL}.}
+\item{\code{desc}}{(character) The human-readable description
+of the application. When this attribute is missing, the
+function attempts to extract a description from the
+\code{r-sharp-help} JSON attribute of the function.}
+\item{\code{context_env}}{(list) The environment symbol
+dependency declaration, forwarded to
+\code{\link{set_dependency}}.}
+\item{\code{workfiles}}{(list) The workspace file dependency
+declaration, parsed by \code{\link{<em></em>workfiles}} and then
+forwarded to \code{\link{set_dependency}}.}
+}</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>Build a new workflow app module object based on the
-custom attribute values that tagged on the target function</p>
+        <p>When the \code{desc} attribute is missing or empty, the function
+falls back to the \code{r-sharp-help} JSON attribute of the
+function (when present) and extracts either the \code{description}
+or the \code{title} field from the parsed JSON object. This allows
+the description text to be derived automatically from the function
+comment documentation when no explicit \code{@desc} attribute has
+been supplied.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -52,14 +77,24 @@ custom attribute values that tagged on the target function</p>
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A named list object that represents the analysis application
+module, as produced by \code{\link{app}}. When the \code{app}
+attribute is missing or empty, the function returns \code{NULL}
+after emitting a warning via \code{\link{echo_warning}}.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+[@app "demo"]
+[@desc "a demo module"]
+let demo = function(app, context) { print("hi"); };
+app_obj <- __build_app(demo);
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

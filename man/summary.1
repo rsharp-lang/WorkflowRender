@@ -1,11 +1,55 @@
-﻿.TH SUMMARY 1 2026-7月 "" "summary"
+﻿.TH SUMMARY 1 2026-7月 "" "Inspect the Workflow Analysis Modules"
 .SH NAME
 summary \- summary()
 .SH SYNOPSIS
 \fIsummary()\fR
+.SH DESCRIPTION
+.PP
+
+
+Prints a human-readable summary of the workflow analysis modules
+that have been registered in the current workflow context. The
+summary includes the execution sequence of the active modules as
+well as a tabulated overview of all available modules with their
+description and dependency information.
+.PP
+.SH VALUE
+.PP
+Invisibly returns \code{NULL}. The side effect of this function is
+the printing of the workflow summary to the standard output.
+.PP
+.SH DETAILS
+.PP
+The function performs two main actions:
+\enumerate{
+\item Prints the execution sequence of the modules that are
+currently active (i.e. not disabled) in the workflow pipeline.
+The module names are joined by the \code{ -> } separator to
+make the execution order easy to read.
+\item Prints a tabulated overview of all registered analysis
+modules via \code{\link{tabulate_workflow_summary}}. The
+overview includes the application name, description, dependency
+information and disable flag of each module.
+}
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+WorkflowRender::init_context("/path/to/workdir/");
+hook(app("demo", function(app, context) { print("hi"); }));
+summary();
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{tabulate_workflow_summary}},
+\code{\link{.get_context}}, \code{\link{hook}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function.summary at summary.R:line 5
+SMRUCC/R#.declare_function.summary at summary.R:line 41
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

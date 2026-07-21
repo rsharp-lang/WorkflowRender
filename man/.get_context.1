@@ -1,22 +1,57 @@
-﻿.TH .GET_CONTEXT 1 2026-7月 "" "get current workflow environment context"
+﻿.TH .GET_CONTEXT 1 2026-7月 "" "Get the Current Workflow Environment Context"
 .SH NAME
 .get_context \- .get_context(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)
 .SH SYNOPSIS
 \fI.get_context(
     <i>ssid</i> = <span style='color: blue !important;'>NULL</span>)\fR
+.SH DESCRIPTION
+.PP
+
+
+Retrieves the workflow context object that was previously installed
+by \code{\link{init_context}} or \code{\link{create_memory_context}}.
+The context is looked up from the global environment using a symbol
+name composed from \code{__global_ctx} and the supplied session
+identifier.
+.PP
 .SH OPTIONS
 .PP
-\fBssid\fB \fR\- NULL. the session id for multiple user environment, default NULL means global user environment
+\fBssid\fB \fR\- NULL. the session identifier used for the multi-user
+environment. The default value of \code{NULL} refers to the
+global user environment.
 .PP
 .SH VALUE
 .PP
-the context object which is generated via the
-``init_context`` function.
+The workflow context object that was generated via the
+\code{\link{init_context}} function (or its in-memory counterpart
+\code{\link{create_memory_context}}).
 .PP
+.SH DETAILS
+.PP
+When the requested context cannot be found in the global
+environment, the function aborts the workflow with an error
+message instructing the user to initialize the analysis context
+first. This makes the function a safe accessor that can be called
+from any other workflow function without additional null checks.
+.PP
+.SH EXAMPLES
+.PP
+#\dontrun{
+
+ctx <- .get_context();
+print(ctx$pipeline);
+
+#}
+.PP
+.SH SEE ALSO
+\code{\link{init_context}},
+\code{\link{create_memory_context}}
 .SH FILES
 .PP
-SMRUCC/R#.declare_function..get_context at memory_access.R:line 32
+SMRUCC/R#.declare_function..get_context at memory_access.R:line 98
 .PP
+.SH AUTHOR
+Written by \fBxieguigang\fR
 .SH COPYRIGHT
-Copyright © xieguigang, MIT Licensed 2026
+Copyright © xieguigang, MIT + file LICENSE Licensed 2026

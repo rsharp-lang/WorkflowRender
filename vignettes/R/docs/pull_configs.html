@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>pull_configs</title>
+    <title>Pull All Configuration Values from the Workflow Registry</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,14 @@
             </tr>
         </table>
 
-        <h2>pull_configs</h2>
+        <h2>Pull All Configuration Values from the Workflow Registry</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Retrieves the complete set of user-supplied configuration values
+that have been stored in the \code{configs} slot of the current
+workflow context. This function is the low-level accessor used by
+\code{\link{get_config}} to resolve individual parameter values.</p>
 
         <h3>Usage</h3>
 
@@ -37,9 +40,14 @@
         </table>
 
 
-        <h3 style="display: none;">Details</h3>
+        <h3 style="display: block;">Details</h3>
 
-        
+        <p>The function inspects the workflow context returned by
+\code{\link{.get_context}} and returns its \code{configs} slot when
+present. When the \code{configs} slot has not been initialized
+(for example, when \code{\link{set_config}} has not been called
+yet), the function returns an empty list so that downstream code
+can safely iterate over the result without additional null checks.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -47,14 +55,20 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>A named list object that contains all of the configuration values
+stored in the workflow context. When no configuration has been set
+yet, an empty list is returned.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+configs <- pull_configs();
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>

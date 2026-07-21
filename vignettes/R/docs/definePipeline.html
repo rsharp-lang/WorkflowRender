@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Create a custom pipeline workflow execute sequence</title>
+    <title>Create a Custom Pipeline Workflow Execution Sequence</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <link rel="stylesheet" type="text/css" href="../../_assets/page.css">
@@ -18,11 +18,15 @@
             </tr>
         </table>
 
-        <h2>Create a custom pipeline workflow execute sequence</h2>
+        <h2>Create a Custom Pipeline Workflow Execution Sequence</h2>
 
         <h3>Description</h3>
 
-        
+        <p>Overrides the execution order of the workflow modules by replacing
+the \code{pipeline} slot of the workflow context with the supplied
+sequence of module names. This function is typically used for
+debugging or running a specific subset of the registered workflow
+modules without modifying the registration order.</p>
 
         <h3>Usage</h3>
 
@@ -35,14 +39,22 @@
         <table>
             
 <dt>seq</dt>
-<dd><p><p>a character vector of the app module names inside the workflow.</p></p></dd>
+<dd><p><p>a character vector of the application module names that
+should be executed, in the order in which they should be invoked.
+Each name must correspond to a module that has been registered in
+the workflow context via \code{\link{hook}}.</p></p></dd>
 
         </table>
 
 
         <h3 style="display: block;">Details</h3>
 
-        <p>this function usually used for debug a specific workflow module</p>
+        <p>This function is usually used for debugging a specific workflow
+module or for reordering the execution sequence at runtime. The
+supplied sequence replaces the existing \code{pipeline} slot of the
+workflow context in-place, and the updated context is written back
+to the global environment so that subsequent calls to
+\code{\link{run}} will respect the new order.</p>
 
         <h3 style="display: block">Authors</h3>
 
@@ -50,14 +62,22 @@
 
         <h3>Value</h3>
 
-        This function has no value returns.
+        <p>Invisibly returns \code{NULL}. The side effect of this function is
+the modification of the \code{pipeline} slot of the workflow context
+stored in the global environment.</p>
 
-        <h3 style="display: none;">Examples</h3>
+        <h3 style="display: block;">Examples</h3>
 
-        
+        <pre><code id="example_r">#\dontrun{
+
+# run only the "filter" and "export" modules in that order
+WorkflowRender::definePipeline(c("filter", "export"));
+WorkflowRender::run();
+
+#}</code></pre>
 
         <hr />
-        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.1.0 <a
+        <div style="text-align: center;">[Package <em>WorkflowRender</em> version 0.2.0 <a
                 href="../WorkflowRender.html">Index</a>]
         </div>
     </div>
