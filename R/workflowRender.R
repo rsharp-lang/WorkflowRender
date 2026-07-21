@@ -22,6 +22,7 @@ const run = function(registry = NULL, disables = list(), debug = c()) {
         do.call(registry, args = list());
     }
     if (length(debug) > 0) {
+        # setup target workflow module to run
         WorkflowRender::definePipeline(debug);
     }
 

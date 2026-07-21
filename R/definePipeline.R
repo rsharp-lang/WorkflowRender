@@ -2,6 +2,8 @@
 #' 
 #' @param seq a character vector of the app module names inside the workflow.
 #' 
+#' @details this function usually used for debug a specific workflow module
+#' 
 const definePipeline = function(seq) {
     const ctx = .get_context();
     const ssid = NULL;

@@ -1,4 +1,4 @@
-#' parse the workfile expression
+#' internal function for parse the workfile expression
 #' 
 const __workfiles = function(files_uri) {
     if (length(files_uri) == 0) {
