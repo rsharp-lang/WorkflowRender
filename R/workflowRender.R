@@ -15,6 +15,45 @@
 #'    the executative sequence define in workflow is based on the module name
 #'    vector in the pipeline data slot
 #' 
+#' @examples
+#' \dontrun{
+#' # example for run workflow
+#' 
+#' # 1. initialize of the workspace filesystem
+#' WorkflowRender::init_context( "/path/to/workdir/" );
+#' # 2. setup the module runtime parameters
+#' #    where the arg1,arg2 is the parameter name which could be get from
+#' #    runtime environment via `get_config` function
+#' WorkflowRender::set_config(list(arg1 = "xxx", arg2 = "xxx"));
+#' # 3. hook of the workflow module
+#' #    define an example workflow module, workflow module name is defined via `@app` custom attribute of the module function 
+#' [@app "example1"]
+#' let example1 = function() {
+#'    # just echo the value of arg1 at here
+#'    message(get_config("arg1"));
+#' }
+#' [@app "example2"]
+#' let example2 = function() {
+#'    # just echo the value of arg2 at here
+#'    message(get_config("arg2"));
+#' }
+#' # optional, then hook of the workflow function into runtime
+#' # these could be hook inside the registry function
+#' WorkflowRender::hook(example1); 
+#' WorkflowRender::hook(example2); 
+#' # 4. run the workflow: example1 -> example2
+#' WorkflowRender::run();
+#' # if want to run a specific workflow module, use the debug parameter
+#' # WorkflowRender::run(debug = "example2");
+#' # # hook the workflow modules via registry function
+#' # WorkflowRender::run(registry = function() {
+#' #    WorkflowRender::hook(example1); 
+#' #    WorkflowRender::hook(example2); 
+#' # });
+#' # 5. release the memory data, close the logfile
+#' WorkflowRender::finalize();
+#' }
+#' 
 const run = function(registry = NULL, disables = list(), debug = c()) {
     const verbose = as.logical(getOption("verbose"));
 
